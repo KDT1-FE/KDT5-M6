@@ -34,3 +34,146 @@ Pull Request에서 과제 제출 후 절대 병합(Merge)하지 않도록 주의
 과제 수행 및 제출 과정에서 문제가 발생한 경우, 바로 담당 멘토나 강사에서 얘기하세요!
 
 
+API
+1. 소비 기록 작성 API
+
+Request:
+ 
+POST /expenses
+Content-Type: application/json
+
+{
+  "amount": 100,
+  "userId": "user123",
+  "category": "food",
+  "date": "2023-07-04T10:30:00.000Z"
+}
+
+Response:
+
+ 
+Status: 201 Created
+{
+  "message": "Expense created successfully"
+}
+
+
+
+2. 소비 품목 목록 API
+Request:
+ 
+GET /categories
+
+Response: 
+
+Status: 200 OK
+["food", "clothing", "electronics"]
+
+
+3. 검색어에 해당하는 소비 항목 및 금액 조회 API
+   
+Request:
+ 
+GET /expenses/search?q=food
+
+
+Response:
+ 
+Status: 200 OK
+[
+  {
+    "amount": 100,
+    "userId": "user123",
+    "category": "food",
+    "date": "2023-07-04T10:30:00.000Z"
+  },
+  {
+    "amount": 80,
+    "userId": "user456",
+    "category": "food",
+    "date": "2023-07-03T14:20:00.000Z"
+  }
+]
+
+4. 일별, 주별, 월별 소비 조회 API
+Request:
+ 
+GET /expenses/summary?period=daily
+
+Response:
+
+ 
+Status: 200 OK
+[
+  {
+    "_id": "2023-07-04",
+    "totalAmount": 180
+  },
+  {
+    "_id": "2023-07-03",
+    "totalAmount": 80
+  }
+]
+
+5. 소비 기록 수정 API
+Request:
+PUT /expenses/123
+
+Content-Type: application/json
+
+{
+  "amount": 150,
+  "userId": "user123",
+  "category": "food",
+  "date": "2023-07-04T10:30:00.000Z"
+}
+
+Response:
+ 
+Status: 200 OK
+{
+  "message": "Expense updated successfully"
+}
+
+
+6. 소비 기록 삭제 API
+Request:
+ 
+DELETE /expenses/123
+Response:
+ 
+Status: 200 OK
+{
+  "message": "Expense deleted successfully"
+}
+
+
+6. 소비 기록 달력 호출 API
+Request:
+ 
+GET /expenses/calendar?year=2023&month=7
+Response:
+ 
+Status: 200 OK
+{
+  "1": [
+    {
+      "amount": 100,
+      "userId": "user123",
+      "category": "food",
+      "date": "2023-07-01T10:30:00.000Z"
+    }
+  ],
+  "4": [
+    {
+      "amount": 80,
+      "userId": "user456",
+      "category": "food",
+      "date": "2023-07-04T14:20:00.000Z"
+    }
+  ]
+}
+
+
+
+

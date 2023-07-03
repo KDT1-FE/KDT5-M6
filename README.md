@@ -148,7 +148,7 @@ Status: 200 OK
 }
 
 
-6. 소비 기록 달력 호출 API
+7. 소비 기록 달력 호출 API
 Request:
  
 GET /expenses/calendar?year=2023&month=7

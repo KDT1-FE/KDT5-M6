@@ -38,7 +38,7 @@ API
 1. 소비 기록 작성 API
 
 Request:
- 
+```javascript
 POST /expenses
 Content-Type: application/json
 
@@ -48,37 +48,38 @@ Content-Type: application/json
   "category": "food",
   "date": "2023-07-04T10:30:00.000Z"
 }
-
+```
 Response:
 
- 
+```javascript
 Status: 201 Created
 {
   "message": "Expense created successfully"
 }
-
+```
 
 
 2. 소비 품목 목록 API
 Request:
- 
+```javascript
 GET /categories
-
+```
 Response: 
 
 Status: 200 OK
+```javascript
 ["food", "clothing", "electronics"]
-
+```
 
 3. 검색어에 해당하는 소비 항목 및 금액 조회 API
    
 Request:
- 
+```javascript
 GET /expenses/search?q=food
-
+```
 
 Response:
- 
+```javascript
 Status: 200 OK
 [
   {
@@ -94,15 +95,16 @@ Status: 200 OK
     "date": "2023-07-03T14:20:00.000Z"
   }
 ]
+```
 
 4. 일별, 주별, 월별 소비 조회 API
 Request:
- 
+```javascript
 GET /expenses/summary?period=daily
-
+```
 Response:
 
- 
+```javascript
 Status: 200 OK
 [
   {
@@ -114,9 +116,10 @@ Status: 200 OK
     "totalAmount": 80
   }
 ]
-
+```
 5. 소비 기록 수정 API
 Request:
+```javascript
 PUT /expenses/123
 
 Content-Type: application/json
@@ -127,33 +130,35 @@ Content-Type: application/json
   "category": "food",
   "date": "2023-07-04T10:30:00.000Z"
 }
-
+```
 Response:
- 
+```javascript
 Status: 200 OK
 {
   "message": "Expense updated successfully"
 }
-
+```
 
 6. 소비 기록 삭제 API
 Request:
- 
+```javascript
 DELETE /expenses/123
+```
 Response:
- 
+```javascript
 Status: 200 OK
 {
   "message": "Expense deleted successfully"
 }
-
+```
 
 7. 소비 기록 달력 호출 API
 Request:
- 
+```javascript
 GET /expenses/calendar?year=2023&month=7
+```
 Response:
- 
+```javascript
 Status: 200 OK
 {
   "1": [
@@ -174,6 +179,6 @@ Status: 200 OK
   ]
 }
 
-
+```
 
 

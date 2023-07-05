@@ -74,7 +74,7 @@ Status: 201 Created
 2. 소비 품목 목록 API
 Request:
 ```javascript
-GET /categories
+GET /categories&userId={userId}
 ```
 Response: 
 
@@ -111,8 +111,9 @@ Status: 200 OK
 
 4. 일별, 주별, 월별 소비 조회 API
 Request:
-```javascript
-GET /expenses/summary?period=daily
+```javascript 
+GET /expenses/summary?period={period}&userId={userId}
+period : daily, weekly, monthly
 ```
 Response:
 

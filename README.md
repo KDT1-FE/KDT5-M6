@@ -168,7 +168,7 @@ Status: 200 OK
 7. 소비 기록 달력 호출 API
 Request:
 ```javascript
-GET /expenses/calendar?year=2023&month=7
+GET /expenses/calendar?year=2023&month=7&userId={userId}
 ```
 Response:
 ```javascript

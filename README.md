@@ -74,7 +74,7 @@ Status: 201 Created
 2. 소비 품목 목록 API
 Request:
 ```javascript
-GET /categories&userId={userId}
+GET /categories?userId={userId}
 ```
 Response: 
 

@@ -87,7 +87,7 @@ Status: 200 OK
    
 Request:
 ```javascript
-GET /expenses/search?q=food
+GET /expenses/search?q={keyword}&userId={userId}
 ```
 
 Response:

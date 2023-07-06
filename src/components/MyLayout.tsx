@@ -1,28 +1,10 @@
 import { useState } from 'react';
-import { MenuOutlined, BulbOutlined, BulbFilled } from '@ant-design/icons';
-import type { MenuProps } from 'antd';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Layout, Menu, theme } from 'antd';
 import { SIDEBAR_ITEMS } from '@/data/constants';
 import Title from 'antd/es/typography/Title';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 const { Content, Sider } = Layout;
-
-type MenuItem = Required<MenuProps>['items'][number];
-
-function getItem(
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  children?: MenuItem[],
-): MenuItem {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  } as MenuItem;
-}
 
 export default function MyLayout() {
   const navigate = useNavigate();

@@ -20,8 +20,11 @@ Calendar & List 등 내가 소비한 금액 및 품목들을 기입하고, 월�
 - [ ] 차트를 이용해서 소비 내역 표기 하기
 - [ ] 모바일 형태로 구현할지, 웹 형태로 구현할지는 자유
 
-URL 예제 : http://52.78.195.183:3003/api/expenses
-API
+## API
+
+```
+base URL : http://52.78.195.183:3003/api/
+```
 
 1. 소비 기록 작성 API
 
@@ -190,6 +193,6 @@ Status: 200 OK
 
 react router dom
 
-[react icons](https://react-icons.github.io/react-icons)
-
 ant design
+
+[ant design icons](https://ant.design/components/icon)

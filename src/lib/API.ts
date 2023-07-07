@@ -10,7 +10,7 @@ const api = axios.create({
 
 // 기록 작성 및 수정용 interface
 export interface IContent {
-  amount: number;
+  amount: string;
   userId: string;
   category: string;
   date: string;

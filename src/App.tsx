@@ -3,7 +3,7 @@ import Left from './components/Left';
 import Middle from './components/Middle';
 import Right from './components/Right';
 
-function App() {
+/*function App() {
   return (
     <Conatainer>
       <LeftArea>
@@ -22,6 +22,7 @@ function App() {
 const Conatainer = styled.div`
   display: flex;
   height: 100vh;
+  background-color: #d4d4d4;
 `;
 
 const LeftArea = styled.div`
@@ -32,6 +33,23 @@ const MiddleArea = styled.div`
 `;
 const RightArea = styled.div`
   width: 33%;
+  border: 1px solid red; 
+`;*/
+
+function App() {
+  return (
+    <Conatainer>
+      <Right />
+    </Conatainer>
+  );
+}
+
+const Conatainer = styled.div`
+  display: flex;
+  height: 100vh;
+  background-color: #d4d4d4;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default App;

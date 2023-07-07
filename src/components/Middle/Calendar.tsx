@@ -1,4 +1,5 @@
-import { Calendar } from 'antd';
-import { styled } from 'styled-components';
+function Calendar() {
+  return <h1>캘린더</h1>;
+}
 
 export default Calendar;

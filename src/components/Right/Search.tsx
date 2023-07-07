@@ -5,43 +5,43 @@ function Search() {
   // 테스트용 임시 데이터
   const content = [
     {
-      amount: '100000',
+      amount: 100000,
       userId: 'user123',
       category: 'food',
       date: '2023-07-01T10:30:00.000Z'
     },
     {
-      amount: '100000',
+      amount: 100000,
       userId: 'user123',
       category: 'food',
       date: '2023-07-01T10:30:00.000Z'
     },
     {
-      amount: '100000',
+      amount: 100000,
       userId: 'user123',
       category: 'food',
       date: '2023-07-01T10:30:00.000Z'
     },
     {
-      amount: '100000',
+      amount: 100000,
       userId: 'user123',
       category: 'food',
       date: '2023-07-01T10:30:00.000Z'
     },
     {
-      amount: '100000',
+      amount: 100000,
       userId: 'user123',
       category: 'food',
       date: '2023-07-01T10:30:00.000Z'
     },
     {
-      amount: '100000',
+      amount: 100000,
       userId: 'user123',
       category: 'food',
       date: '2023-07-01T10:30:00.000Z'
     },
     {
-      amount: '100000',
+      amount: 100000,
       userId: 'user123',
       category: 'food',
       date: '2023-07-01T10:30:00.000Z'

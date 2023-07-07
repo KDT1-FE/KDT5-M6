@@ -1,0 +1,11 @@
+:root {
+  --color-accent: #87e4ac;
+  --color-accent-hover: #87e4aca7;
+  --gray: #bfbfbf;
+  --bg-gray: #f5f5f5;
+}
+
+/* 글자 dragging방지 */
+html {
+  user-select: none;
+}

@@ -78,11 +78,13 @@ const EditBtn = styled.button`
   border: none;
   color: #a8b1ce;
   font-weight: bold;
+  cursor: pointer;
 `;
 const DeleteBtn = styled.button`
   background-color: transparent;
   border: none;
   color: #a8b1ce;
+  cursor: pointer;
   font-weight: bold;
 `;
 const Date = styled.span`

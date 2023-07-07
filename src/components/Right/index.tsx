@@ -53,6 +53,7 @@ const BtnActive = styled.button`
   border: none;
 `;
 const BtnBlur = styled.button`
+  cursor: pointer;
   height: 100%;
   width: 50%;
   font-style: normal;

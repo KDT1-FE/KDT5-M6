@@ -80,7 +80,7 @@ const StDate = styled.p`
 const Wrap = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 0 10px;
+  padding: 0 25px;
   height: 8%;
   align-items: center;
 `;
@@ -92,6 +92,7 @@ const WrapP = styled.p`
   justify-content: center;
   font-weight: bold;
   color: #a8b1ce;
+  text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
 `;
 const WrapBtn = styled.button`
   width: 120px;
@@ -101,6 +102,10 @@ const WrapBtn = styled.button`
   border: none;
   border-radius: 30px;
   font-size: 16px;
+  &:active {
+    background-color: #2c3d8f;
+  }
+  cursor: pointer;
 `;
 const ListWrap = styled.div`
   height: 66%;

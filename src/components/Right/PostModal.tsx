@@ -4,7 +4,11 @@ import { styled } from 'styled-components';
 import { IContent, postData } from '../../lib/API';
 import BlueInput from '../common/BlueInput';
 
-function PostModal() {
+interface IPostModalProps {
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function PostModal({ setIsModalOpen }: IPostModalProps) {
   const [isChecked, setIsChecked] = useState(false);
   const [form, setForm] = useState<IContent>({
     amount: 0,
@@ -20,6 +24,7 @@ function PostModal() {
     {
       isChecked ? postData({ ...form, amount: -form.amount }) : postData(form);
     }
+    setIsModalOpen(false);
   };
 
   // input에 입력된 내용을 form

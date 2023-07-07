@@ -35,7 +35,7 @@ export default function MyDrawer() {
 
       <Drawer
         placement="left"
-        width={500}
+        width={300}
         onClose={onClose}
         open={open}
         closable={false}
@@ -49,7 +49,7 @@ export default function MyDrawer() {
           <span style={{ color: colorPrimary }}>SO</span>BI
         </Title>
         <Menu
-          style={{ fontSize: 16 }}
+          style={{ fontSize: 16, border: 'none' }}
           inlineIndent={40}
           mode="inline"
           defaultSelectedKeys={['/']}

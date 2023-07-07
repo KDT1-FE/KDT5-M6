@@ -1,5 +1,14 @@
-function Calendar() {
-  return <h2>캘린더</h2>;
-}
+import { Calendar } from 'antd';
+import { styled } from 'styled-components';
 
-export default Calendar;
+function CalendarComponent() {
+  return (
+    <CalendarContainer>
+      <StyledCalendar />
+    </CalendarContainer>
+  );
+}
+const CalendarContainer = styled.div``;
+const StyledCalendar = styled(Calendar)``;
+
+export default CalendarComponent;

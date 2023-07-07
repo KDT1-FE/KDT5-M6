@@ -1,7 +1,16 @@
 import { styled } from 'styled-components';
 import List from '../common/List';
+import React, { useState } from 'react';
+import PostModal from './PostModal';
 
 function Read() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModal = (event: React.MouseEvent) => {
+    event.preventDefault();
+    setIsModalOpen(true);
+  };
+
   // 테스트용 임시 데이터
   const contents = [
     {
@@ -49,11 +58,14 @@ function Read() {
       </DateContain>
       <Wrap>
         <WrapP>총 4건</WrapP>
-        <WrapBtn>+추가하기</WrapBtn>
+        <WrapBtn type="button" onClick={handleModal}>
+          +추가하기
+        </WrapBtn>
       </Wrap>
       <ListWrap>
         <List data={contents} />
       </ListWrap>
+      {isModalOpen && <PostModal setIsModalOpen={setIsModalOpen} />}
     </Container>
   );
 }

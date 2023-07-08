@@ -48,10 +48,11 @@ function Search() {
             [0, '전체'],
             [1, '수입'],
             [-1, '지출']
-          ].map((i) => {
+          ].map((i, index) => {
             if (filter == i[0]) {
               return (
                 <ActiveBtn
+                  key={index}
                   onClick={() => {
                     setFilter(parseInt(i[0].toString()));
                   }}
@@ -62,6 +63,7 @@ function Search() {
             } else {
               return (
                 <UnactiveBtn
+                  key={index}
                   onClick={() => {
                     setFilter(parseInt(i[0].toString()));
                   }}

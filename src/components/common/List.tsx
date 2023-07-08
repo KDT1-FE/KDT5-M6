@@ -13,7 +13,11 @@ function List({ data }: IListProps) {
         <StyledItem>
           <ItemLeft>
             <LeftWrap>
-              <Amount>{el.amount}</Amount>
+              {el.amount < 0 ? (
+                <MinusAmount>{el.amount}</MinusAmount>
+              ) : (
+                <PlusAmount>+{el.amount}</PlusAmount>
+              )}
               <Category>{el.category}</Category>
             </LeftWrap>
           </ItemLeft>
@@ -91,13 +95,21 @@ const Date = styled.span`
   color: #a8b1ce;
   font-size: 15px;
 `;
-const Amount = styled.span`
+const MinusAmount = styled.span`
   font-style: normal;
   font-weight: 700;
   font-size: 30px;
   line-height: 29px;
   letter-spacing: -0.03em;
   color: #ff6969;
+`;
+const PlusAmount = styled.span`
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 29px;
+  letter-spacing: -0.03em;
+  color: #4464ff;
 `;
 const Category = styled.span`
   color: #6a6e83;

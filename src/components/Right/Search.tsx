@@ -1,5 +1,8 @@
 import { styled } from 'styled-components';
 import List from '../common/List';
+import { getSearch } from '../../lib/API';
+import { theme } from '../../../styles/theme';
+import { useState } from 'react';
 
 function Search() {
   // 테스트용 임시 데이터
@@ -47,13 +50,38 @@ function Search() {
       date: '2023-07-01T10:30:00.000Z'
     }
   ];
+  const [result, setResult] = useState([]);
+  const [keyword, setKeyword] = useState('');
+
+  console.log('searchdata:', result);
+
+  const inputChange = (e: any) => {
+    setKeyword(e.target.value);
+  };
+  console.log('keyword:', keyword);
+
+  const ButtonClick = () => {
+    onSubmit();
+  };
+  const onSubmit = async (keyword: string, userId: string) => {
+    const res = await getSearch(keyword, userId);
+    setResult(res);
+  };
 
   return (
     <Container>
       <TopContain>
         <Inputs>
-          <Input placeholder="검색할 내역을 입력해주세요!" />
-          <SearchImg src="../public/imgs/search-grey.png" alt="검색로고" />
+          <Input
+            placeholder="검색할 내역을 입력해주세요!"
+            type="text"
+            onChange={inputChange}
+          />
+          <SearchImg
+            src="../public/imgs/search-grey.png"
+            alt="검색로고"
+            onClick={ButtonClick}
+          />
         </Inputs>
         <Btns>
           <AllBtn>전체</AllBtn>
@@ -72,6 +100,7 @@ const Container = styled.div`
   background-color: #ffffff;
   height: 100%;
   width: 100%;
+  //background-color: ${theme.colors.orange}
 `;
 const TopContain = styled.div`
   width: 100%;

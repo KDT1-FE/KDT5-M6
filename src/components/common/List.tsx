@@ -9,8 +9,8 @@ interface IListProps {
 function List({ data }: IListProps) {
   return (
     <Wrap>
-      {data.map((el) => (
-        <StyledItem>
+      {data.map((el, index) => (
+        <StyledItem key={index}>
           <ItemLeft>
             <LeftWrap>
               {el.amount < 0 ? (

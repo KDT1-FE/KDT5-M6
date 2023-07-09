@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { styled } from 'styled-components';
 import { theme } from '../../styles/theme';
-import { DummyrData } from './dummyData';
+import back from '../../assets/arrow_back_ios.png';
+import forward from '../../assets/arrow_forward_ios.png';
+// import { DummyrData } from './dummyData';
 import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -30,23 +32,6 @@ function Chart() {
     const month = date.getMonth() + 1;
     return `${month < 10 ? '0' + month : month}.${year}`;
   };
-
-  // const segmentHighlighter = {
-  //   id: 'segmentHighlighter',
-  //   beforeDatasetsDraw(chart: any, args: any, pluginOptions) {
-  //     const {
-  //       ctx,
-  //       tooltip,
-  //       chartArea: { top, height },
-  //       scales: { x, y }
-  //     } = Chart;
-
-  //     ctx.save();
-
-  //     ctx.fillStyle = 'rgba(0,0,0,0.5)';
-  //     ctx.fillRect(10, 10, 10, 10);
-  //   }
-  // };
 
   const options = {
     responsive: true,
@@ -84,13 +69,18 @@ function Chart() {
       }
     }
   };
-  const data = {
+
+  // 이러지마 제발..
+  const data: ChartData<
+    'bar',
+    ChartDataset<'bar', { x: string; y: number }>
+  > = {
     // x : 주별 지출 금액 표기
     labels: ['첫째주', '둘째주', '셋째주', '넷째주', '다섯째주'],
     datasets: [
       {
         type: 'bar',
-        label: '지출 금액 | 단위 : 만 원',
+        label: '단위 : 만 원',
         // y : 지출 data 들어가는 자리
         data: [
           { x: '첫째주', y: 20 },
@@ -101,8 +91,7 @@ function Chart() {
           { x: null, y: 100 }
         ],
         // data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        backgroundColor: '#4464FF',
-        borderWidth: 2
+        backgroundColor: '#4464FF'
       }
     ]
   };
@@ -110,21 +99,23 @@ function Chart() {
   return (
     <ChartWrapper>
       <ChartTitle>
-        <ArrowLeft
+        <LeftArrow
+          type="button"
           onClick={() =>
             setDate(new Date(date.getFullYear(), date.getMonth() - 1))
           }
         >
-          👈
-        </ArrowLeft>
+          <Lefticon src={back} alt="" />
+        </LeftArrow>
         <Monthly>{getFormattedDate(date)}</Monthly>
-        <ArrowRight
+        <RightArrow
+          type="button"
           onClick={() =>
             setDate(new Date(date.getFullYear(), date.getMonth() + 1))
           }
         >
-          👉
-        </ArrowRight>
+          <Righticon src={forward} alt="" />
+        </RightArrow>
       </ChartTitle>
       <ChartGraph>
         <Bar data={data} options={options} height="160px" />
@@ -148,17 +139,23 @@ const ChartWrapper = styled.div`
   align-items: center;
 `;
 const ChartTitle = styled.span`
+  width: 50%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 `;
 
-const ArrowLeft = styled.button`
+const LeftArrow = styled.button`
   border: 0;
   background-color: transparent;
   font-size: 2rem;
   &:hover {
     cursor: pointer;
   }
+`;
+
+const Lefticon = styled.img`
+  width: 1rem;
 `;
 
 const Monthly = styled.span`
@@ -167,13 +164,16 @@ const Monthly = styled.span`
   font-weight: 500;
 `;
 
-const ArrowRight = styled.button`
+const RightArrow = styled.button`
   border: 0;
   background-color: transparent;
   font-size: 2rem;
   &:hover {
     cursor: pointer;
   }
+`;
+const Righticon = styled.img`
+  width: 1rem;
 `;
 
 const ChartGraph = styled.div`

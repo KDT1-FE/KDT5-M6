@@ -4,7 +4,11 @@ import { useState } from 'react';
 import Calendar from './Calendar';
 import Stats from './Stats';
 
-function Middle() {
+interface IMiddleProps {
+  setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
+}
+
+function Middle({ setSelectedDate }: IMiddleProps) {
   const [toggle, setToggle] = useState(false);
 
   return (
@@ -20,7 +24,7 @@ function Middle() {
         >
           임시토글버튼
         </ToggleButton>
-        {toggle ? <Calendar /> : <Chart />}
+        {toggle ? <Calendar setSelectedDate={setSelectedDate} /> : <Chart />}
       </BottomArea>
     </MidContainer>
   );

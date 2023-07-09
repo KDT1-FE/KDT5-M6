@@ -46,7 +46,7 @@ function PostModal({ selectedDate, setIsModalOpen }: IPostModalProps) {
         handleSubmit(event);
       }}
     >
-      <Title>금액</Title>
+      <Title>금액 {selectedDate}</Title>
       <SwitchWrapper>
         <AmountInput
           type="number"

@@ -37,26 +37,31 @@ export const options = {
     }
   }
 };
-
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+//임시 데이터
+const labels = ['1월', '2월', '3월', '4월', '5월', '6월', '7월'];
 
 export const data = {
   labels, //그래프상 날짜 데이터
   datasets: [
     {
       label: '소비 금액',
-      data: labels.map((data) => data.y),
-      backgroundColor: 'rgba(255, 99, 132, 0.5)'
+      data: labels.map((data) => data.amount),
+      backgroundColor: '#4464FF'
     }
   ]
 };
 
 function Chart() {
+  const [date, setDate] = useState<Date>(new Date());
+
   return (
     <ChartWrapper>
-      <H1>07.01</H1>
+      <ChartTitle>
+        <ArrowLeft>👈</ArrowLeft>
+        <Monthly>07.2023</Monthly>
+        <ArrowRight>👉</ArrowRight>
+      </ChartTitle>
       <ChartGraph>
-        차트자리
         <Bar options={options} data={data} />
       </ChartGraph>
     </ChartWrapper>
@@ -66,22 +71,46 @@ function Chart() {
 const ChartWrapper = styled.div`
   width: 728px;
   height: 658px;
+  marign: auto;
   background-color: ${theme.colors.gray[2]};
   border-radius: 40px;
   box-shadow: 0px 4px 4px ${theme.colors.gray[1]};
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const ChartTitle = styled.span`
+  display: flex;
+  align-items: center;
 `;
 
-const H1 = styled.h1`
+const ArrowLeft = styled.button`
+  border: 0;
+  background-color: transparent;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const Monthly = styled.span`
   font-size: 2.5rem;
   font-family: 'Noto Sans KR';
   font-weight: 500;
 `;
+
+const ArrowRight = styled.button`
+  border: 0;
+  background-color: transparent;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 const ChartGraph = styled.div`
   margin: auto;
   width: 95%;
   height: 60%;
-  background-color: grey;
 `;
 const ChartBar = styled.div`
   display: flex;

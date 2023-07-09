@@ -56,7 +56,7 @@ const GlobalStyle = createGlobalStyle`
     display: block;
   }
   * {
-    box-sizing: inherit;
+    box-sizing: border-box;
   }
 `;
 

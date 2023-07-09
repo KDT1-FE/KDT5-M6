@@ -1,69 +1,53 @@
 import { styled } from 'styled-components';
 import List from '../common/List';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PostModal from './PostModal';
+import { IContent, getCalendar } from '../../lib/API';
 
 function Read() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [content, setContent] = useState<IContent[]>([]);
+  const [date, setDate] = useState<Date>(new Date());
 
   const handleModal = (event: React.MouseEvent) => {
     event.preventDefault();
     setIsModalOpen(true);
   };
 
-  // 테스트용 임시 데이터
-  const contents = [
-    {
-      amount: 100000,
-      userId: 'user123',
-      category: '로또 당첨',
-      date: '2023-07-01T10:30:00.000Z'
-    },
-    {
-      amount: 100000,
-      userId: 'user123',
-      category: '로또 당첨',
-      date: '2023-07-01T10:30:00.000Z'
-    },
-    {
-      amount: 100000,
-      userId: 'user123',
-      category: '로또 당첨',
-      date: '2023-07-01T10:30:00.000Z'
-    },
-    {
-      amount: 100000,
-      userId: 'user123',
-      category: '로또 당첨',
-      date: '2023-07-01T10:30:00.000Z'
-    },
-    {
-      amount: 100000,
-      userId: 'user123',
-      category: '로또 당첨',
-      date: '2023-07-01T10:30:00.000Z'
-    },
-    {
-      amount: 100000,
-      userId: 'user123',
-      category: '로또 당첨',
-      date: '2023-07-01T10:30:00.000Z'
-    }
-  ];
+  useEffect(() => {
+    (async () => {
+      const res = await getCalendar(
+        date.getFullYear(),
+        date.getMonth() + 1,
+        'user123'
+      );
+      if (res[date.getDate().toString()]) {
+        setContent(res[date.getDate().toString()]);
+      }
+    })();
+  }, []);
 
   return (
     <Container>
       <DateContain>
-        <StDate>1일 토요일</StDate>
+        <StDate>
+          {date.getDate()}일 &nbsp;
+          {
+            ['일', '월', '화', '수', '목', '금', '토'].filter(
+              (i) => i.indexOf(i) == date.getDay()
+            )[0]
+          }
+          요일
+        </StDate>
       </DateContain>
       <Wrap>
-        <WrapP>총 4건</WrapP>
+        <WrapP>총 {content.length}건</WrapP>
         <WrapBtn type="button" onClick={handleModal}>
-          +추가하기
+          +
         </WrapBtn>
       </Wrap>
       <ListWrap>
-        <List data={contents} />
+        <List data={content} />
       </ListWrap>
       {isModalOpen && <PostModal setIsModalOpen={setIsModalOpen} />}
     </Container>
@@ -92,7 +76,7 @@ const StDate = styled.p`
 const Wrap = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 0 25px;
+  padding: 0 30px;
   height: 8%;
   align-items: center;
 `;
@@ -107,13 +91,13 @@ const WrapP = styled.p`
   text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
 `;
 const WrapBtn = styled.button`
-  width: 120px;
+  width: 50px;
   height: 50px;
   background-color: #4464ff;
   color: #ffffff;
   border: none;
-  border-radius: 30px;
-  font-size: 16px;
+  border-radius: 50%;
+  font-size: 25px;
   &:active {
     background-color: #2c3d8f;
   }

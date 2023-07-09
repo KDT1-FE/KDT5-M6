@@ -70,7 +70,7 @@ function Chart() {
     }
   };
 
-  // 이러지마 제발..
+  // 이러지마 제발...원하는게 뭐야
   const data: ChartData<
     'bar',
     ChartDataset<'bar', { x: string; y: number }>
@@ -126,14 +126,13 @@ function Chart() {
 }
 
 const ChartWrapper = styled.div`
-  width: 728px;
-  height: 658px;
+  width: 725px;
+  height: 650px;
   marign: auto;
   padding-top: 60px;
   background-color: ${theme.colors.white};
   border-radius: 40px;
   box-shadow: 5px 5px 20px ${theme.colors.gray[1]};
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -179,7 +178,7 @@ const Righticon = styled.img`
 const ChartGraph = styled.div`
   margin: auto;
   margin-top: 10%;
-  width: 95%;
+  width: 90%;
   height: 80%;
   // background-color: ${theme.colors.blue.main};
 `;

@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { styled } from 'styled-components';
 
 interface ICalendarProps {
+  selectedDate: string;
   setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function Calendar({ setSelectedDate }: ICalendarProps) {
+function Calendar({ selectedDate, setSelectedDate }: ICalendarProps) {
   const [date, setDate] = useState(new Date());
   const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
@@ -42,6 +43,7 @@ function Calendar({ setSelectedDate }: ICalendarProps) {
             handleClick(year, month, day);
           }}
           key={`day-${day}`}
+          isSelected={new Date(selectedDate).getDate() === day}
         >
           {day}
         </CalendarDay>
@@ -114,10 +116,12 @@ const CalendarHeader = styled.div`
   gap: 5px;
 `;
 
-const CalendarDay = styled.div`
+const CalendarDay = styled.div<{ isSelected?: boolean }>`
   cursor: pointer;
   padding: 5px;
   text-align: center;
   font-weight: 700;
+  background-color: ${(props) =>
+    props.isSelected ? 'lightblue' : 'transparent'};
 `;
 export default Calendar;

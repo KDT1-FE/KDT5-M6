@@ -5,16 +5,17 @@ import { IContent, postData } from '../../lib/API';
 import BlueInput from '../common/BlueInput';
 
 interface IPostModalProps {
+  selectedDate: string;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function PostModal({ setIsModalOpen }: IPostModalProps) {
+function PostModal({ selectedDate, setIsModalOpen }: IPostModalProps) {
   const [isChecked, setIsChecked] = useState(false);
   const [form, setForm] = useState<IContent>({
     amount: 0,
     userId: 'user123',
     category: '',
-    date: '2023-07-01T10:30:00.000Z'
+    date: selectedDate
   });
 
   // 제출 함수

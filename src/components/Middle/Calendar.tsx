@@ -64,7 +64,8 @@ function Calendar({ selectedDate, setSelectedDate }: ICalendarProps) {
           }}
         ></Prev>
         <h2>
-          {date.getMonth().toString().padStart(2, '0')}. {date.getFullYear()}
+          {(date.getMonth() + 1).toString().padStart(2, '0')}.{' '}
+          {date.getFullYear()}
         </h2>
         <Next
           onClick={() => {

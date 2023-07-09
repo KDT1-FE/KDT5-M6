@@ -13,7 +13,7 @@ function App() {
         <Left />
       </LeftArea>
       <MiddleArea>
-        <Middle setSelectedDate={setSelectedDate} />
+        <Middle selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
       </MiddleArea>
       <RightArea>
         <Right />

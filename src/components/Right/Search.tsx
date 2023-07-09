@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 import List from '../common/List';
 import { IContent, getSearch } from '../../lib/API';
-import { theme } from '../../../styles/theme';
+import { theme } from '../../styles/theme';
 import { useState } from 'react';
 
 function Search() {

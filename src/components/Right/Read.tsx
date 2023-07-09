@@ -14,37 +14,37 @@ function Read() {
   // 테스트용 임시 데이터
   const contents = [
     {
-      amount: '+100,000',
+      amount: 100000,
       userId: 'user123',
       category: '로또 당첨',
       date: '2023-07-01T10:30:00.000Z'
     },
     {
-      amount: '+100,000',
+      amount: 100000,
       userId: 'user123',
       category: '로또 당첨',
       date: '2023-07-01T10:30:00.000Z'
     },
     {
-      amount: '+100,000',
+      amount: 100000,
       userId: 'user123',
       category: '로또 당첨',
       date: '2023-07-01T10:30:00.000Z'
     },
     {
-      amount: '+100,000',
+      amount: 100000,
       userId: 'user123',
       category: '로또 당첨',
       date: '2023-07-01T10:30:00.000Z'
     },
     {
-      amount: '+100,000',
+      amount: 100000,
       userId: 'user123',
       category: '로또 당첨',
       date: '2023-07-01T10:30:00.000Z'
     },
     {
-      amount: '+100,000',
+      amount: 100000,
       userId: 'user123',
       category: '로또 당첨',
       date: '2023-07-01T10:30:00.000Z'

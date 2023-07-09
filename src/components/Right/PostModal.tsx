@@ -12,9 +12,9 @@ function PostModal({ setIsModalOpen }: IPostModalProps) {
   const [isChecked, setIsChecked] = useState(false);
   const [form, setForm] = useState<IContent>({
     amount: 0,
-    userId: 'test1234',
+    userId: 'user123',
     category: '',
-    date: ''
+    date: '2023-07-01T10:30:00.000Z'
   });
 
   // 제출 함수

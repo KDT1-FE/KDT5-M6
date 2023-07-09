@@ -3,6 +3,7 @@ import Left from './components/Left';
 import Middle from './components/Middle';
 import Right from './components/Right';
 import { useState } from 'react';
+import { theme } from './styles/theme.ts';
 
 function App() {
   const [selectedDate, setSelectedDate] = useState('');
@@ -25,6 +26,7 @@ function App() {
 const Conatainer = styled.div`
   display: flex;
   height: 100vh;
+  background-color: ${theme.colors.gray[2]};
 `;
 
 const LeftArea = styled.div`

@@ -3,7 +3,11 @@ import { useState } from 'react';
 import Read from './Read';
 import Search from './Search';
 
-function Right() {
+interface IRightProps {
+  selectedDate: string;
+}
+
+function Right({ selectedDate }: IRightProps) {
   const [active, setActive] = useState(true);
 
   return (
@@ -21,7 +25,7 @@ function Right() {
           </BtnActive>
         </Btns>
       )}
-      {active ? <Read /> : <Search />}
+      {active ? <Read selectedDate={selectedDate} /> : <Search />}
     </RightContainer>
   );
 }

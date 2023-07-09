@@ -1,68 +1,90 @@
 import { styled } from 'styled-components';
 import List from '../common/List';
+import { IContent, getSearch } from '../../lib/API';
+import { theme } from '../../../styles/theme';
+import { useState } from 'react';
 
 function Search() {
   // 테스트용 임시 데이터
-  const content = [
-    {
-      amount: 100000,
-      userId: 'user123',
-      category: 'food',
-      date: '2023-07-01T10:30:00.000Z'
-    },
-    {
-      amount: 100000,
-      userId: 'user123',
-      category: 'food',
-      date: '2023-07-01T10:30:00.000Z'
-    },
-    {
-      amount: 100000,
-      userId: 'user123',
-      category: 'food',
-      date: '2023-07-01T10:30:00.000Z'
-    },
-    {
-      amount: 100000,
-      userId: 'user123',
-      category: 'food',
-      date: '2023-07-01T10:30:00.000Z'
-    },
-    {
-      amount: 100000,
-      userId: 'user123',
-      category: 'food',
-      date: '2023-07-01T10:30:00.000Z'
-    },
-    {
-      amount: 100000,
-      userId: 'user123',
-      category: 'food',
-      date: '2023-07-01T10:30:00.000Z'
-    },
-    {
-      amount: 100000,
-      userId: 'user123',
-      category: 'food',
-      date: '2023-07-01T10:30:00.000Z'
+  const [content, setContent] = useState<IContent[]>([]);
+  const [keyword, setKeyword] = useState('');
+  const [filter, setFilter] = useState(0);
+
+  const inputChange = (e: any) => {
+    setKeyword(e.target.value);
+  };
+
+  const ButtonClick = () => {
+    onSubmit(keyword, 'user123');
+  };
+  const onSubmit = async (keyword: string, userId: string) => {
+    const res = await getSearch(keyword, userId);
+    setContent(res);
+  };
+  const OnKeyPress = (e: any) => {
+    if (e.key === 'Enter') {
+      onSubmit(keyword, 'user123'); // Enter 입력이 되면 클릭 이벤트 실행
     }
-  ];
+  };
 
   return (
     <Container>
       <TopContain>
         <Inputs>
-          <Input placeholder="검색할 내역을 입력해주세요!" />
-          <SearchImg src="../public/imgs/search-grey.png" alt="검색로고" />
+          <Input
+            placeholder="검색할 내역을 입력해주세요!"
+            type="text"
+            onChange={inputChange}
+            onKeyDown={OnKeyPress}
+          />
+          <SearchImg
+            src="../public/imgs/search-grey.png"
+            alt="검색로고"
+            onClick={ButtonClick}
+          />
         </Inputs>
         <Btns>
-          <AllBtn>전체</AllBtn>
-          <ImportBtn>수입</ImportBtn>
-          <ExportBtn>지출</ExportBtn>
+          {[
+            [0, '전체'],
+            [1, '수입'],
+            [-1, '지출']
+          ].map((i, index) => {
+            if (filter == i[0]) {
+              return (
+                <ActiveBtn
+                  key={index}
+                  onClick={() => {
+                    setFilter(parseInt(i[0].toString()));
+                  }}
+                >
+                  {i[1]}
+                </ActiveBtn>
+              );
+            } else {
+              return (
+                <UnactiveBtn
+                  key={index}
+                  onClick={() => {
+                    setFilter(parseInt(i[0].toString()));
+                  }}
+                >
+                  {i[1]}
+                </UnactiveBtn>
+              );
+            }
+          })}
         </Btns>
       </TopContain>
       <ListContain>
-        <List data={content} />
+        <List
+          data={
+            filter == 0
+              ? content
+              : filter == 1
+              ? content.filter((i) => i.amount >= 0)
+              : content.filter((i) => i.amount < 0)
+          }
+        />
       </ListContain>
     </Container>
   );
@@ -72,6 +94,7 @@ const Container = styled.div`
   background-color: #ffffff;
   height: 100%;
   width: 100%;
+  //background-color: ${theme.colors.orange}
 `;
 const TopContain = styled.div`
   width: 100%;
@@ -106,12 +129,13 @@ const Input = styled.input`
 const SearchImg = styled.img`
   width: 30px;
   height: 30px;
+  cursor: poi;
 `;
 const Btns = styled.div`
   display: flex;
   gap: 10px;
 `;
-const AllBtn = styled.button`
+const ActiveBtn = styled.button`
   width: 120px;
   height: 55px;
   border-radius: 40px;
@@ -122,7 +146,7 @@ const AllBtn = styled.button`
   font-weight: bold;
   cursor: pointer;
 `;
-const ImportBtn = styled.button`
+const UnactiveBtn = styled.button`
   width: 120px;
   height: 55px;
   border-radius: 40px;
@@ -134,18 +158,7 @@ const ImportBtn = styled.button`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   cursor: pointer;
 `;
-const ExportBtn = styled.button`
-  width: 120px;
-  height: 55px;
-  border-radius: 40px;
-  background-color: #cddeff;
-  border: none;
-  color: #2c3d8f;
-  font-size: 18px;
-  font-weight: bold;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  cursor: pointer;
-`;
+
 const ListContain = styled.div`
   height: 77%;
   overflow-y: scroll;

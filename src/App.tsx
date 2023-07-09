@@ -2,18 +2,21 @@ import { styled } from 'styled-components';
 import Left from './components/Left';
 import Middle from './components/Middle';
 import Right from './components/Right';
+import { useState } from 'react';
 
 function App() {
+  const [selectedDate, setSelectedDate] = useState('');
+
   return (
     <Conatainer>
       <LeftArea>
         <Left />
       </LeftArea>
       <MiddleArea>
-        <Middle />
+        <Middle selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
       </MiddleArea>
       <RightArea>
-        <Right />
+        <Right selectedDate={selectedDate} />
       </RightArea>
     </Conatainer>
   );

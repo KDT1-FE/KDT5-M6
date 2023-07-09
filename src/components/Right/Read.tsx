@@ -4,7 +4,11 @@ import React, { useEffect, useState } from 'react';
 import PostModal from './PostModal';
 import { IContent, getCalendar } from '../../lib/API';
 
-function Read() {
+interface IReadProps {
+  selectedDate: string;
+}
+
+function Read({ selectedDate }: IReadProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [content, setContent] = useState<IContent[]>([]);
   const [date, setDate] = useState<Date>(new Date());
@@ -49,7 +53,12 @@ function Read() {
       <ListWrap>
         <List data={content} />
       </ListWrap>
-      {isModalOpen && <PostModal setIsModalOpen={setIsModalOpen} />}
+      {isModalOpen && (
+        <PostModal
+          selectedDate={selectedDate}
+          setIsModalOpen={setIsModalOpen}
+        />
+      )}
     </Container>
   );
 }

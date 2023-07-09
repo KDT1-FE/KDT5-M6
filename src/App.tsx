@@ -27,6 +27,8 @@ const Conatainer = styled.div`
   display: flex;
   height: 100vh;
   background-color: ${theme.colors.gray[2]};
+  display: flex;
+  justify-content: space-around;  
 `;
 
 const LeftArea = styled.div`

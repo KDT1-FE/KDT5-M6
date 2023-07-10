@@ -20,14 +20,16 @@ function Read({ selectedDate }: IReadProps) {
 
   useEffect(() => {
     (async () => {
+      // setDate(selectedDate);
       const res = await getCalendar(
         date.getFullYear(),
         date.getMonth() + 1,
         'user123'
       );
+      console.log('res:', res);
+
       if (res[date.getDate().toString()]) {
         setContent(res[date.getDate().toString()]);
-        setDate(res[selectedDate]);
       }
     })();
   }, []);

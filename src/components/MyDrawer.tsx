@@ -1,12 +1,14 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import {
   Layout,
-  Menu,
   theme,
   Button,
   ColorPicker,
   ColorPickerProps,
   Drawer,
+  Tour,
+  TourProps,
+  Space,
 } from 'antd';
 import { SIDEBAR_ITEMS } from '@/data/constants';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
@@ -17,6 +19,43 @@ import { Color } from 'antd/es/color-picker';
 import { useAccentColor } from '@/hooks/useAccentColor';
 
 export default function MyDrawer() {
+  // tour기능
+  const [tourOpen, setTourOpen] = useState<boolean>(false);
+  // tour refs
+  const ref0 = useRef(null); // 시작
+  const ref1 = useRef(null); // 소비기록
+  const ref2 = useRef(null); // 소비통계
+  const ref3 = useRef(null); // 어바웃
+  const ref4 = useRef(null); // 색선택
+  const refs = [ref1, ref2, ref3, ref4];
+
+  const steps: TourProps['steps'] = [
+    {
+      title: 'SOBI 안내를 시작합니다',
+      target: () => ref0.current,
+    },
+    {
+      title: '소비기록',
+      description: '소비기록을 입력하면 달력에 표시됩니다',
+      target: () => ref1.current,
+    },
+    {
+      title: '소비통계',
+      description: '월별 소비 그래프를 보여줍니다',
+      target: () => ref2.current,
+    },
+    {
+      title: 'ABOUT',
+      description: '팀원을 소개합니다!',
+      target: () => ref3.current,
+    },
+    {
+      title: '강조색 선택',
+      description: '마음에 드는 색을 선택해주세요',
+      target: () => ref4.current,
+    },
+  ];
+
   // 현재 url의 경로값을 알 수 있는 react router의 hook;
   const { pathname } = useLocation();
 
@@ -55,18 +94,42 @@ export default function MyDrawer() {
 
   return (
     <>
+      <Tour
+        open={tourOpen}
+        onClose={() => setTourOpen(false)}
+        steps={steps}
+        placement="rightTop"
+        indicatorsRender={(current, total) => (
+          <span>
+            {current + 1} / {total}
+          </span>
+        )}
+      />
       <Button
         type="primary"
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          setOpen(true);
+          setTourOpen(!localStorage.getItem('visited'));
+          localStorage.setItem('visited', JSON.stringify(true));
+        }}
         style={{ position: 'absolute', top: 10, left: 10 }}
         icon={<MenuOutlined />}
+      />
+      <div
+        ref={ref0}
+        style={{
+          width: 190,
+          height: 40,
+          position: 'absolute',
+          top: '30px',
+          left: '50px',
+        }}
       />
       <Drawer
         // 왼쪽에서 열림
         placement="left"
         width={300}
         onClose={() => setOpen(false)}
-
         open={open}
         // 이거 true하면 이상한 x버튼 생김
         closable={false}
@@ -80,31 +143,33 @@ export default function MyDrawer() {
           {/* theme에서 가져온 강조색 사용 */}
           <span style={{ color: colorPrimary }}>SO</span>BI
         </Title>
-        <Menu
-
-          // 기본 스타일링에서 border가 있음
-          style={{ fontSize: 16, border: 'none' }}
-          inlineIndent={40}
-          mode="inline"
-          // 현재 경로와 url과 key값(item.href)이 일치하면 해당 메뉴가 활성화(색칠)상태로 보임
-          defaultSelectedKeys={[pathname]}
-          items={SIDEBAR_ITEMS.map((item) => ({
-            key: item.href,
-            icon: <item.icon style={{ fontSize: 16 }} />,
-            label: item.label,
-            onClick: () => {
-              navigate(item.href);
-              setOpen(false);
-            },
-          }))}
-        />
-        <ColorPicker
-          style={{ position: 'absolute', bottom: 20, left: 20 }}
-          format={formatHex}
-          value={colorHex}
-          onChange={setColorHex}
-          onFormatChange={setFormatHex}
-        />
+        <Space direction="vertical" size="large" style={{ width: '100%' }}>
+          {SIDEBAR_ITEMS.map((item, index) => (
+            <Button
+              block
+              type={pathname === item.href ? 'primary' : 'default'}
+              style={{ fontSize: 16, width: '100%', height: 40 }}
+              key={item.href}
+              // tour를 위한 ref
+              ref={refs[index]}
+              icon={<item.icon />}
+              onClick={() => {
+                navigate(item.href);
+                setOpen(false);
+              }}
+            >
+              {item.label}
+            </Button>
+          ))}
+        </Space>
+        <div ref={ref4} style={{ position: 'absolute', bottom: 20, left: 20 }}>
+          <ColorPicker
+            format={formatHex}
+            value={colorHex}
+            onChange={setColorHex}
+            onFormatChange={setFormatHex}
+          />
+        </div>
       </Drawer>
       <Layout>
         <Content

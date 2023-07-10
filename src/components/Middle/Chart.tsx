@@ -25,19 +25,16 @@ ChartJS.register(
   Legend
 );
 
-    // 차트 : 해당 월의 주차별 지출 데이터
-    // 일별, 주별, 월별 소비 조회 API Request:
-    // GET /expenses/summary?period={period}&userId={userId}
-    // period : daily, weekly, monthly 
+// 차트 : 해당 월의 주차별 지출 데이터
+// 일별, 주별, 월별 소비 조회 API Request:
+// GET /expenses/summary?period={period}&userId={userId}
+// period : daily, weekly, monthly
+interface ICalendarProps {
+  date: Date;
+  setDate: React.Dispatch<React.SetStateAction<Date>>;
+}
 
-function Chart() {
-  const [date, setDate] = useState<Date>(new Date());
-  const getFormattedDate = (date: Date) => {
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    return `${month < 10 ? '0' + month : month}.${year}`;
-  };
-
+function Chart({ date, setDate }: ICalendarProps) {
   const options = {
     responsive: true,
     // 차트 바의 정보 hover
@@ -102,85 +99,13 @@ function Chart() {
   };
 
   return (
-    <ChartWrapper>
-      <ChartTitle>
-        <LeftArrow
-          type="button"
-          onClick={() =>
-            setDate(new Date(date.getFullYear(), date.getMonth() - 1))
-          }
-        >
-          <Lefticon src={back} alt="" />
-        </LeftArrow>
-        <Monthly>{getFormattedDate(date)}</Monthly>
-        <RightArrow
-          type="button"
-          onClick={() =>
-            setDate(new Date(date.getFullYear(), date.getMonth() + 1))
-          }
-        >
-          <Righticon src={forward} alt="" />
-        </RightArrow>
-      </ChartTitle>
-      <ChartGraph>
-        <Bar data={data} options={options} width="95%" height="70%" />
-        {/* plugins={[segmentHighlighter]} */}
-      </ChartGraph>
-    </ChartWrapper>
+    <ChartGraph>
+      <Bar data={data} options={options} width="95%" height="70%" />
+      {/* plugins={[segmentHighlighter]} */}
+    </ChartGraph>
   );
 }
 
-const ChartWrapper = styled.div`
-  width: 97%;
-  height: 100%;
-  margin: 2%;
-  padding:5%;
-  background-color: ${theme.colors.white};
-  border-radius: 40px;
-  box-shadow: 5px 5px 20px ${theme.colors.gray[1]};
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-const ChartTitle = styled.span`
-  width: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  /* background-color: ${theme.colors.blue.main}; */
-`;
-
-const LeftArrow = styled.button`
-  border: 0;
-  background-color: transparent;
-  font-size: 2rem;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const Lefticon = styled.img`
-  width: 1rem;
-`;
-
-const Monthly = styled.span`
-  font-size: 2.5rem;
-  font-family: 'poppins';
-  font-weight: 500;
-`;
-
-const RightArrow = styled.button`
-  border: 0;
-  background-color: transparent;
-  font-size: 2rem;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const Righticon = styled.img`
-  width: 1rem;
-`;
 
 const ChartGraph = styled.div`
   margin: 5%;

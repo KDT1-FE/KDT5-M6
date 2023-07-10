@@ -20,17 +20,17 @@ function Middle({ selectedDate, setSelectedDate, toggle }: IMiddleProps) {
         <Stats />
       </TopArea>
       <BottomArea>
-        {toggle ? (
-          <MiddleLayout date={date} setDate={setDate}>
+        <MiddleLayout date={date} setDate={setDate}>
+          {toggle ? (
             <Calendar
               date={date}
               selectedDate={selectedDate}
               setSelectedDate={setSelectedDate}
             />
-          </MiddleLayout>
-        ) : (
-          <Chart />
-        )}
+          ) : (
+            <Chart date={date} setDate={setDate} />
+          )}
+        </MiddleLayout>
       </BottomArea>
     </MidContainer>
   );

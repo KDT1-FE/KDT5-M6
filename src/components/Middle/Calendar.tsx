@@ -1,13 +1,12 @@
-import { useState } from 'react';
 import { styled } from 'styled-components';
 
 interface ICalendarProps {
   selectedDate: string;
   setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
+  date: Date;
 }
 
-function Calendar({ selectedDate, setSelectedDate }: ICalendarProps) {
-  const [date, setDate] = useState(new Date());
+function Calendar({ selectedDate, setSelectedDate, date }: ICalendarProps) {
   const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   const handleClick = (year: number, month: number, day: number) => {
@@ -55,26 +54,6 @@ function Calendar({ selectedDate, setSelectedDate }: ICalendarProps) {
 
   return (
     <CalendarContainer>
-      <Title>
-        <Prev
-          onClick={() => {
-            setDate(
-              (prev) => new Date(prev.getFullYear(), prev.getMonth() - 1)
-            );
-          }}
-        ></Prev>
-        <h2>
-          {(date.getMonth() + 1).toString().padStart(2, '0')}.{' '}
-          {date.getFullYear()}
-        </h2>
-        <Next
-          onClick={() => {
-            setDate(
-              (prev) => new Date(prev.getFullYear(), prev.getMonth() + 1)
-            );
-          }}
-        ></Next>
-      </Title>
       <CalendarHeader>
         {daysOfWeek.map((day) => (
           <CalendarDay key={day}>{day}</CalendarDay>
@@ -92,14 +71,6 @@ const CalendarContainer = styled.div`
   max-width: 400px;
   margin: 0 auto;
 `;
-
-const Title = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const Prev = styled.button``;
-const Next = styled.button``;
 
 const Empty = styled.div`
   padding: 5px;

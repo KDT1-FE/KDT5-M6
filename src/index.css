@@ -1,0 +1,4 @@
+/* 글자 dragging방지 */
+html {
+  user-select: none;
+}

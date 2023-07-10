@@ -10,7 +10,7 @@ export default function MySelect({ options, handleChange }: MySelectProps) {
   return (
     <Select
       defaultValue="12"
-      style={{ width: 120, marginBottom: 10, float: 'right' }}
+      style={{ width: 120, marginBottom: 10 }}
       onChange={handleChange}
       options={options}
     />

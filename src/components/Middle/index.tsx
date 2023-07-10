@@ -1,16 +1,17 @@
 import { styled } from 'styled-components';
-import Chart from './Chart';
 import { useState } from 'react';
 import Calendar from './Calendar';
+import Chart from './Chart';
 import Stats from './Stats';
 
+//toggle prop을 toggled로 변경
 interface IMiddleProps {
   selectedDate: string;
   setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
+  toggle: boolean;
 }
 
-function Middle({ selectedDate, setSelectedDate }: IMiddleProps) {
-  const [toggle, setToggle] = useState(false);
+function Middle({ selectedDate, setSelectedDate, toggle }: IMiddleProps) {
 
   return (
     <MidContainer>
@@ -18,13 +19,6 @@ function Middle({ selectedDate, setSelectedDate }: IMiddleProps) {
         <Stats />
       </TopArea>
       <BottomArea>
-        <ToggleButton
-          onClick={() => {
-            setToggle((prev) => !prev);
-          }}
-        >
-          임시토글버튼
-        </ToggleButton>
         {toggle ? (
           <Calendar
             selectedDate={selectedDate}
@@ -38,9 +32,21 @@ function Middle({ selectedDate, setSelectedDate }: IMiddleProps) {
   );
 }
 
-const MidContainer = styled.div``;
-const TopArea = styled.div``;
-const BottomArea = styled.div``;
-const ToggleButton = styled.button``;
+const MidContainer = styled.section`
+height: 100vh;
+width: 100%;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+background-color: red;
+`;
+const TopArea = styled.div`
+  background-color: pink;
+  height: 20vh;
+`;
+const BottomArea = styled.div`
+background-color: hotpink;
+height:80vh;
+`;
 
 export default Middle;

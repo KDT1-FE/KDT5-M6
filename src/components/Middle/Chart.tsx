@@ -25,6 +25,11 @@ ChartJS.register(
   Legend
 );
 
+    // 차트 : 해당 월의 주차별 지출 데이터
+    // 일별, 주별, 월별 소비 조회 API Request:
+    // GET /expenses/summary?period={period}&userId={userId}
+    // period : daily, weekly, monthly 
+
 function Chart() {
   const [date, setDate] = useState<Date>(new Date());
   const getFormattedDate = (date: Date) => {
@@ -35,7 +40,7 @@ function Chart() {
 
   const options = {
     responsive: true,
-    // 정보 hover
+    // 차트 바의 정보 hover
     interaction: {
       mode: 'index' as const,
       intersect: false
@@ -118,7 +123,7 @@ function Chart() {
         </RightArrow>
       </ChartTitle>
       <ChartGraph>
-        <Bar data={data} options={options} height="160px" />
+        <Bar data={data} options={options} width="95%" height="70%" />
         {/* plugins={[segmentHighlighter]} */}
       </ChartGraph>
     </ChartWrapper>
@@ -126,10 +131,10 @@ function Chart() {
 }
 
 const ChartWrapper = styled.div`
-  width: 725px;
-  height: 650px;
-  marign: auto;
-  padding-top: 60px;
+  width: 97%;
+  height: 100%;
+  margin: 2%;
+  padding:5%;
   background-color: ${theme.colors.white};
   border-radius: 40px;
   box-shadow: 5px 5px 20px ${theme.colors.gray[1]};
@@ -142,6 +147,7 @@ const ChartTitle = styled.span`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  /* background-color: ${theme.colors.blue.main}; */
 `;
 
 const LeftArrow = styled.button`
@@ -171,16 +177,16 @@ const RightArrow = styled.button`
     cursor: pointer;
   }
 `;
+
 const Righticon = styled.img`
   width: 1rem;
 `;
 
 const ChartGraph = styled.div`
-  margin: auto;
-  margin-top: 10%;
-  width: 90%;
-  height: 80%;
-  // background-color: ${theme.colors.blue.main};
+  margin: 5%;
+  width: 100%;
+  height: 100%;
+  /* background-color: ${theme.colors.blue.pressed}; */
 `;
 
 export default Chart;

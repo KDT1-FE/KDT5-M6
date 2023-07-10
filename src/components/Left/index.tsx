@@ -5,12 +5,19 @@ import { theme } from '../../styles/theme';
 interface ToggleButtonProps {
   toggled: boolean;
 }
-
-function Left() {
+// LeftProps 타입 추가 및 setToggle 상태 업데이트
+interface LeftProps {
+  setToggle: React.Dispatch<React.SetStateAction<boolean>>;
+}
+function Left({ setToggle }: LeftProps) {
   const [toggled, setToggled] = useState(false);
 
+  // Middle 컴포넌트의 화면 전환 함수 (토글 버튼의 동작을 제어)
   const handleToggle = () => {
+    // Left 컴포넌트 내의 toggled 상태를 업데이트하는 함수
     setToggled((prevToggled) => !prevToggled);
+    // App 컴포넌트로부터 전달받은 setToggle 함수를 호출하여 상태를 업데이트하는 함수
+    setToggle((prevToggle) => !prevToggle);
   };
 
   return (
@@ -26,13 +33,11 @@ function Left() {
 }
 
 const LeftContainer = styled.div`
-  positon: fixed;
+  position: fixed;
   left: 0;
   top: 0;
-  padding-top: 30%;
-  padding-bottom: 30%;
-  height: 100vh;
-  widht: 100%;
+  height: 100%;
+  width: 138px;
   background-color: ${theme.colors.black};
   display: flex;
   flex-direction: column;
@@ -41,12 +46,18 @@ const LeftContainer = styled.div`
 `;
 
 const Logo = styled.h4`
+  position: relative;
+  top: 8%;
+  font-family: 'poppins';
+  font-weight: 800;
   color: ${theme.colors.white};
 `;
 
 const ToggleButton = styled.button<ToggleButtonProps>`
+  position: relative;
+  bottom: 8%;
   color: ${({ toggled }) =>
-    toggled ? theme.colors.white : theme.colors.black}; // 수정된 부분
+    toggled ? theme.colors.white : theme.colors.black};
   display: flex;
   flex-direction: column;
   justify-content: center;

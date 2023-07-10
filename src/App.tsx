@@ -1,20 +1,27 @@
+import { useState } from 'react';
 import { styled } from 'styled-components';
+import { theme } from './styles/theme.ts';
 import Left from './components/Left';
 import Middle from './components/Middle';
 import Right from './components/Right';
-import { useState } from 'react';
-import { theme } from './styles/theme.ts';
+
 
 function App() {
   const [selectedDate, setSelectedDate] = useState('');
+  // Left 컴포넌트에 setToggle prop 전달
+  const [toggle, setToggle] = useState(false);
 
   return (
     <Conatainer>
       <LeftArea>
-        <Left />
+        <Left setToggle={setToggle} />
       </LeftArea>
       <MiddleArea>
-        <Middle selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+        <Middle
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+          toggle={toggle}
+        />
       </MiddleArea>
       <RightArea>
         <Right selectedDate={selectedDate} />
@@ -36,12 +43,12 @@ const LeftArea = styled.div`
 `;
 const MiddleArea = styled.div`
   width: 55%;
-  marign: auto;
-  padding-left: .8rem;
+  height: 100%;
+  margin: auto;
 `;
 const RightArea = styled.div`
   width: 33%;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 `;
 
 export default App;

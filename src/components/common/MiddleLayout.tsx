@@ -106,6 +106,8 @@ const RightArrow = styled.button`
     cursor: pointer;
   }
 `;
-const ContentWrapper = styled.div``;
+const ContentWrapper = styled.div`
+  width: 100%;
+`;
 
 export default MiddleLayout;

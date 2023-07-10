@@ -66,6 +66,7 @@ export default function MyDrawer() {
         placement="left"
         width={300}
         onClose={() => setOpen(false)}
+
         open={open}
         // 이거 true하면 이상한 x버튼 생김
         closable={false}
@@ -80,6 +81,7 @@ export default function MyDrawer() {
           <span style={{ color: colorPrimary }}>SO</span>BI
         </Title>
         <Menu
+
           // 기본 스타일링에서 border가 있음
           style={{ fontSize: 16, border: 'none' }}
           inlineIndent={40}

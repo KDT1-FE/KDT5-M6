@@ -27,6 +27,7 @@ function Read({ selectedDate }: IReadProps) {
       );
       if (res[date.getDate().toString()]) {
         setContent(res[date.getDate().toString()]);
+        setDate(res[selectedDate]);
       }
     })();
   }, []);
@@ -38,7 +39,7 @@ function Read({ selectedDate }: IReadProps) {
           {date.getDate()}일 &nbsp;
           {
             ['일', '월', '화', '수', '목', '금', '토'].filter(
-              (i) => i.indexOf(i) == date.getDay()
+              (i, index) => index == date.getDay()
             )[0]
           }
           요일

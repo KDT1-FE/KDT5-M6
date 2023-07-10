@@ -5,9 +5,10 @@ import Left from './components/Left';
 import Middle from './components/Middle';
 import Right from './components/Right';
 
-
 function App() {
-  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedDate, setSelectedDate] = useState(
+    new Date().toLocaleDateString()
+  );
   // Left 컴포넌트에 setToggle prop 전달
   const [toggle, setToggle] = useState(false);
 

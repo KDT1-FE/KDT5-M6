@@ -31,61 +31,82 @@ function PostModal({ selectedDate, setIsModalOpen }: IPostModalProps) {
   // input에 입력된 내용을 form
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-
-    setForm((prev) => {
-      return {
-        ...prev,
-        [name]: value
-      };
-    });
+    setForm((prev) => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
   return (
     <ModalContainer
-      onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
-        handleSubmit(event);
+      onClick={() => {
+        setIsModalOpen(false);
       }}
     >
-      <Title>금액 {selectedDate}</Title>
-      <SwitchWrapper>
-        <AmountInput
-          type="number"
-          name="amount"
-          value={form.amount === 0 || isNaN(form.amount) ? '' : form.amount}
+      <ModalWrapper
+        onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
+          handleSubmit(event);
+        }}
+        onClick={(event: React.MouseEvent) => {
+          event.stopPropagation();
+        }}
+      >
+        <Title>금액 {selectedDate}</Title>
+        <SwitchWrapper>
+          <AmountInput
+            type="number"
+            name="amount"
+            value={form.amount === 0 || isNaN(form.amount) ? null : form.amount}
+            onInput={(event: React.FormEvent<HTMLInputElement>) =>
+              (event.currentTarget.value = event.currentTarget.value.replace(
+                /[^0-9]/g,
+                ''
+              ))
+            }
+            onChange={handleChange}
+            placeholder="금액을 기입해 주세요"
+            required
+            middle="true"
+          />
+          <Switch
+            style={{
+              backgroundColor: isChecked ? '#C62F2F' : '#4464FF'
+            }}
+            checkedChildren="지출"
+            unCheckedChildren="수입"
+            checked={isChecked}
+            onClick={() => {
+              setIsChecked((prev) => !prev);
+            }}
+          />
+        </SwitchWrapper>
+        <Title>내용</Title>
+        <ContentInput
+          type="text"
+          name="category"
+          value={form.category}
           onChange={handleChange}
-          placeholder="금액을 기입해 주세요"
+          placeholder="수입/지출 내역을 작성해주세요."
           required
-          middle="true"
+          large="true"
         />
-        <Switch
-          style={{
-            backgroundColor: isChecked ? '#C62F2F' : '#4464FF'
-          }}
-          checkedChildren="지출"
-          unCheckedChildren="수입"
-          checked={isChecked}
-          onClick={() => {
-            setIsChecked((prev) => !prev);
-          }}
-        />
-      </SwitchWrapper>
-      <Title>내용</Title>
-      <ContentInput
-        type="text"
-        name="category"
-        value={form.category}
-        onChange={handleChange}
-        placeholder="수입/지출 내역을 작성해주세요."
-        required
-        large="true"
-      />
 
-      <AddButton type="submit">추가하기</AddButton>
+        <AddButton type="submit">추가하기</AddButton>
+      </ModalWrapper>
     </ModalContainer>
   );
 }
 
-const ModalContainer = styled.form`
+const ModalContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+`;
+
+const ModalWrapper = styled.form`
   top: 0;
   left: 0;
   right: 0;

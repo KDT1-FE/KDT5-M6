@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -28,7 +28,7 @@ const GlobalStyle = createGlobalStyle`
     display: block;
   }
   body {
-    font-family: sans-serif;
+    font-family: 'Noto Sans KR', 'Poppins', sans-serif;;
     line-height: 1;
     -ms-overflow-style: none;
     ::-webkit-scrollbar {
@@ -56,7 +56,7 @@ const GlobalStyle = createGlobalStyle`
     display: block;
   }
   * {
-    box-sizing: inherit;
+    box-sizing: border-box;
   }
 `;
 

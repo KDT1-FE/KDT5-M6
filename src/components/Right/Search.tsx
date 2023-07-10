@@ -94,7 +94,7 @@ const Container = styled.div`
   background-color: #ffffff;
   height: 100%;
   width: 100%;
-  //background-color: ${theme.colors.orange}
+  //background-color: ${theme.colors.blue}
 `;
 const TopContain = styled.div`
   width: 100%;

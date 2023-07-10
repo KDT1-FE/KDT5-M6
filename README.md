@@ -195,3 +195,30 @@ Status: 200 OK
 ```
 
 
+
+8. 카데고리에 해당하는 소비 항목 및 금액 조회 API(정확한 카데고리)
+   
+Request:
+```javascript
+GET /expenses/category?q={keyword}&userId={userId}
+```
+
+Response:
+```javascript
+Status: 200 OK
+[
+  {
+    "amount": 100,
+    "userId": "user123",
+    "category": "food",
+    "date": "2023-07-04T10:30:00.000Z"
+  },
+  {
+    "amount": 80,
+    "userId": "user456",
+    "category": "food",
+    "date": "2023-07-03T14:20:00.000Z"
+  }
+]
+```
+

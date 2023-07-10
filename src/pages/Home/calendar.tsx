@@ -1,22 +1,24 @@
 import Calendar from "react-calendar"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import '@/pages/Home/Calendar.scss';
 import getExpenses from "@/pages/Home/getExpenses";
 import moment from "moment";
 
 export default function MyCalendar() {
   const [value, onChange] = useState(new Date());
+  const [expenseList, setExpenseList] = useState({})
 
   const day = moment(value).format('D')
 
-  const changeData = (value: any) => {
-    console.log(day)
-    onChange(value)
+  useEffect(()=>{
     getExpenses(value).then(res=>{
-      res
-    },error=>{
-      console.log(error)
+      setExpenseList(res)
     })
+  },[value])
+
+
+  const changeData = (value: any) => {
+    onChange(value)
   }
 
   return <>

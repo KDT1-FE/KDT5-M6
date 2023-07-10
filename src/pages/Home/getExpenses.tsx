@@ -11,7 +11,7 @@ export default function getExpenses(date:Date){
 
   const expensesApi = async() => {
     const res = await baseInstance.get(`expenses/calendar?year=${year}&month=${month}&userId=team3`)
-    return console.log(res.data)
+    return res.data
   }
 
   return expensesApi()

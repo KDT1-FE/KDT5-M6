@@ -106,7 +106,7 @@ const TopContain = styled.div`
   gap: 20px;
 `;
 const Inputs = styled.div`
-  width: 400px;
+  width: 85%;
   height: 60px;
   background-color: #f8f9fd;
   border-radius: 40px;

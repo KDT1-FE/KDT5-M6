@@ -16,6 +16,7 @@ function Calendar({ selectedDate, setSelectedDate, date }: ICalendarProps) {
     const formattedDate = formatDateKrISO(clickedDate);
     setSelectedDate(formattedDate);
   };
+
   const getDaysInMonth = (year: number, month: number) => {
     return new Date(year, month + 1, 0).getDate();
   };
@@ -68,7 +69,7 @@ function Calendar({ selectedDate, setSelectedDate, date }: ICalendarProps) {
     <CalendarContainer>
       <CalendarHeader>
         {daysOfWeek.map((day) => (
-          <CalendarDay key={day}>{day}</CalendarDay>
+          <CalendarDayHeader key={day}>{day}</CalendarDayHeader>
         ))}
       </CalendarHeader>
       <CalendarBody>{generateCalendar()}</CalendarBody>
@@ -79,7 +80,7 @@ function Calendar({ selectedDate, setSelectedDate, date }: ICalendarProps) {
 const CalendarContainer = styled.div`
   gap: 10px;
   width: 400px;
-  height: 400px;
+  height: 300px;
   display: grid;
   margin: 30px auto 0;
   font-family: 'poppins';
@@ -114,12 +115,20 @@ const CalendarHeader = styled.div`
   grid-template-columns: repeat(7, 1fr);
 `;
 
+const CalendarDayHeader = styled.div`
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const CalendarDay = styled.div<{
   $isSunday?: boolean;
   $isSelected?: boolean;
   $isSaturday?: boolean;
 }>`
   cursor: pointer;
+  height: 60px;
   padding: 5px;
   display: flex;
   align-items: center;

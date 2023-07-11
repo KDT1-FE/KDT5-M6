@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { formatDateKrISO } from '../../lib/CommonFunc';
 
 interface ICalendarProps {
   selectedDate: string;
@@ -11,10 +12,7 @@ function Calendar({ selectedDate, setSelectedDate, date }: ICalendarProps) {
 
   const handleClick = (year: number, month: number, day: number) => {
     const clickedDate = new Date(year, month, day);
-    const offset = clickedDate.getTimezoneOffset() * 60000;
-    const formattedDate = new Date(
-      clickedDate.getTime() - offset
-    ).toISOString();
+    const formattedDate = formatDateKrISO(clickedDate);
     setSelectedDate(formattedDate);
   };
 

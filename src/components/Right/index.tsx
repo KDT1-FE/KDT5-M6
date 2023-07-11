@@ -25,7 +25,11 @@ function Right({ selectedDate }: IRightProps) {
           </BtnActive>
         </Btns>
       )}
-      {active ? <Read selectedDate={selectedDate} /> : <Search />}
+      {active ? (
+        <Read selectedDate={selectedDate} />
+      ) : (
+        <Search selectedDate={selectedDate} />
+      )}
     </RightContainer>
   );
 }

@@ -15,9 +15,16 @@ function Read({ selectedDate }: IReadProps) {
 
   const handleModal = (event: React.MouseEvent) => {
     event.preventDefault();
+    event.stopPropagation();
     setIsModalOpen(true);
   };
 
+  useEffect(() => {
+    if (selectedDate) {
+      const a = new Date(selectedDate.split('T')[0]);
+      setDate(a);
+    }
+  }, [selectedDate]);
   useEffect(() => {
     (async () => {
       const res = await getCalendar(
@@ -25,22 +32,22 @@ function Read({ selectedDate }: IReadProps) {
         date.getMonth() + 1,
         'user123'
       );
-      if (res[date.getDate().toString()]) {
-        setContent(res[date.getDate().toString()]);
+
+      if (res[date.getDate()]) {
+        setContent(res[date.getDate()]);
+      } else {
+        setContent([]);
       }
     })();
-  }, []);
+  }, [date]);
+  const days = ['일', '월', '화', '수', '목', '금', '토'];
 
   return (
     <Container>
       <DateContain>
         <StDate>
           {date.getDate()}일 &nbsp;
-          {
-            ['일', '월', '화', '수', '목', '금', '토'].filter(
-              (i) => i.indexOf(i) == date.getDay()
-            )[0]
-          }
+          {days[date.getDay()]}
           요일
         </StDate>
       </DateContain>

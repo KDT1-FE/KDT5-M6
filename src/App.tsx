@@ -5,7 +5,6 @@ import Left from './components/Left';
 import Middle from './components/Middle';
 import Right from './components/Right';
 
-
 function App() {
   const [selectedDate, setSelectedDate] = useState('');
   // Left 컴포넌트에 setToggle prop 전달
@@ -49,6 +48,9 @@ const MiddleArea = styled.div`
 const RightArea = styled.div`
   width: 33%;
   /* border: 1px solid red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default App;

@@ -11,4 +11,11 @@ const formatDate = (date: string) => {
   return newDate;
 };
 
-export { formatDate };
+const formatDateKrISO = (date: Date) => {
+  const newDate = new Date(date);
+  const offset = newDate.getTimezoneOffset() * 60000;
+  const formattedDate = new Date(newDate.getTime() - offset).toISOString();
+  return formattedDate;
+};
+
+export { formatDate, formatDateKrISO };

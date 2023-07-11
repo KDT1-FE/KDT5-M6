@@ -57,10 +57,10 @@ function PostModal({ selectedDate, setIsModalOpen }: IPostModalProps) {
           <Date>{selectedDate.split('T')[0]}</Date>
         </TitleWrapper>
         <SwitchWrapper>
-          <AmountInput
+          <BlueInput
             type="number"
             name="amount"
-            value={form.amount === 0 || isNaN(form.amount) ? null : form.amount}
+            value={form.amount === 0 || isNaN(form.amount) ? '' : form.amount}
             onInput={(event: React.FormEvent<HTMLInputElement>) =>
               (event.currentTarget.value = event.currentTarget.value.replace(
                 /[^0-9]/g,
@@ -70,7 +70,7 @@ function PostModal({ selectedDate, setIsModalOpen }: IPostModalProps) {
             onChange={handleChange}
             placeholder="금액을 기입해 주세요"
             required
-            middle="true"
+            $middle="true"
           />
           <Switch
             style={{
@@ -87,14 +87,14 @@ function PostModal({ selectedDate, setIsModalOpen }: IPostModalProps) {
           />
         </SwitchWrapper>
         <Title>내용</Title>
-        <ContentInput
+        <BlueInput
           type="text"
           name="category"
           value={form.category}
           onChange={handleChange}
           placeholder="수입/지출 내역을 작성해주세요."
           required
-          large="true"
+          $large="true"
         />
 
         <AddButton type="submit">추가하기</AddButton>
@@ -152,14 +152,6 @@ const SwitchWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
-
-const AmountInput = styled(BlueInput)`
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-  }
-`;
-
-const ContentInput = styled(BlueInput)``;
 
 const AddButton = styled.button`
   width: auto;

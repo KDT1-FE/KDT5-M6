@@ -89,6 +89,7 @@ function Search({ selectedDate }: IReadProps) {
               : content.filter((i) => i.amount < 0)
           }
           selectedDate={selectedDate}
+          getContent={ButtonClick}
         />
       </ListContain>
     </Container>

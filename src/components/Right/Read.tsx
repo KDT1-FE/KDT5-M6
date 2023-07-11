@@ -25,22 +25,26 @@ function Read({ selectedDate }: IReadProps) {
       setDate(a);
     }
   }, [selectedDate]);
-  useEffect(() => {
-    (async () => {
-      const res = await getCalendar(
-        date.getFullYear(),
-        date.getMonth() + 1,
-        'user123'
-      );
-      console.log('res:', res);
 
-      if (res[date.getDate()]) {
-        setContent(res[date.getDate()]);
-      } else {
-        setContent([]);
-      }
-    })();
+  const getContent = async () => {
+    const res = await getCalendar(
+      date.getFullYear(),
+      date.getMonth() + 1,
+      'user123'
+    );
+    console.log('res:', res);
+
+    if (res[date.getDate()]) {
+      setContent(res[date.getDate()]);
+    } else {
+      setContent([]);
+    }
+  };
+
+  useEffect(() => {
+    getContent();
   }, [date]);
+
   const days = ['일', '월', '화', '수', '목', '금', '토'];
 
   return (
@@ -59,7 +63,11 @@ function Read({ selectedDate }: IReadProps) {
         </WrapBtn>
       </Wrap>
       <ListWrap>
-        <List data={content} selectedDate={selectedDate} />
+        <List
+          data={content}
+          selectedDate={selectedDate}
+          getContent={getContent}
+        />
       </ListWrap>
       {isModalOpen && (
         <PostModal

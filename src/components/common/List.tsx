@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { IContent, IContentExtend, delData, editData } from '../../lib/API';
+import { IContentExtend, delData } from '../../lib/API';
 import { formatDate } from '../../lib/CommonFunc';
 import { useState } from 'react';
 import EditModal from '../Right/EditModal';
@@ -7,15 +7,20 @@ import EditModal from '../Right/EditModal';
 interface IListProps {
   data: IContentExtend[];
   selectedDate: string;
+  getContent: () => void; //일반함수 props
 }
 
-function List({ data, selectedDate }: IListProps) {
+function List({ data, selectedDate, getContent }: IListProps) {
   const [editModalOpen, setEditModalOpen] = useState(false);
 
   console.log('data:', data);
   const deletehandle = (e: React.MouseEvent, _id: string) => {
     e.preventDefault;
     const res = delData(_id);
+    res.then(() => {
+      getContent();
+      alert('삭제가 완료되었습니다!');
+    });
     return res;
   };
   const openEditModal = (event: React.MouseEvent) => {

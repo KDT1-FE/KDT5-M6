@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 import { formatDateKrISO } from '../../lib/CommonFunc';
+import { theme } from '../../styles/theme';
 
 interface ICalendarProps {
   selectedDate: string;
@@ -27,9 +28,13 @@ function Calendar({ selectedDate, setSelectedDate, date }: ICalendarProps) {
     const daysInMonth = getDaysInMonth(year, month);
     const calendar = [];
 
-    // 첫 번째 주 시작 전의 빈 날짜 채우기
-    for (let i = 0; i < firstDay; i++) {
-      calendar.push(<Empty key={`empty-${i}`}></Empty>);
+    // 첫 번째 주 시작 전에 전 달 날짜 채우기
+    for (let i = firstDay - 1; i >= 0; i--) {
+      calendar.push(
+        <PrevDay key={`prev-${i}`}>
+          {getDaysInMonth(year, month - 1) - i}
+        </PrevDay>
+      );
     }
 
     // 달력에 날짜 추가
@@ -52,6 +57,11 @@ function Calendar({ selectedDate, setSelectedDate, date }: ICalendarProps) {
       );
     }
 
+    // 마지막 주 다음에 다음 달 날짜 채우기
+    for (let i = 1; i <= 6 - new Date(year, month, daysInMonth).getDay(); i++) {
+      calendar.push(<NextDay key={`next-${i}`}>{i}</NextDay>);
+    }
+
     return calendar;
   };
 
@@ -59,7 +69,7 @@ function Calendar({ selectedDate, setSelectedDate, date }: ICalendarProps) {
     <CalendarContainer>
       <CalendarHeader>
         {daysOfWeek.map((day) => (
-          <CalendarDay key={day}>{day}</CalendarDay>
+          <CalendarDayHeader key={day}>{day}</CalendarDayHeader>
         ))}
       </CalendarHeader>
       <CalendarBody>{generateCalendar()}</CalendarBody>
@@ -68,41 +78,61 @@ function Calendar({ selectedDate, setSelectedDate, date }: ICalendarProps) {
 }
 
 const CalendarContainer = styled.div`
-  font-family: 'poppins';
-  height: 400px;
-  width: 400px;
-  display: grid;
-  grid-template-rows: auto 1fr;
   gap: 10px;
+  width: 400px;
+  height: 300px;
+  display: grid;
   margin: 30px auto 0;
+  font-family: 'poppins';
+  grid-template-rows: auto 1fr;
 `;
 
-const Empty = styled.div`
+const PrevDay = styled.div`
   padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${theme.colors.gray[1]};
+`;
+
+const NextDay = styled.div`
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${theme.colors.gray[1]};
 `;
 
 const CalendarBody = styled.div`
+  gap: 5px;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 5px;
 `;
 
 const CalendarHeader = styled.div`
+  gap: 5px;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 5px;
+`;
+
+const CalendarDayHeader = styled.div`
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const CalendarDay = styled.div<{
-  $isSelected?: boolean;
   $isSunday?: boolean;
+  $isSelected?: boolean;
   $isSaturday?: boolean;
 }>`
   cursor: pointer;
+  height: 60px;
   padding: 5px;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   color: ${({ $isSaturday, $isSunday, theme }) =>
     $isSaturday
       ? theme.colors.blue.main
@@ -111,12 +141,12 @@ const CalendarDay = styled.div<{
       : theme.colors.black};
 
   div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
     width: 40px;
     height: 40px;
+    display: flex;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
     background-color: ${({ $isSelected }) =>
       $isSelected ? '#5A81FA' : 'transparent'};
     color: ${({ $isSelected, theme }) => $isSelected && theme.colors.white};

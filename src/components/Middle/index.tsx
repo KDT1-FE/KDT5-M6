@@ -52,7 +52,7 @@ const TopArea = styled.div`
   /* background-color: pink; */
 `;
 const BottomArea = styled.div`
-  height: 750px;
+  height: 100%;
   width: 100%;
   /* background-color: hotpink; */
 `;

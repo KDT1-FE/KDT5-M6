@@ -98,19 +98,20 @@ function Chart({ date, setDate }: ICalendarProps) {
 
   return (
     <ChartGraph>
-      <Bar data={data} options={options} width="100%" height="70%" />
+      <Bar data={data} options={options} width="100%" height="60%" />
     </ChartGraph>
   );
 }
 
 const ChartGraph = styled.div`
-  position: relative;
-  bottom: 0;
+  /* position: relative;
+  bottom: 0; */
+  /* background-color: red; */
   margin: auto;
   margin-top: 30px;
-  width: 42vw;
+  /* height: 100%; */
+  width: 90%;
   max-width: 900px;
-  height: 100%;
 `;
 
 export default Chart;

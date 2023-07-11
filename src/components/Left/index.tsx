@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import { theme } from '../../styles/theme';
+import BlueLogo from '../../assets/Logo_blue.png';
 
 interface ToggleButtonProps {
   toggled: boolean;
@@ -22,7 +23,10 @@ function Left({ setToggle }: LeftProps) {
 
   return (
     <LeftContainer>
-      <Logo>WalletKeeper</Logo>
+      <Logo>
+        <WhiteLogo src={BlueLogo} alt="" />
+        Wallet<br/>Keeper
+      </Logo>
       <ToggleButton toggled={toggled} onClick={handleToggle}>
         <ToggleButtonText toggled={toggled}>
           {toggled ? 'chart' : 'calendar'}
@@ -33,12 +37,10 @@ function Left({ setToggle }: LeftProps) {
 }
 
 const LeftContainer = styled.div`
-  position: fixed;
   left: 0;
   top: 0;
   height: 100%;
   width: 170px;
-  background-color: ${theme.colors.black};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -48,9 +50,18 @@ const LeftContainer = styled.div`
 const Logo = styled.h4`
   position: relative;
   top: 8%;
+  height: 50px;
   font-family: 'poppins';
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   font-weight: 800;
-  color: ${theme.colors.white};
+  color: ${theme.colors.blue.main};
+`;
+
+const WhiteLogo = styled.img`
+  width: 5rem;
+  margin-bottom: 15px;
 `;
 
 const ToggleButton = styled.button<ToggleButtonProps>`
@@ -88,7 +99,7 @@ const ToggleButton = styled.button<ToggleButtonProps>`
 `;
 const ToggleButtonText = styled.span<ToggleButtonProps>`
   font-family: 'poppins';
-  font-size: .8rem;
+  font-size: 0.8rem;
   font-weight: 700;
   color: ${({ toggled }) =>
     toggled ? theme.colors.black : theme.colors.black};

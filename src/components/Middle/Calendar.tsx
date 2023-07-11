@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { formatDateKrISO } from '../../lib/CommonFunc';
 
 interface ICalendarProps {
   selectedDate: string;
@@ -11,10 +12,7 @@ function Calendar({ selectedDate, setSelectedDate, date }: ICalendarProps) {
 
   const handleClick = (year: number, month: number, day: number) => {
     const clickedDate = new Date(year, month, day);
-    const offset = clickedDate.getTimezoneOffset() * 60000;
-    const formattedDate = new Date(
-      clickedDate.getTime() - offset
-    ).toISOString();
+    const formattedDate = formatDateKrISO(clickedDate);
     setSelectedDate(formattedDate);
   };
 
@@ -42,9 +40,14 @@ function Calendar({ selectedDate, setSelectedDate, date }: ICalendarProps) {
             handleClick(year, month, day);
           }}
           key={`day-${day}`}
-          isSelected={new Date(selectedDate).getDate() === day}
+          $isSelected={
+            new Date(selectedDate).toLocaleDateString() ===
+            new Date(year, month, day).toLocaleDateString()
+          }
+          $isSunday={new Date(year, month, day).getDay() === 0}
+          $isSaturday={new Date(year, month, day).getDay() === 6}
         >
-          {day}
+          <div>{day}</div>
         </CalendarDay>
       );
     }
@@ -65,11 +68,13 @@ function Calendar({ selectedDate, setSelectedDate, date }: ICalendarProps) {
 }
 
 const CalendarContainer = styled.div`
+  font-family: 'poppins';
+  height: 400px;
+  width: 400px;
   display: grid;
   grid-template-rows: auto 1fr;
   gap: 10px;
-  max-width: 400px;
-  margin: 0 auto;
+  margin: 30px auto 0;
 `;
 
 const Empty = styled.div`
@@ -88,12 +93,33 @@ const CalendarHeader = styled.div`
   gap: 5px;
 `;
 
-const CalendarDay = styled.div<{ isSelected?: boolean }>`
+const CalendarDay = styled.div<{
+  $isSelected?: boolean;
+  $isSunday?: boolean;
+  $isSaturday?: boolean;
+}>`
   cursor: pointer;
   padding: 5px;
-  text-align: center;
-  font-weight: 700;
-  background-color: ${(props) =>
-    props.isSelected ? 'lightblue' : 'transparent'};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: ${({ $isSaturday, $isSunday, theme }) =>
+    $isSaturday
+      ? theme.colors.blue.main
+      : $isSunday
+      ? theme.colors.red
+      : theme.colors.black};
+
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: ${({ $isSelected }) =>
+      $isSelected ? '#5A81FA' : 'transparent'};
+    color: ${({ $isSelected, theme }) => $isSelected && theme.colors.white};
+  }
 `;
 export default Calendar;

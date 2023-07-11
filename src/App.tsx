@@ -4,9 +4,10 @@ import { theme } from './styles/theme.ts';
 import Left from './components/Left';
 import Middle from './components/Middle';
 import Right from './components/Right';
+import { formatDateKrISO } from './lib/CommonFunc.ts';
 
 function App() {
-  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedDate, setSelectedDate] = useState(formatDateKrISO(new Date()));
   // Left 컴포넌트에 setToggle prop 전달
   const [toggle, setToggle] = useState(false);
 

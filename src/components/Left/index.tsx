@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import { theme } from '../../styles/theme';
-import BlueLogo from '../../assets/Logo_blue.png';
+import BlueLogo from '../../assets/Logo_color.png';
 
 interface ToggleButtonProps {
   toggled: boolean;
@@ -25,7 +25,9 @@ function Left({ setToggle }: LeftProps) {
     <LeftContainer>
       <Logo>
         <WhiteLogo src={BlueLogo} alt="" />
-        Wallet<br/>Keeper
+        Wallet
+        <br />
+        Keeper
       </Logo>
       <ToggleButton toggled={toggled} onClick={handleToggle}>
         <ToggleButtonText toggled={toggled}>
@@ -61,7 +63,7 @@ const Logo = styled.h4`
 
 const WhiteLogo = styled.img`
   width: 5rem;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 `;
 
 const ToggleButton = styled.button<ToggleButtonProps>`

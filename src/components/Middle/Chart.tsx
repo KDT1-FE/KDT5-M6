@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { formatDate } from '../../lib/CommonFunc';
 import { styled } from 'styled-components';
 import { theme } from '../../styles/theme';
-import back from '../../assets/arrow_back_ios.png';
-import forward from '../../assets/arrow_forward_ios.png';
-// import { DummyrData } from './dummyData';
+
+
 import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -32,6 +32,7 @@ ChartJS.register(
 interface ICalendarProps {
   date: Date;
   setDate: React.Dispatch<React.SetStateAction<Date>>;
+  
 }
 
 function Chart({ date, setDate }: ICalendarProps) {
@@ -92,7 +93,6 @@ function Chart({ date, setDate }: ICalendarProps) {
           { x: '다섯째주', y: 70 },
           { x: null, y: 100 }
         ],
-        // data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         backgroundColor: '#4464FF'
       }
     ]
@@ -101,17 +101,14 @@ function Chart({ date, setDate }: ICalendarProps) {
   return (
     <ChartGraph>
       <Bar data={data} options={options} width="95%" height="70%" />
-      {/* plugins={[segmentHighlighter]} */}
     </ChartGraph>
   );
 }
 
-
 const ChartGraph = styled.div`
   margin: 5%;
-  width: 100%;
+  width: 90%;
   height: 100%;
-  /* background-color: ${theme.colors.blue.pressed}; */
 `;
 
 export default Chart;

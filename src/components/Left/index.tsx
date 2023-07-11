@@ -37,7 +37,7 @@ const LeftContainer = styled.div`
   left: 0;
   top: 0;
   height: 100%;
-  width: 138px;
+  width: 170px;
   background-color: ${theme.colors.black};
   display: flex;
   flex-direction: column;
@@ -56,8 +56,7 @@ const Logo = styled.h4`
 const ToggleButton = styled.button<ToggleButtonProps>`
   position: relative;
   bottom: 8%;
-  color: ${({ toggled }) =>
-    toggled ? theme.colors.white : theme.colors.black};
+  color: ${theme.colors.black};
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -83,16 +82,20 @@ const ToggleButton = styled.button<ToggleButtonProps>`
     background-color: ${theme.colors.black};
     border-radius: 50%;
     transition: transform 0.3s ease;
-    transform: translateY(${({ toggled }) => (toggled ? '70px' : '0')});
+    transform: translateY(${({ toggled }) => (toggled ? '72px' : '0')});
     box-shadow: 3px 3px 5px ${theme.colors.blue.pressed};
   }
 `;
 const ToggleButtonText = styled.span<ToggleButtonProps>`
   font-family: 'poppins';
+  font-size: .8rem;
+  font-weight: 700;
   color: ${({ toggled }) =>
-    toggled ? theme.colors.white : theme.colors.white};
+    toggled ? theme.colors.black : theme.colors.black};
   writing-mode: vertical-lr;
   transform: rotate(-180deg);
+  transition: transform 0.3s ease;
+  transform: translateY(${({ toggled }) => (toggled ? '-23px' : '25px')});
 `;
 
 export default Left;

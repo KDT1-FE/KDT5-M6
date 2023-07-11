@@ -37,20 +37,24 @@ function Middle({ selectedDate, setSelectedDate, toggle }: IMiddleProps) {
 }
 
 const MidContainer = styled.section`
-  height: 100vh;
+  height: 100%;
   width: 100%;
+  margin: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: red;
+  align-items: center;
+  /* background-color: blue; */
 `;
 const TopArea = styled.div`
-  background-color: pink;
   height: 20vh;
+  width: 100%;
+  /* background-color: pink; */
 `;
 const BottomArea = styled.div`
-  background-color: hotpink;
   height: 80vh;
+  width: 100%;
+  /* background-color: hotpink; */
 `;
 
 export default Middle;

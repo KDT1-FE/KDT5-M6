@@ -44,11 +44,10 @@ const LeftArea = styled.div`
 const MiddleArea = styled.div`
   width: 55%;
   height: 100%;
-  margin: auto;
 `;
 const RightArea = styled.div`
   width: 33%;
-  /* border: 1px solid red; */
+  border: 1px solid red;
 `;
 
 export default App;

@@ -62,10 +62,10 @@ function MiddleLayout({ ...props }: IChildren) {
 }
 
 const LayoutWrapper = styled.div`
-  width: 725px;
-  height: 650px;
-  margin: auto;
-  padding-top: 60px;
+  width: 97%;
+  height: 100%;
+  margin: 2%;
+  padding: 6%;
   background-color: ${theme.colors.white};
   border-radius: 40px;
   box-shadow: 5px 5px 20px ${theme.colors.gray[1]};

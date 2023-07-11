@@ -34,6 +34,10 @@ const StyledInput = styled.input<{
     props.$middle &&
     css`
       width: 330px;
+
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }
     `}
 
   ${(props) =>

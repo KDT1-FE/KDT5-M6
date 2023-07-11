@@ -8,5 +8,5 @@ export function formatPaymentDate(date: string): string {
     hour12: true,
   });
 
-  return formattedDate.replace(/\//g, '-');
+  return formattedDate;
 }

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { styled } from 'styled-components';
 import { IContent, postData } from '../../lib/API';
 import BlueInput from '../common/BlueInput';
+import { theme } from '../../styles/theme';
 
 interface IPostModalProps {
   selectedDate: string;
@@ -51,7 +52,10 @@ function PostModal({ selectedDate, setIsModalOpen }: IPostModalProps) {
           event.stopPropagation();
         }}
       >
-        <Title>금액 {selectedDate}</Title>
+        <TitleWrapper>
+          <Title>금액</Title>
+          <Date>{selectedDate.split('T')[0]}</Date>
+        </TitleWrapper>
         <SwitchWrapper>
           <AmountInput
             type="number"
@@ -70,7 +74,9 @@ function PostModal({ selectedDate, setIsModalOpen }: IPostModalProps) {
           />
           <Switch
             style={{
-              backgroundColor: isChecked ? '#C62F2F' : '#4464FF'
+              backgroundColor: isChecked
+                ? '#C62F2F'
+                : `${theme.colors.blue.main}`
             }}
             checkedChildren="지출"
             unCheckedChildren="수입"
@@ -125,7 +131,17 @@ const ModalWrapper = styled.form`
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.25);
 `;
 
+const TitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 const Title = styled.span`
+  font-weight: 700;
+`;
+
+const Date = styled.span`
   font-weight: 700;
 `;
 

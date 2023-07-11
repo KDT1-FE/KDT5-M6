@@ -60,9 +60,7 @@ function PostModal({ selectedDate, setIsModalOpen }: IPostModalProps) {
           <BlueInput
             type="number"
             name="amount"
-            value={
-              form.amount === 0 || isNaN(form.amount) ? undefined : form.amount
-            }
+            value={form.amount === 0 || isNaN(form.amount) ? '' : form.amount}
             onInput={(event: React.FormEvent<HTMLInputElement>) =>
               (event.currentTarget.value = event.currentTarget.value.replace(
                 /[^0-9]/g,

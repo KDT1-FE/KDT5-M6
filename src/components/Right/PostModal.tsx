@@ -57,7 +57,7 @@ function PostModal({ selectedDate, setIsModalOpen }: IPostModalProps) {
           <Date>{selectedDate.split('T')[0]}</Date>
         </TitleWrapper>
         <SwitchWrapper>
-          <AmountInput
+          <BlueInput
             type="number"
             name="amount"
             value={
@@ -89,7 +89,7 @@ function PostModal({ selectedDate, setIsModalOpen }: IPostModalProps) {
           />
         </SwitchWrapper>
         <Title>내용</Title>
-        <ContentInput
+        <BlueInput
           type="text"
           name="category"
           value={form.category}
@@ -154,14 +154,6 @@ const SwitchWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
-
-const AmountInput = styled(BlueInput)`
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-  }
-`;
-
-const ContentInput = styled(BlueInput)``;
 
 const AddButton = styled.button`
   width: auto;

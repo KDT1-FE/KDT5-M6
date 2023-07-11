@@ -91,6 +91,8 @@ const LeftArrow = styled.button`
   }
 `;
 const Monthly = styled.span`
+margin: 20px;
+  text-align: center;
   font-size: 2.5rem;
   font-family: 'poppins';
   font-weight: 500;

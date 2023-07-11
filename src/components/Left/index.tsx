@@ -25,7 +25,7 @@ function Left({ setToggle }: LeftProps) {
       <Logo>WalletKeeper</Logo>
       <ToggleButton toggled={toggled} onClick={handleToggle}>
         <ToggleButtonText toggled={toggled}>
-          {toggled ? 'calendar' : 'chart'}
+          {toggled ? 'chart' : 'calendar'}
         </ToggleButtonText>
       </ToggleButton>
     </LeftContainer>

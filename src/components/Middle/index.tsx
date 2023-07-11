@@ -22,13 +22,13 @@ function Middle({ selectedDate, setSelectedDate, toggle }: IMiddleProps) {
       <BottomArea>
         <MiddleLayout date={date} setDate={setDate}>
           {toggle ? (
+            <Chart date={date} setDate={setDate} />
+          ) : (
             <Calendar
               date={date}
               selectedDate={selectedDate}
               setSelectedDate={setSelectedDate}
             />
-          ) : (
-            <Chart date={date} setDate={setDate} />
           )}
         </MiddleLayout>
       </BottomArea>
@@ -52,7 +52,7 @@ const TopArea = styled.div`
   /* background-color: pink; */
 `;
 const BottomArea = styled.div`
-  height: 80vh;
+  height: 750px;
   width: 100%;
   /* background-color: hotpink; */
 `;

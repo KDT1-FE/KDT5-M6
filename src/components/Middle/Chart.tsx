@@ -3,7 +3,6 @@ import { formatDate } from '../../lib/CommonFunc';
 import { styled } from 'styled-components';
 import { theme } from '../../styles/theme';
 
-
 import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -32,7 +31,6 @@ ChartJS.register(
 interface ICalendarProps {
   date: Date;
   setDate: React.Dispatch<React.SetStateAction<Date>>;
-  
 }
 
 function Chart({ date, setDate }: ICalendarProps) {
@@ -100,14 +98,18 @@ function Chart({ date, setDate }: ICalendarProps) {
 
   return (
     <ChartGraph>
-      <Bar data={data} options={options} width="95%" height="70%" />
+      <Bar data={data} options={options} width="100%" height="70%" />
     </ChartGraph>
   );
 }
 
 const ChartGraph = styled.div`
-  margin: 5%;
-  width: 90%;
+  position: relative;
+  bottom: 0;
+  margin: auto;
+  margin-top: 30px;
+  width: 42vw;
+  max-width: 900px;
   height: 100%;
 `;
 

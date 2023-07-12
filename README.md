@@ -114,8 +114,10 @@ Status: 200 OK
 
 4. 일별, 주별, 월별 소비 조회 API
 Request:
-```javascript 
-GET /expenses/summary?period={period}&userId={userId}
+```javascript
+
+(category는 선택)
+GET /expenses/summary?period={period}&userId={userId}&category={category}
 period : daily, weekly, monthly
 ```
 Response:

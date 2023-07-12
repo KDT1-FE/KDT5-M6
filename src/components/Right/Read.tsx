@@ -71,6 +71,7 @@ function Read({ selectedDate }: IReadProps) {
       </ListWrap>
       {isModalOpen && (
         <PostModal
+          getContent={getContent}
           selectedDate={selectedDate}
           setIsModalOpen={setIsModalOpen}
         />

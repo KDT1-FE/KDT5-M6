@@ -8,7 +8,11 @@ export const theme: DefaultTheme = {
       pressed: '#2C3D8F', // Deep blue : 버튼 클릭 상태 컬러
       bg: '#CDDEFF' // Light blue : 버튼 클릭하지 않은 상태, input,list등 넓은 면적 또는 bg
     },
-    black: '#1F1F1F', //기본 블랙, 텍스트 + 배경 사용
+    black: {
+      black30: '#1f1f1f1f', //기본 블랙, 텍스트 + 배경 사용
+      black50: '#1f1f1f71', //기본 블랙, 텍스트 + 배경 사용
+      black100: '#1F1F1F', //기본 블랙, 텍스트 + 배경 사용
+    },
     white: '#FFFFFF', // Box bg
     red: '#FF6969', //소비 항목 + 마이너스 값
     // green: '#41EE53'

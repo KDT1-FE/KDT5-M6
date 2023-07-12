@@ -3,6 +3,7 @@ import List from '../common/List';
 import React, { useEffect, useState } from 'react';
 import PostModal from './PostModal';
 import { IContentExtend, getCalendar } from '../../lib/API';
+import { theme } from '../../styles/theme';
 
 interface IReadProps {
   selectedDate: string;
@@ -80,7 +81,7 @@ function Read({ selectedDate }: IReadProps) {
   );
 }
 const Container = styled.div`
-  background-color: #ffffff;
+  background-color: ${theme.colors.white};
   height: 100%;
   width: 100%;
 `;
@@ -92,45 +93,48 @@ const DateContain = styled.div`
   justify-content: center;
 `;
 const StDate = styled.p`
-  font-style: normal;
-  font-weight: 700;
-  font-size: 35px;
-  line-height: 52px;
-  letter-spacing: -0.03em;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin: 25px;
+  text-align: center;
+  font-size: 2.4rem;
+  font-weight: 500;
+  word-spacing: -0.1em;
 `;
 const Wrap = styled.div`
+  height: 8%;
   display: flex;
   justify-content: space-between;
+  align-items: end;
   padding: 0 30px;
-  height: 8%;
-  align-items: center;
+  /* background-color: red; */
 `;
 const WrapP = styled.p`
-  font-size: 16px;
-  display: flex;
-  align-items: center;
   width: 120px;
-  justify-content: center;
-  font-weight: bold;
-  color: #a8b1ce;
-  text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
+  margin-left: 20px;
+  font-size: 1rem;
+  text-align: left;
+  font-weight: 500;
+  color: ${theme.colors.black.black50};
+  /* background-color: blue; */
 `;
 const WrapBtn = styled.button`
-  width: 50px;
-  height: 50px;
-  background-color: #4464ff;
-  color: #ffffff;
+  width: 70px;
+  height: 70px;
+  background-color: ${theme.colors.blue.main};
+  color: ${theme.colors.white};
   border: none;
   border-radius: 50%;
-  font-size: 25px;
-  &:active {
-    background-color: #2c3d8f;
-  }
+  font-size: 3rem;
   cursor: pointer;
+  &:hover {
+    transition: all 0.3s;
+    background-color: ${theme.colors.blue.pressed};
+  }
 `;
 const ListWrap = styled.div`
-  height: 66%;
+  height: 62%;
+  width: 95%;
+  margin: auto;
+  margin-top: 10px;
   overflow-y: scroll;
 `;
 

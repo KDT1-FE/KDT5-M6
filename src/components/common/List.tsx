@@ -3,6 +3,7 @@ import { IContentExtend, delData } from '../../lib/API';
 import { formatDate } from '../../lib/CommonFunc';
 import { useState } from 'react';
 import EditModal from '../Right/EditModal';
+import { theme } from '../../styles/theme';
 
 interface IListProps {
   data: IContentExtend[];
@@ -67,23 +68,25 @@ function List({ data, selectedDate, getContent }: IListProps) {
 }
 
 const Wrap = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  width: 100%;
+  gap: 10px;
   align-items: center;
+  font-family: 'poppins';
+  font-weight: 500;
 `;
 const StyledItem = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f8f9fd;
-  border: 1px solid;
   width: 90%;
-  height: 120px;
-  border: none;
+  height: 110px;
   border-radius: 40px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: ${theme.colors.gray[2]};
+  box-shadow:
+    0 5px 10px ${theme.colors.black.black30},
+    -5px -5px 5px ${theme.colors.white};
 `;
 const ItemLeft = styled.div`
   height: 100%;
@@ -100,32 +103,33 @@ const LeftWrap = styled.div`
 const ItemRight = styled.div`
   height: 100%;
   width: 40%;
+  padding-right: 30px;
   justify-content: center;
-  align-items: center;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  align-items: end;
+  gap: 5px;
 `;
 const Btns = styled.div`
-  color: #a8b1ce;
-  font-weight: bold;
+  color: ${theme.colors.gray[1]};
+  font-weight: 800;
 `;
 const EditBtn = styled.button`
   background-color: transparent;
   border: none;
-  color: #a8b1ce;
+  color: ${theme.colors.gray[1]};
   font-weight: bold;
   cursor: pointer;
 `;
 const DeleteBtn = styled.button`
   background-color: transparent;
   border: none;
-  color: #a8b1ce;
+  color: ${theme.colors.gray[1]};
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 500;
 `;
 const Date = styled.span`
-  color: #a8b1ce;
+  color: ${theme.colors.gray[1]};
   font-size: 15px;
 `;
 const MinusAmount = styled.span`
@@ -133,20 +137,20 @@ const MinusAmount = styled.span`
   font-weight: 700;
   font-size: 30px;
   line-height: 29px;
-  letter-spacing: -0.03em;
-  color: #ff6969;
+  word-spacing: -1em;
+  color: ${theme.colors.red};
 `;
 const PlusAmount = styled.span`
   font-style: normal;
   font-weight: 700;
   font-size: 30px;
   line-height: 29px;
-  letter-spacing: -0.03em;
+  word-spacing: -1em;
   color: #4464ff;
 `;
 const Category = styled.span`
-  color: #6a6e83;
-  font-weight: bold;
+  color: ${theme.colors.gray[1]};
+  font-weight: 500;
 `;
 
 export default List;

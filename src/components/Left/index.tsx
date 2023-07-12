@@ -69,7 +69,7 @@ const WhiteLogo = styled.img`
 const ToggleButton = styled.button<ToggleButtonProps>`
   position: relative;
   bottom: 8%;
-  color: ${theme.colors.black};
+  color: ${theme.colors.black.black50};
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -92,7 +92,7 @@ const ToggleButton = styled.button<ToggleButtonProps>`
     left: 5px;
     width: 50px;
     height: 50px;
-    background-color: ${theme.colors.black};
+    background-color: ${theme.colors.black.black100};
     border-radius: 50%;
     transition: transform 0.3s ease;
     transform: translateY(${({ toggled }) => (toggled ? '72px' : '0')});

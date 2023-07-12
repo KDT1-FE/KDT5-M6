@@ -8,9 +8,13 @@ declare module 'styled-components' {
         pressed: string;
         bg: string;
       };
+      black: {
+        black30: string;
+        black50: string;
+        black100: string;
+      };
       red: string;
       white: string;
-      black: string;
       gray: { [key: string] };
     };
   }

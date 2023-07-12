@@ -97,77 +97,96 @@ function Search({ selectedDate }: IReadProps) {
 }
 
 const Container = styled.div`
-  background-color: #ffffff;
+  background-color: ${theme.colors.white};
   height: 100%;
   width: 100%;
-  //background-color: ${theme.colors.blue}
+  /* background-color: ${theme.colors.blue} */
 `;
 const TopContain = styled.div`
   width: 100%;
-  height: 23%;
+  height: 25%;
+  gap: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 20px;
 `;
 const Inputs = styled.div`
   width: 85%;
   height: 60px;
-  background-color: #f8f9fd;
+  margin-top: 20px;
+  padding: 15px;
   border-radius: 40px;
-  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: ${theme.colors.gray[2]};
+  &:hover {
+    transition: all 0.3s;
+    background-color: ${theme.colors.blue.pressed};
+  }
 `;
 const Input = styled.input`
-  background-color: #f8f9fd;
+  width: 80%;
+  background-color: transparent;
   border: none;
   outline: none;
-  font-size: 16px;
-  width: 85%;
+  font-size: 1rem;
   &::placeholder {
-    color: #a8b1ce;
+    color: ${theme.colors.gray[1]};
   }
 `;
 
 const SearchImg = styled.img`
   width: 30px;
   height: 30px;
-  cursor: poi;
+  cursor: pointer;
 `;
 const Btns = styled.div`
+  width: 100%;
+  padding: 0 10%;
   display: flex;
   gap: 10px;
 `;
 const ActiveBtn = styled.button`
-  width: 120px;
+  width: 100%;
+  min-width: 70px;
   height: 55px;
   border-radius: 40px;
-  background-color: #2c3d8f;
+  background-color: ${theme.colors.blue.pressed};
   border: none;
-  color: #ffffff;
-  font-size: 18px;
-  font-weight: bold;
+  color: ${theme.colors.white};
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
 `;
 const UnactiveBtn = styled.button`
-  width: 120px;
+  width: 100%;
+  min-width: 70px;
   height: 55px;
   border-radius: 40px;
-  background-color: #cddeff;
+  background-color: ${theme.colors.blue.bg};
   border: none;
-  color: #2c3d8f;
-  font-size: 18px;
-  font-weight: bold;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  color: ${theme.colors.blue.pressed};
+  font-size: 1rem;
+  font-weight: 800;
+  box-shadow: 2px 2px 5px ${theme.colors.gray[2]};
   cursor: pointer;
+  &:hover {
+    transition: all 0.3s;
+    color: ${theme.colors.white};
+    font-weight: 600;
+    background-color: ${theme.colors.blue.pressed};
+  }
 `;
 
 const ListContain = styled.div`
-  height: 77%;
+  height: 60%;
+  width: 95%;
+  margin: auto;
+  margin-top: 10px;
   overflow-y: scroll;
 `;
+
 
 export default Search;

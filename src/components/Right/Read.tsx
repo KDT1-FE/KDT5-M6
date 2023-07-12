@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 import List from '../common/List';
 import React, { useEffect, useState } from 'react';
 import PostModal from './PostModal';
-import { IContent, getCalendar } from '../../lib/API';
+import { IContentExtend, getCalendar } from '../../lib/API';
 
 interface IReadProps {
   selectedDate: string;
@@ -10,7 +10,7 @@ interface IReadProps {
 
 function Read({ selectedDate }: IReadProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [content, setContent] = useState<IContent[]>([]);
+  const [content, setContent] = useState<IContentExtend[]>([]);
   const [date, setDate] = useState<Date>(new Date());
 
   const handleModal = (event: React.MouseEvent) => {
@@ -25,21 +25,26 @@ function Read({ selectedDate }: IReadProps) {
       setDate(a);
     }
   }, [selectedDate]);
-  useEffect(() => {
-    (async () => {
-      const res = await getCalendar(
-        date.getFullYear(),
-        date.getMonth() + 1,
-        'user123'
-      );
 
-      if (res[date.getDate()]) {
-        setContent(res[date.getDate()]);
-      } else {
-        setContent([]);
-      }
-    })();
+  const getContent = async () => {
+    const res = await getCalendar(
+      date.getFullYear(),
+      date.getMonth() + 1,
+      'user123'
+    );
+    console.log('res:', res);
+
+    if (res[date.getDate()]) {
+      setContent(res[date.getDate()]);
+    } else {
+      setContent([]);
+    }
+  };
+
+  useEffect(() => {
+    getContent();
   }, [date]);
+
   const days = ['일', '월', '화', '수', '목', '금', '토'];
 
   return (
@@ -58,7 +63,11 @@ function Read({ selectedDate }: IReadProps) {
         </WrapBtn>
       </Wrap>
       <ListWrap>
-        <List data={content} />
+        <List
+          data={content}
+          selectedDate={selectedDate}
+          getContent={getContent}
+        />
       </ListWrap>
       {isModalOpen && (
         <PostModal

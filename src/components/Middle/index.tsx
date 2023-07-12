@@ -20,37 +20,41 @@ function Middle({ selectedDate, setSelectedDate, toggle }: IMiddleProps) {
         <Stats date={date} setDate={setDate} />
       </TopArea>
       <BottomArea>
-        {toggle ? (
-          <MiddleLayout date={date} setDate={setDate}>
+        <MiddleLayout date={date} setDate={setDate}>
+          {toggle ? (
+            <Chart date={date} setDate={setDate} />
+          ) : (
             <Calendar
               date={date}
               selectedDate={selectedDate}
               setSelectedDate={setSelectedDate}
             />
-          </MiddleLayout>
-        ) : (
-          <Chart />
-        )}
+          )}
+        </MiddleLayout>
       </BottomArea>
     </MidContainer>
   );
 }
 
 const MidContainer = styled.section`
-  height: 100vh;
+  height: 100%;
   width: 100%;
+  margin: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: red;
+  align-items: center;
+  /* background-color: blue; */
 `;
 const TopArea = styled.div`
-  background-color: pink;
   height: 20vh;
+  width: 100%;
+  /* background-color: pink; */
 `;
 const BottomArea = styled.div`
-  background-color: hotpink;
-  height: 80vh;
+  height: 100%;
+  width: 100%;
+  /* background-color: hotpink; */
 `;
 
 export default Middle;

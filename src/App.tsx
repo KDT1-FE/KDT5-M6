@@ -39,15 +39,16 @@ const Conatainer = styled.div`
 
 const LeftArea = styled.div`
   width: 12%;
+  min-width: 170px;
+  background-color: ${theme.colors.black};
 `;
 const MiddleArea = styled.div`
-  width: 55%;
   height: 100%;
-  margin: auto;
+  width: 55%;
+  min-width: 500px;
 `;
 const RightArea = styled.div`
   width: 33%;
-  /* border: 1px solid red; */
   display: flex;
   justify-content: center;
   align-items: center;

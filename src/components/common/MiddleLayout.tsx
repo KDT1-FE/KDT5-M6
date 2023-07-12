@@ -62,21 +62,24 @@ function MiddleLayout({ ...props }: IChildren) {
 }
 
 const LayoutWrapper = styled.div`
-  width: 725px;
-  height: 650px;
-  margin: auto;
-  padding-top: 60px;
+  width: 95%;
+  height: 95%;
+  min-height: 550px;
+  margin: 10px;
+  padding: 10px;
   background-color: ${theme.colors.white};
   border-radius: 40px;
   box-shadow: 5px 5px 20px ${theme.colors.gray[1]};
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
 `;
 const Title = styled.span`
   width: 50%;
   display: flex;
   align-items: center;
+  margin-top: 25px;
   justify-content: space-between;
 `;
 const Lefticon = styled.img`
@@ -91,6 +94,8 @@ const LeftArrow = styled.button`
   }
 `;
 const Monthly = styled.span`
+  margin: 25px;
+  text-align: center;
   font-size: 2.5rem;
   font-family: 'poppins';
   font-weight: 500;
@@ -108,6 +113,7 @@ const RightArrow = styled.button`
 `;
 const ContentWrapper = styled.div`
   width: 100%;
+  height: 100%;
 `;
 
 export default MiddleLayout;

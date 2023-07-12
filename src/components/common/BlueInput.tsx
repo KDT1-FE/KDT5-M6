@@ -4,9 +4,9 @@ function BlueInput({ ...props }) {
 }
 
 const StyledInput = styled.input<{
-  small?: boolean;
-  middle?: boolean;
-  large?: boolean;
+  $small?: boolean;
+  $middle?: boolean;
+  $large?: boolean;
 }>`
   border: none;
   height: 40px;
@@ -25,19 +25,23 @@ const StyledInput = styled.input<{
   }
 
   ${(props) =>
-    props.small &&
+    props.$small &&
     css`
       width: 300px;
     `}
 
   ${(props) =>
-    props.middle &&
+    props.$middle &&
     css`
       width: 330px;
+
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }
     `}
 
   ${(props) =>
-    props.large &&
+    props.$large &&
     css`
       width: 408px;
     `}

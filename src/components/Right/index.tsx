@@ -25,14 +25,18 @@ function Right({ selectedDate }: IRightProps) {
           </BtnActive>
         </Btns>
       )}
-      {active ? <Read selectedDate={selectedDate} /> : <Search />}
+      {active ? (
+        <Read selectedDate={selectedDate} />
+      ) : (
+        <Search selectedDate={selectedDate} />
+      )}
     </RightContainer>
   );
 }
 
 const RightContainer = styled.div`
-  width: 500px;
-  height: 900px;
+  width: 85%;
+  height: 95%;
   background-color: #4464ff;
   border-radius: 40px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);

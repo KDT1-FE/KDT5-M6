@@ -1,16 +1,16 @@
-import { Switch } from 'antd';
-import { useState } from 'react';
 import { styled } from 'styled-components';
-import { IContent, postData } from '../../lib/API';
 import BlueInput from '../common/BlueInput';
+import { Switch } from 'antd';
 import { theme } from '../../styles/theme';
+import { useState } from 'react';
+import { IContent, editData } from '../../lib/API';
 
-interface IPostModalProps {
+interface IEditModalProps {
   selectedDate: string;
-  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setEditModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function PostModal({ selectedDate, setIsModalOpen }: IPostModalProps) {
+function EditModal({ selectedDate, setEditModalOpen }: IEditModalProps) {
   const [isChecked, setIsChecked] = useState(false);
   const [form, setForm] = useState<IContent>({
     amount: 0,
@@ -19,17 +19,6 @@ function PostModal({ selectedDate, setIsModalOpen }: IPostModalProps) {
     date: selectedDate
   });
 
-  // 제출 함수
-  // check 해체(지출) 상태면 amount를 음수로 변환해 제출
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    {
-      isChecked ? postData({ ...form, amount: -form.amount }) : postData(form);
-    }
-    setIsModalOpen(false);
-  };
-
-  // input에 입력된 내용을 form
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setForm((prev) => ({
@@ -41,13 +30,10 @@ function PostModal({ selectedDate, setIsModalOpen }: IPostModalProps) {
   return (
     <ModalContainer
       onClick={() => {
-        setIsModalOpen(false);
+        setEditModalOpen(false);
       }}
     >
       <ModalWrapper
-        onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
-          handleSubmit(event);
-        }}
         onClick={(event: React.MouseEvent) => {
           event.stopPropagation();
         }}
@@ -57,20 +43,12 @@ function PostModal({ selectedDate, setIsModalOpen }: IPostModalProps) {
           <Date>{selectedDate.split('T')[0]}</Date>
         </TitleWrapper>
         <SwitchWrapper>
-          <BlueInput
+          <AmountInput
             type="number"
             name="amount"
-            value={form.amount === 0 || isNaN(form.amount) ? '' : form.amount}
-            onInput={(event: React.FormEvent<HTMLInputElement>) =>
-              (event.currentTarget.value = event.currentTarget.value.replace(
-                /[^0-9]/g,
-                ''
-              ))
-            }
-            onChange={handleChange}
             placeholder="금액을 기입해 주세요"
             required
-            $middle="true"
+            middle="true"
           />
           <Switch
             style={{
@@ -87,22 +65,17 @@ function PostModal({ selectedDate, setIsModalOpen }: IPostModalProps) {
           />
         </SwitchWrapper>
         <Title>내용</Title>
-        <BlueInput
-          type="text"
-          name="category"
-          value={form.category}
-          onChange={handleChange}
+        <ContentInput
           placeholder="수입/지출 내역을 작성해주세요."
           required
-          $large="true"
+          large="true"
+          onChange={handleChange}
         />
-
-        <AddButton type="submit">추가하기</AddButton>
+        <AddButton>수정하기</AddButton>
       </ModalWrapper>
     </ModalContainer>
   );
 }
-
 const ModalContainer = styled.div`
   position: fixed;
   top: 0;
@@ -110,25 +83,22 @@ const ModalContainer = styled.div`
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const ModalWrapper = styled.form`
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  gap: 20px;
   width: 450px;
-  margin: auto;
   height: 300px;
   padding: 20px;
-  display: flex;
-  position: absolute;
   border-radius: 20px;
-  flex-direction: column;
-  justify-content: center;
   background-color: #fff;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
 `;
 
 const TitleWrapper = styled.div`
@@ -144,7 +114,6 @@ const Title = styled.span`
 const Date = styled.span`
   font-weight: 700;
 `;
-
 const SwitchWrapper = styled.div`
   gap: 20px;
   width: 100%;
@@ -152,6 +121,13 @@ const SwitchWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
+
+const AmountInput = styled(BlueInput)`
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+`;
+const ContentInput = styled(BlueInput)``;
 
 const AddButton = styled.button`
   width: auto;
@@ -167,5 +143,4 @@ const AddButton = styled.button`
     background-color: #a8b1ce;
   }
 `;
-
-export default PostModal;
+export default EditModal;

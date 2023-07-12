@@ -5,7 +5,7 @@ import { getMonthLabels } from '@/utils/getMonthLabels';
 import { MONTH_RANGE_OPTIONS } from '@/data/constants';
 import { theme } from 'antd';
 import Chart from '@/pages/Statistics/Chart';
-import MySkeleton from '@/pages/Statistics/MySkeleton';
+import MySkeleton from '@/components/MySkeleton';
 
 export default function Statistics() {
   // theme 색 가져오기

@@ -10,11 +10,10 @@ import Calendar from 'react-calendar';
 import { PlusOutlined } from '@ant-design/icons';
 import Search from '@/pages/Home/Search';
 import getExpenses from '@/pages/Home/getExpenses';
-import MySkeleton from '@/pages/Statistics/MySkeleton';
+import MySkeleton from '@/components/MySkeleton';
 import { Value } from 'react-calendar/dist/cjs/shared/types';
 
 export default function Home() {
-  const [dailyExpenseModalOpen, setDailyExpenseModalOpen] = useState(false);
   const [edit] = useState(true);
   const [list, setList] = useState(false);
   const [selected] = useState('');
@@ -24,6 +23,7 @@ export default function Home() {
   const month = useMemo(() => moment(value).format('M'), [value]);
   const year = useMemo(() => moment(value).format('YYYY'), [value]);
 
+  const [dailyExpenseModalOpen, setDailyExpenseModalOpen] = useState(false);
   const [addExpenseModalOpen, setaddExpenseModalOpen] = useState(false);
 
   const [monthlyExpenses, setMonthlyExpenses] = useState<MontlyExpensesType>();
@@ -69,7 +69,9 @@ export default function Home() {
     <>
       <Search />
       {loading ? (
-        <MySkeleton />
+        <div>
+          <MySkeleton />
+        </div>
       ) : (
         <Calendar
           onChange={(value: Value) => {

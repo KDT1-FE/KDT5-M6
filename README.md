@@ -49,6 +49,8 @@ URL 예제 : http://52.78.195.183:3003/api/expenses
 API
 1. 소비 기록 작성 API
 
+description 추가 (선택)
+
 Request:
 ```javascript
 POST /expenses
@@ -58,6 +60,7 @@ Content-Type: application/json
   "amount": 100,
   "userId": "user123",
   "category": "food",
+  "description": "설명",
   "date": "2023-07-04T10:30:00.000Z"
 }
 ```
@@ -168,7 +171,8 @@ Status: 200 OK
 7. 소비 기록 달력 호출 API
 Request:
 ```javascript
-GET /expenses/calendar?year=2023&month=7&userId={userId}
+(category는 선택)
+GET /expenses/calendar?year=2023&month=7&userId={userId}&category={category}
 ```
 Response:
 ```javascript

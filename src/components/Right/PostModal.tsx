@@ -6,11 +6,16 @@ import BlueInput from '../common/BlueInput';
 import { theme } from '../../styles/theme';
 
 interface IPostModalProps {
+  getContent: () => Promise<void>;
   selectedDate: string;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function PostModal({ selectedDate, setIsModalOpen }: IPostModalProps) {
+function PostModal({
+  getContent,
+  selectedDate,
+  setIsModalOpen
+}: IPostModalProps) {
   const [isChecked, setIsChecked] = useState(false);
   const [form, setForm] = useState<IContent>({
     amount: 0,
@@ -21,10 +26,14 @@ function PostModal({ selectedDate, setIsModalOpen }: IPostModalProps) {
 
   // 제출 함수
   // check 해체(지출) 상태면 amount를 음수로 변환해 제출
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     {
-      isChecked ? postData({ ...form, amount: -form.amount }) : postData(form);
+      isChecked
+        ? await postData({ ...form, amount: -form.amount })
+        : await postData(form);
+      await getContent();
+      alert('내역이 추가되었습니다!');
     }
     setIsModalOpen(false);
   };
@@ -74,6 +83,7 @@ function PostModal({ selectedDate, setIsModalOpen }: IPostModalProps) {
           />
           <Switch
             style={{
+              fontFamily: 'Noto Sans KR',
               backgroundColor: isChecked
                 ? `${theme.colors.red}`
                 : `${theme.colors.blue.main}`
@@ -86,17 +96,18 @@ function PostModal({ selectedDate, setIsModalOpen }: IPostModalProps) {
             }}
           />
         </SwitchWrapper>
-        <Title>내용</Title>
-        <BlueInput
-          type="text"
-          name="category"
-          value={form.category}
-          onChange={handleChange}
-          placeholder="수입/지출 내역을 작성해주세요."
-          required
-          $large="true"
-        />
-
+        <ContentWrapper>
+          <Title>내용</Title>
+          <BlueInput
+            type="text"
+            name="category"
+            value={form.category}
+            onChange={handleChange}
+            placeholder="수입/지출 내역을 작성해주세요."
+            required
+            $large="true"
+          />
+        </ContentWrapper>
         <AddButton type="submit">추가하기</AddButton>
       </ModalWrapper>
     </ModalContainer>
@@ -104,11 +115,11 @@ function PostModal({ selectedDate, setIsModalOpen }: IPostModalProps) {
 }
 
 const ModalContainer = styled.div`
-  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  position: fixed;
   background-color: ${theme.colors.black.black50};
 `;
 
@@ -128,6 +139,7 @@ const ModalWrapper = styled.form`
   flex-direction: column;
   justify-content: center;
   background-color: ${theme.colors.white};
+  font-family: 'poppins', 'Noto Sans KR';
   box-shadow: 4px 4px 20px ${theme.colors.black.black30};
 `;
 
@@ -144,7 +156,7 @@ const Title = styled.span`
 
 const Date = styled.span`
   font-weight: 500;
-  font-size: .8rem;
+  font-size: 0.8rem;
   font-family: 'poppins';
   color: ${theme.colors.black.black50};
 `;
@@ -157,16 +169,26 @@ const SwitchWrapper = styled.div`
   justify-content: space-between;
 `;
 
+const ContentWrapper = styled.div`
+  gap: 15px;
+  display: flex;
+  flex-direction: column;
+`;
+
 const AddButton = styled.button`
-  width: auto;
+  width: 100%;
   height: 50px;
-  margin-top: 20px;
   border: none;
-  border-radius: 30px;
-  color: ${theme.colors.white};
-  font-weight: 600;
-  font-size: 1rem;
+  display: flex;
   cursor: pointer;
+  font-size: 1rem;
+  margin-top: 20px;
+  font-weight: 600;
+  align-self: center;
+  align-items: center;
+  border-radius: 30px;
+  justify-content: center;
+  color: ${theme.colors.white};
   background-color: ${theme.colors.blue.main};
   &:focus {
     color: ${theme.colors.gray[2]};

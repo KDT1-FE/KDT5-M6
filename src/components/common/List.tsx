@@ -37,9 +37,9 @@ function List({ data, selectedDate, getContent }: IListProps) {
           <ItemLeft>
             <LeftWrap>
               {el.amount < 0 ? (
-                <MinusAmount>{el.amount}</MinusAmount>
+                <MinusAmount>{el.amount.toLocaleString()}</MinusAmount>
               ) : (
-                <PlusAmount>+{el.amount}</PlusAmount>
+                <PlusAmount>+{el.amount.toLocaleString()}</PlusAmount>
               )}
               <Category>{el.category}</Category>
             </LeftWrap>
@@ -71,7 +71,7 @@ const Wrap = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
   align-items: center;
   font-family: 'poppins';
   font-weight: 500;
@@ -81,7 +81,7 @@ const StyledItem = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 90%;
-  height: 110px;
+  height: 115px;
   border-radius: 40px;
   background-color: ${theme.colors.gray[2]};
   box-shadow:
@@ -113,16 +113,18 @@ const ItemRight = styled.div`
 const Btns = styled.div`
   color: ${theme.colors.gray[1]};
   font-weight: 800;
-`;
+  position: relative;
+  `;
 const EditBtn = styled.button`
   background-color: transparent;
   border: none;
   color: ${theme.colors.gray[1]};
   font-weight: bold;
   cursor: pointer;
-`;
+  `;
 const DeleteBtn = styled.button`
   background-color: transparent;
+  margin-right: -6px;
   border: none;
   color: ${theme.colors.gray[1]};
   cursor: pointer;
@@ -151,6 +153,7 @@ const PlusAmount = styled.span`
 const Category = styled.span`
   color: ${theme.colors.gray[1]};
   font-weight: 500;
+  margin-top: -5px;
 `;
 
 export default List;

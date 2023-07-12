@@ -1,24 +1,28 @@
-import React, { useState } from 'react';
-import { DatePicker, Space, Button, Modal, Input, Select } from 'antd';
+import { useState } from 'react';
+import {
+  DatePicker,
+  Space,
+  Button,
+  Modal,
+  Input,
+  // Select,
+} from 'antd';
 import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker';
-export default function ExpenditureForm() {
-  const [open, setOpen] = useState(false);
-  const [confirmLoading, setConfirmLoading] = useState(false);
-  // const [modalText, setModalText] = useState('Content of the modal');
-  const [InputText, setInputText] = useState('');
-  const [InputNumber, setInputNumber] = useState(0);
+
+interface espenseFormProps {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function ExpenditureForm({ open, setOpen }: espenseFormProps) {
+  const [isSending, setIsSending] = useState(false);
+  const [inputText, setInputText] = useState('');
+  const [inputNumber, setInputNumber] = useState(0);
   const [selectedDate, setSelectedDate] = useState('');
-
-  const showModal = () => {
-    setOpen(true);
-  };
-
-  const handleCancel = () => {
-    setOpen(false);
-  };
+  // const [plusMinus, setPlusMinus] = useState('-');
 
   const selectDateHandler = (
-    value: DatePickerProps['value'] | RangePickerProps['value'],
+    _value: DatePickerProps['value'] | RangePickerProps['value'],
     dateString: [string, string] | string,
   ) => {
     const date = dateString;
@@ -26,116 +30,121 @@ export default function ExpenditureForm() {
     const Date = date.slice(11, 19);
     const selectedDate = `${Time}T${Date}`;
     setSelectedDate(selectedDate);
-    console.log('ok:', selectedDate);
   };
 
-  const onOk = (
-    value: DatePickerProps['value'] | RangePickerProps['value'],
-  ) => {
-    console.log('onOk: ', selectedDate);
-  };
+  // const { Option } = Select;
 
-  const { Option } = Select;
-
-  const selectBefore = (
-    <Select defaultValue="add" style={{ width: 60 }}>
-      <Option value="add">+</Option>
-      <Option value="minus">-</Option>
-    </Select>
-  );
-
-  // interface ReqBody {
-  //   amount: number;
-  //   Id: string;
-  //   category: string;
-  //   date: string;
-  // }
-
-  // interface ResBody {
-  //   message: string;
-  // }
-
-  const onclickHandler = async () => {
-    console.log('등록합니다:', InputText, InputNumber, selectedDate);
-    await fetch('http://52.78.195.183:3003/api/expenses', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({
-        amount: `${InputNumber}`,
-        userId: 'testtest28',
-        category: `${InputText}`,
-        date: `${selectedDate}`,
-      }),
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        console.log(response.message);
+  const handleSubmit = async () => {
+    setIsSending(true);
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    try {
+      const response = await fetch('http://52.78.195.183:3003/api/expenses', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          amount: inputNumber,
+          userId: 'team3',
+          category: inputText,
+          date: selectedDate,
+        }),
       });
-    // .then(() => {
-    //   setConfirmLoading(true);
-    //   setTimeout(() => {
-    //     setOpen(false);
-    //     setConfirmLoading(false);
-    //   }, 1000);
-    // });
-  };
-  const afterSubmit = () => {
-    setInputText('');
-    setInputNumber(0);
-    setSelectedDate('');
+      if (!response.ok) {
+        console.log('서버로 부터 응답이 왔는데 에러임.');
+        return;
+      }
+      console.log('성공!!');
+      // 성공적으로 추가함
+    } catch (error) {
+      console.log('서버로 부터 응답 안옴', error);
+    } finally {
+      setIsSending(false);
+      setOpen(false);
+      setInputNumber(0);
+      setInputText('');
+    }
   };
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
-        +
-      </Button>
       <Modal
-        title={<div>소비 지출 내역 등록</div>}
+        title={
+          <div style={{ textAlign: 'left', margin: '20px 25px 5px' }}>
+            소비 지출 내역 등록
+          </div>
+        }
+        centered
         open={open}
-        onOk={onclickHandler}
-        confirmLoading={confirmLoading}
-        onCancel={handleCancel}
-        afterClose={afterSubmit}
+        onOk={handleSubmit}
+        onCancel={() => setOpen(false)}
+        bodyStyle={{
+          margin: '20px auto 15px',
+          width: '90%',
+          padding: ' 0',
+          justifyContent: 'center',
+          alignContent: 'center',
+        }}
         footer={
           <Button
-            className="btn__right"
+            type="primary"
             style={{
-              margin: '20px auto 30px',
-              width: '95%',
+              margin: '5px auto 20px',
+              width: '90%',
+              display: 'block',
+              border: 'none',
+              boxShadow: '2px 2px 8px rgb(240 240 240 / 88%)',
             }}
-            key="submit"
-            onClick={onclickHandler}
-            disabled={InputNumber ? false : true}
+            onClick={handleSubmit}
+            loading={isSending}
+            disabled={isSending}
           >
-            등록완료하기
+            등록하기
           </Button>
         }
       >
-        <Space direction="vertical" size={12}>
-          <DatePicker showTime onChange={selectDateHandler} onOk={onOk} />
-        </Space>
-        <Input
-          placeholder="지출 품목"
-          defaultValue={''}
-          value={InputText}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setInputText(e.target.value)
-          }
-          disabled={selectedDate ? false : true}
-        />
+        <Space
+          direction="vertical"
+          align="center"
+          style={{ width: '100%', display: 'block' }}
+        >
+          <DatePicker
+            showTime
+            onChange={selectDateHandler}
+            style={{
+              marginBottom: '5px',
+            }}
+          />
 
-        <Input
-          type="number"
-          addonBefore={selectBefore}
-          addonAfter="₩"
-          placeholder="지출 및 입금내역"
-          value={InputNumber}
-          onChange={(e: React.ChangeEvent<number>) =>
-            setInputNumber(e.target.value as number)
-          }
-          disabled={InputText ? false : true}
-        />
+          <Input
+            placeholder="지출 품목"
+            defaultValue={''}
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
+            disabled={selectedDate ? false : true}
+            style={{
+              marginBottom: '5px',
+            }}
+          />
+
+          <Input
+            type="number"
+            // addonBefore={
+            //   <Select
+            //     defaultValue="-"
+            //     onChange={(value: string) => {
+            //       setPlusMinus(value);
+            //     }}
+            //     style={{ width: 60 }}
+            //   >
+            //     <Option value="+">+</Option>
+            //     <Option value="-">-</Option>
+            //   </Select>
+            // }
+            addonAfter="₩"
+            value={inputNumber}
+            onChange={(e) => setInputNumber(Number(e.target.value))}
+            disabled={!inputText}
+          />
+        </Space>
       </Modal>
     </>
   );

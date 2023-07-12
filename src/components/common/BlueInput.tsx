@@ -44,7 +44,7 @@ const StyledInput = styled.input<{
   ${(props) =>
     props.$large &&
     css`
-      width: 408px;
+      width: auto;
     `}
 `;
 

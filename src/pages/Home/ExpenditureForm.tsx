@@ -12,14 +12,30 @@ import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker';
 interface espenseFormProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  edit: boolean;
+  list: boolean;
+  setList: React.Dispatch<React.SetStateAction<boolean>>;
+  selected: string | null;
 }
+// interface espenseEditDeletProps {
+//   selected: string | null;
+// }
 
-export default function ExpenditureForm({ open, setOpen }: espenseFormProps) {
+export default function ExpenditureForm({
+  open,
+  setOpen,
+  edit,
+  list,
+  setList,
+  selected,
+}: espenseFormProps) {
+  // { selected }: espenseEditDeletProps,
   const [isSending, setIsSending] = useState(false);
   const [inputText, setInputText] = useState('');
   const [inputNumber, setInputNumber] = useState(0);
   const [selectedDate, setSelectedDate] = useState('');
   // const [plusMinus, setPlusMinus] = useState('-');
+  // const [selected, setSelected] = useState('');
 
   const selectDateHandler = (
     _value: DatePickerProps['value'] | RangePickerProps['value'],
@@ -31,7 +47,6 @@ export default function ExpenditureForm({ open, setOpen }: espenseFormProps) {
     const selectedDate = `${Time}T${Date}`;
     setSelectedDate(selectedDate);
   };
-
   // const { Option } = Select;
 
   const handleSubmit = async () => {
@@ -59,6 +74,41 @@ export default function ExpenditureForm({ open, setOpen }: espenseFormProps) {
     } finally {
       setIsSending(false);
       setOpen(false);
+      setList(true);
+      setInputNumber(0);
+      setInputText('');
+    }
+  };
+
+  const handleEdit = async () => {
+    setIsSending(true);
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    try {
+      const response = await fetch(
+        `http://52.78.195.183:3003/api/expenses/${selected}`,
+        {
+          method: 'PUT',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({
+            amount: inputNumber,
+            userId: 'team3',
+            category: inputText,
+            date: selectedDate,
+          }),
+        },
+      );
+      if (!response.ok) {
+        console.log('서버로 부터 응답이 왔는데 에러임.');
+        return;
+      }
+      console.log('수정!!');
+      // 성공적으로 수정함
+    } catch (error) {
+      console.log('서버로 부터 응답 안옴', error);
+    } finally {
+      setIsSending(false);
+      setOpen(false);
+      setList(true);
       setInputNumber(0);
       setInputText('');
     }
@@ -67,9 +117,10 @@ export default function ExpenditureForm({ open, setOpen }: espenseFormProps) {
   return (
     <>
       <Modal
+        centered
         title={
           <div style={{ textAlign: 'left', margin: '20px 25px 5px' }}>
-            소비 지출 내역 등록
+            {edit ? '소비 지출 내역 등록' : '소비 지출 내역 수정'}
           </div>
         }
         centered
@@ -93,11 +144,11 @@ export default function ExpenditureForm({ open, setOpen }: espenseFormProps) {
               border: 'none',
               boxShadow: '2px 2px 8px rgb(240 240 240 / 88%)',
             }}
-            onClick={handleSubmit}
+            onClick={edit ? handleSubmit : handleEdit}
             loading={isSending}
             disabled={isSending}
           >
-            등록하기
+            {edit ? '등록하기' : '수정하기'}
           </Button>
         }
       >

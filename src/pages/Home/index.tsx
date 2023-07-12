@@ -10,15 +10,20 @@ import Calendar from 'react-calendar';
 import { PlusOutlined } from '@ant-design/icons';
 import Search from '@/pages/Home/Search';
 import getExpenses from '@/pages/Home/getExpenses';
-import MySkeleton from '@/pages/Statistics/MySkeleton';
+import MySkeleton from '@/components/MySkeleton';
 import { Value } from 'react-calendar/dist/cjs/shared/types';
 
 export default function Home() {
+  const [edit] = useState(true);
+  const [list, setList] = useState(false);
+  const [selected] = useState('');
+
   const [value, setValue] = useState(new Date());
   const day = useMemo(() => moment(value).format('D'), [value]);
   const month = useMemo(() => moment(value).format('M'), [value]);
   const year = useMemo(() => moment(value).format('YYYY'), [value]);
 
+  const [dailyExpenseModalOpen, setDailyExpenseModalOpen] = useState(false);
   const [addExpenseModalOpen, setaddExpenseModalOpen] = useState(false);
 
   const [monthlyExpenses, setMonthlyExpenses] = useState<MontlyExpensesType>();
@@ -37,9 +42,7 @@ export default function Home() {
       }
     };
     getData();
-  }, [month, year]);
-
-  const [dailyExpenseModalOpen, setDailyExpenseModalOpen] = useState(false);
+  }, [month, year, list]);
 
   const dailyExpenses = useMemo(() => {
     if (monthlyExpenses && monthlyExpenses[day]) {
@@ -66,7 +69,9 @@ export default function Home() {
     <>
       <Search />
       {loading ? (
-        <MySkeleton />
+        <div>
+          <MySkeleton />
+        </div>
       ) : (
         <Calendar
           onChange={(value: Value) => {
@@ -83,10 +88,16 @@ export default function Home() {
         dailyExpenses={dailyExpenses}
         dailyExpenseModalOpen={dailyExpenseModalOpen}
         setDailyExpenseModalOpen={setDailyExpenseModalOpen}
+        list={list}
+        setList={setList}
       />
       <ExpenditureForm
         open={addExpenseModalOpen}
         setOpen={setaddExpenseModalOpen}
+        edit={edit}
+        list={list}
+        setList={setList}
+        selected={selected}
       />
       <FloatButton
         type="primary"

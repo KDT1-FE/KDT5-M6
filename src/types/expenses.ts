@@ -1,5 +1,5 @@
 export interface MontlyExpensesType {
-  [key: number]: DailyExpensesType[];
+  [key: string]: DailyExpensesType[];
 }
 export interface DailyExpensesType {
   _id: string;

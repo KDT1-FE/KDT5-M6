@@ -72,6 +72,7 @@ export default function ExpenditureForm({ open, setOpen }: espenseFormProps) {
             소비 지출 내역 등록
           </div>
         }
+        centered
         open={open}
         onOk={handleSubmit}
         onCancel={() => setOpen(false)}

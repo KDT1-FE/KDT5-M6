@@ -71,7 +71,6 @@ export default function Home() {
         value={value}
         onClickDay={() => setDailyExpenseModalOpen(true)}
       />
-
       <DailyExpenseModal
         month={month}
         day={day}

@@ -1,16 +1,16 @@
 import ExpenditureForm from '@/pages/Home/ExpenditureForm';
-import DailyExpenseModal from './DailyExpenseModal';
 import { FloatButton } from 'antd';
-import './Calendar.scss';
-import './ExpenseModal.scss';
+import DailyExpenseModal from '@/pages/Home/DailyExpenseModal';
+import '@/pages/Home/Calendar.scss';
 import { useEffect, useMemo, useState } from 'react';
 import formatDate from '@/utils/formatDateAndTime';
 import moment from 'moment';
 import { MontlyExpensesType } from '@/types/expenses';
 import Calendar from 'react-calendar';
-import getExpenses from './getExpenses';
 import { PlusOutlined } from '@ant-design/icons';
 import Search from '@/pages/Home/Search';
+import getExpenses from '@/pages/Home/getExpenses';
+import MySkeleton from '@/pages/Statistics/MySkeleton';
 import { Value } from 'react-calendar/dist/cjs/shared/types';
 
 export default function Home() {
@@ -52,31 +52,48 @@ export default function Home() {
     return [];
   }, [day, monthlyExpenses]);
 
+  const expensesInfo = () => {
+    if (dailyExpenses)
+      return (
+        <>
+          <span>총소비 : {}</span>
+          <span>소비횟수 : </span>
+        </>
+      );
+  };
+
   return (
     <>
       <Search />
-      <FloatButton
-        type="primary"
-        icon={<PlusOutlined />}
-        onClick={() => {
-          setaddExpenseModalOpen(true);
-        }}
-      />
-      <ExpenditureForm
-        open={addExpenseModalOpen}
-        setOpen={setaddExpenseModalOpen}
-      />
-      <Calendar
-        onChange={(val: Value) => setValue(val as Date)}
-        value={value}
-        onClickDay={() => setDailyExpenseModalOpen(true)}
-      />
+      {loading ? (
+        <MySkeleton />
+      ) : (
+        <Calendar
+          onChange={(value: Value) => {
+            setValue(value as Date);
+          }}
+          value={value}
+          onClickDay={() => setDailyExpenseModalOpen(true)}
+          tileContent={expensesInfo}
+        />
+      )}
       <DailyExpenseModal
         month={month}
         day={day}
         dailyExpenses={dailyExpenses}
         dailyExpenseModalOpen={dailyExpenseModalOpen}
         setDailyExpenseModalOpen={setDailyExpenseModalOpen}
+      />
+      <ExpenditureForm
+        open={addExpenseModalOpen}
+        setOpen={setaddExpenseModalOpen}
+      />
+      <FloatButton
+        type="primary"
+        icon={<PlusOutlined />}
+        onClick={() => {
+          setaddExpenseModalOpen(true);
+        }}
       />
     </>
   );

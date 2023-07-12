@@ -96,17 +96,18 @@ function PostModal({
             }}
           />
         </SwitchWrapper>
-        <Title>내용</Title>
-        <BlueInput
-          type="text"
-          name="category"
-          value={form.category}
-          onChange={handleChange}
-          placeholder="수입/지출 내역을 작성해주세요."
-          required
-          $large="true"
-        />
-
+        <ContentWrapper>
+          <Title>내용</Title>
+          <BlueInput
+            type="text"
+            name="category"
+            value={form.category}
+            onChange={handleChange}
+            placeholder="수입/지출 내역을 작성해주세요."
+            required
+            $large="true"
+          />
+        </ContentWrapper>
         <AddButton type="submit">추가하기</AddButton>
       </ModalWrapper>
     </ModalContainer>
@@ -168,19 +169,26 @@ const SwitchWrapper = styled.div`
   justify-content: space-between;
 `;
 
+const ContentWrapper = styled.div`
+  gap: 15px;
+  display: flex;
+  flex-direction: column;
+`;
+
 const AddButton = styled.button`
-  width: auto;
+  width: 100%;
   height: 50px;
-  margin-top: 20px;
   border: none;
-  border-radius: 30px;
-  color: ${theme.colors.white};
-  font-weight: 600;
-  font-size: 1rem;
   display: flex;
   cursor: pointer;
+  font-size: 1rem;
+  margin-top: 20px;
+  font-weight: 600;
+  align-self: center;
   align-items: center;
+  border-radius: 30px;
   justify-content: center;
+  color: ${theme.colors.white};
   background-color: ${theme.colors.blue.main};
   &:focus {
     color: ${theme.colors.gray[2]};

@@ -15,6 +15,7 @@ const StyledInput = styled.input<{
   padding: 6px 12px;
   border-radius: 40px;
   background: #f8f9fd;
+  font-family: 'Noto Sans KR';
 
   &::placeholder {
     color: #a8b1ce;

@@ -1,12 +1,16 @@
 import { styled } from 'styled-components';
 import List from '../common/List';
-import { IContent, getSearch } from '../../lib/API';
+import { IContent, IContentExtend, getSearch } from '../../lib/API';
 import { theme } from '../../styles/theme';
 import { useState } from 'react';
 
-function Search() {
+interface IReadProps {
+  selectedDate: string;
+}
+
+function Search({ selectedDate }: IReadProps) {
   // 테스트용 임시 데이터
-  const [content, setContent] = useState<IContent[]>([]);
+  const [content, setContent] = useState<IContentExtend[]>([]);
   const [keyword, setKeyword] = useState('');
   const [filter, setFilter] = useState(0);
 
@@ -84,6 +88,8 @@ function Search() {
               ? content.filter((i) => i.amount >= 0)
               : content.filter((i) => i.amount < 0)
           }
+          selectedDate={selectedDate}
+          getContent={ButtonClick}
         />
       </ListContain>
     </Container>
@@ -106,7 +112,7 @@ const TopContain = styled.div`
   gap: 20px;
 `;
 const Inputs = styled.div`
-  width: 400px;
+  width: 85%;
   height: 60px;
   background-color: #f8f9fd;
   border-radius: 40px;

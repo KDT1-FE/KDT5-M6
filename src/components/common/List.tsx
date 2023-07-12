@@ -1,12 +1,34 @@
 import { styled } from 'styled-components';
-import { IContent } from '../../lib/API';
+import { IContentExtend, delData } from '../../lib/API';
 import { formatDate } from '../../lib/CommonFunc';
+import { useState } from 'react';
+import EditModal from '../Right/EditModal';
 
 interface IListProps {
-  data: IContent[];
+  data: IContentExtend[];
+  selectedDate: string;
+  getContent: () => void; //일반함수 props
 }
 
-function List({ data }: IListProps) {
+function List({ data, selectedDate, getContent }: IListProps) {
+  const [editModalOpen, setEditModalOpen] = useState(false);
+
+  console.log('data:', data);
+  const deletehandle = (e: React.MouseEvent, _id: string) => {
+    e.preventDefault;
+    const res = delData(_id);
+    res.then(() => {
+      getContent();
+      alert('삭제가 완료되었습니다!');
+    });
+    return res;
+  };
+  const openEditModal = (event: React.MouseEvent) => {
+    event.preventDefault();
+    setEditModalOpen(true);
+    console.log('edit');
+  };
+
   return (
     <Wrap>
       {data.map((el, index) => (
@@ -23,12 +45,23 @@ function List({ data }: IListProps) {
           </ItemLeft>
           <ItemRight>
             <Btns>
-              <EditBtn>수정</EditBtn>|<DeleteBtn>삭제</DeleteBtn>
+              <EditBtn onClick={openEditModal}>수정</EditBtn>|
+              <DeleteBtn
+                onClick={(e: React.MouseEvent) => deletehandle(e, el._id)}
+              >
+                삭제
+              </DeleteBtn>
             </Btns>
             <Date>{formatDate(el.date)}</Date>
           </ItemRight>
         </StyledItem>
       ))}
+      {editModalOpen && (
+        <EditModal
+          setEditModalOpen={setEditModalOpen}
+          selectedDate={selectedDate}
+        />
+      )}
     </Wrap>
   );
 }

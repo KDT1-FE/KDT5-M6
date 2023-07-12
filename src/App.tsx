@@ -49,7 +49,6 @@ const MiddleArea = styled.div`
 `;
 const RightArea = styled.div`
   width: 33%;
-  /* border: 1px solid red; */
   display: flex;
   justify-content: center;
   align-items: center;

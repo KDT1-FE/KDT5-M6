@@ -81,13 +81,15 @@ function Read({ selectedDate }: IReadProps) {
   );
 }
 const Container = styled.div`
-  background-color: ${theme.colors.white};
   height: 100%;
   width: 100%;
+  position: relative;
+  background-color: ${theme.colors.white};
 `;
 const DateContain = styled.div`
   width: 100%;
-  height: 15%;
+  height: 100px;
+  padding-top: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -100,12 +102,11 @@ const StDate = styled.p`
   word-spacing: -0.1em;
 `;
 const Wrap = styled.div`
-  height: 8%;
+  height: 5%;
   display: flex;
   justify-content: space-between;
   align-items: end;
   padding: 0 30px;
-  /* background-color: red; */
 `;
 const WrapP = styled.p`
   width: 120px;
@@ -114,24 +115,28 @@ const WrapP = styled.p`
   text-align: left;
   font-weight: 500;
   color: ${theme.colors.black.black50};
-  /* background-color: blue; */
 `;
 const WrapBtn = styled.button`
-  width: 70px;
-  height: 70px;
-  background-color: ${theme.colors.blue.main};
-  color: ${theme.colors.white};
+  z-index: 3;
+  position: absolute;
+  right: 35px;
+  bottom: 120px;
+  width: 80px;
+  height: 80px;
   border: none;
   border-radius: 50%;
   font-size: 3rem;
+  color: ${theme.colors.white};
+  background-color: ${theme.colors.blue.main};
+  box-shadow: 0px 0px 10px ${theme.colors.blue.main};
   cursor: pointer;
   &:hover {
     transition: all 0.3s;
-    background-color: ${theme.colors.blue.pressed};
+    box-shadow: 5px 5px 20px ${theme.colors.blue.main};
   }
 `;
 const ListWrap = styled.div`
-  height: 62%;
+  height: 65%;
   width: 95%;
   margin: auto;
   margin-top: 10px;

@@ -123,6 +123,7 @@ const Inputs = styled.div`
   background-color: ${theme.colors.gray[2]};
   &:hover {
     transition: all 0.3s;
+    color: ${theme.colors.white};
     background-color: ${theme.colors.blue.pressed};
   }
 `;
@@ -134,6 +135,9 @@ const Input = styled.input`
   font-size: 1rem;
   &::placeholder {
     color: ${theme.colors.gray[1]};
+  }
+  &:hover {
+    color: ${theme.colors.white};
   }
 `;
 

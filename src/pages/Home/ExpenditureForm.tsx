@@ -1,10 +1,21 @@
 import { useState } from 'react';
-import { DatePicker, Space, Button, Modal, Input, Select } from 'antd';
+import {
+  DatePicker,
+  Space,
+  Button,
+  Modal,
+  Input,
+  // Select,
+} from 'antd';
 import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker';
 
-export default function ExpenditureForm() {
+interface espenseFormProps {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function ExpenditureForm({ open, setOpen }: espenseFormProps) {
   const [isSending, setIsSending] = useState(false);
-  const [open, setOpen] = useState(false);
   const [inputText, setInputText] = useState('');
   const [inputNumber, setInputNumber] = useState(0);
   const [selectedDate, setSelectedDate] = useState('');
@@ -55,20 +66,31 @@ export default function ExpenditureForm() {
 
   return (
     <>
-      <Button type="primary" onClick={() => setOpen(true)}>
-        +
-      </Button>
       <Modal
-        title={<div>소비 지출 내역 등록</div>}
+        title={
+          <div style={{ textAlign: 'left', margin: '20px 25px 5px' }}>
+            소비 지출 내역 등록
+          </div>
+        }
         open={open}
         onOk={handleSubmit}
         onCancel={() => setOpen(false)}
+        bodyStyle={{
+          margin: '20px auto 15px',
+          width: '90%',
+          padding: ' 0',
+          justifyContent: 'center',
+          alignContent: 'center',
+        }}
         footer={
           <Button
             type="primary"
             style={{
-              margin: '20px auto 30px',
-              width: '95%',
+              margin: '5px auto 20px',
+              width: '90%',
+              display: 'block',
+              border: 'none',
+              boxShadow: '2px 2px 8px rgb(240 240 240 / 88%)',
             }}
             onClick={handleSubmit}
             loading={isSending}
@@ -78,14 +100,28 @@ export default function ExpenditureForm() {
           </Button>
         }
       >
-        <Space direction="vertical" size={12}>
-          <DatePicker showTime onChange={selectDateHandler} />
+        <Space
+          direction="vertical"
+          align="center"
+          style={{ width: '100%', display: 'block' }}
+        >
+          <DatePicker
+            showTime
+            onChange={selectDateHandler}
+            style={{
+              marginBottom: '5px',
+            }}
+          />
+
           <Input
             placeholder="지출 품목"
             defaultValue={''}
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             disabled={selectedDate ? false : true}
+            style={{
+              marginBottom: '5px',
+            }}
           />
 
           <Input

@@ -1,15 +1,16 @@
 import ExpenditureForm from '@/pages/Home/ExpenditureForm';
 import DailyExpenseModal from './DailyExpenseModal';
-import { Button } from 'antd';
+import { FloatButton, Button } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { MonthlyExpenseType } from '@/types/expense';
 import formatDate from '@/utils/formatDateAndTime';
+import { PlusOutlined } from '@ant-design/icons';
 
 export default function Home() {
   const userId = useMemo(() => import.meta.env.VITE_USER_ID, []);
   const [dailyExpenseModalOpen, setDailyExpenseModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [open, setOpen] = useState(false);
   // 날짜
   const [year, setYear] = useState('2023');
   const [month, setMonth] = useState('');
@@ -59,7 +60,14 @@ export default function Home() {
 
   return (
     <>
-      <ExpenditureForm />
+      <FloatButton
+        type="primary"
+        icon={<PlusOutlined />}
+        onClick={() => {
+          setOpen(true);
+        }}
+      />
+      <ExpenditureForm open={open} setOpen={setOpen} />
       <Button onClick={handleClickDay}>
         {/* 달력 각 칸마다 onClick event */}
         7월11일

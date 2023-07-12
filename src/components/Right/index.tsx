@@ -2,6 +2,7 @@ import { styled } from 'styled-components';
 import { useState } from 'react';
 import Read from './Read';
 import Search from './Search';
+import { theme } from '../../styles/theme';
 
 interface IRightProps {
   selectedDate: string;
@@ -37,41 +38,41 @@ function Right({ selectedDate }: IRightProps) {
 const RightContainer = styled.div`
   width: 85%;
   height: 95%;
-  background-color: #4464ff;
+  background-color: ${theme.colors.blue.main};
   border-radius: 40px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 5px 5px 20px ${theme.colors.gray[1]};
   overflow: hidden;
 `;
 const Btns = styled.div`
   width: 100%;
-  height: 11%;
+  height: 9%;
+  background-color: ${theme.colors.blue.main};
 `;
 const BtnActive = styled.button`
-  width: 50%;
+  width: 60%;
   height: 100%;
-  border: none;
-  font-style: normal;
-  font-weight: 900;
-  font-size: 20px;
-  line-height: 32px;
+  padding: 10px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 800;
+  word-spacing: -0.1em;
   border-radius: 40px 40px 0px 0px;
-  background: #ffffff;
-  color: #4464ff;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background: ${theme.colors.white};
+  color: ${theme.colors.blue.main};
   border: none;
 `;
 const BtnBlur = styled.button`
-  cursor: pointer;
   height: 100%;
-  width: 50%;
-  font-style: normal;
-  font-weight: 900;
-  font-size: 20px;
-  line-height: 32px;
-  background-color: #4464ff;
+  width: 40%;
+  padding: 10px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 500;
+  word-spacing: -0.1em;
+  background-color: ${theme.colors.blue.main};
   border: none;
-  color: #cddeff;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  color: ${theme.colors.gray[2]};
+  cursor: pointer;
 `;
 
 export default Right;

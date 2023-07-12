@@ -75,7 +75,7 @@ function PostModal({ selectedDate, setIsModalOpen }: IPostModalProps) {
           <Switch
             style={{
               backgroundColor: isChecked
-                ? '#C62F2F'
+                ? `${theme.colors.red}`
                 : `${theme.colors.blue.main}`
             }}
             checkedChildren="지출"
@@ -109,7 +109,7 @@ const ModalContainer = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: ${theme.colors.black.black50};
 `;
 
 const ModalWrapper = styled.form`
@@ -118,17 +118,17 @@ const ModalWrapper = styled.form`
   right: 0;
   bottom: 0;
   gap: 20px;
-  width: 450px;
+  width: 500px;
+  height: 350px;
   margin: auto;
-  height: 300px;
-  padding: 20px;
+  padding: 30px 50px;
   display: flex;
   position: absolute;
   border-radius: 20px;
   flex-direction: column;
   justify-content: center;
-  background-color: #fff;
-  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.25);
+  background-color: ${theme.colors.white};
+  box-shadow: 4px 4px 20px ${theme.colors.black.black30};
 `;
 
 const TitleWrapper = styled.div`
@@ -139,14 +139,18 @@ const TitleWrapper = styled.div`
 
 const Title = styled.span`
   font-weight: 700;
+  margin-left: 10px;
 `;
 
 const Date = styled.span`
-  font-weight: 700;
+  font-weight: 500;
+  font-size: .8rem;
+  font-family: 'poppins';
+  color: ${theme.colors.black.black50};
 `;
 
 const SwitchWrapper = styled.div`
-  gap: 20px;
+  gap: 15px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -155,16 +159,18 @@ const SwitchWrapper = styled.div`
 
 const AddButton = styled.button`
   width: auto;
-  height: 40px;
+  height: 50px;
+  margin-top: 20px;
   border: none;
-  color: #fff;
+  border-radius: 30px;
+  color: ${theme.colors.white};
+  font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
-  border-radius: 20px;
-  background-color: #4464ff;
-
-  :focus {
-    color: #6a6e83;
-    background-color: #a8b1ce;
+  background-color: ${theme.colors.blue.main};
+  &:focus {
+    color: ${theme.colors.gray[2]};
+    background-color: ${theme.colors.gray[1]};
   }
 `;
 

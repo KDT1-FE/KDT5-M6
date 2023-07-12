@@ -40,7 +40,7 @@ const Conatainer = styled.div`
 const LeftArea = styled.div`
   width: 12%;
   min-width: 170px;
-  background-color: ${theme.colors.black};
+  background-color: ${theme.colors.black.black100};
 `;
 const MiddleArea = styled.div`
   height: 100%;

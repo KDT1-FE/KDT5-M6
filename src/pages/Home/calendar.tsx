@@ -40,7 +40,7 @@ export default function MyCalendar() {
     }
   }, [modalRef, dateChanged])
 
-  const changeData = (value: any) => {
+  const changeData = (value: Value) => {
     onChange(value)
     setDateChanged(true)
   }

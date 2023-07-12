@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import { theme } from '../../styles/theme';
+import BlueLogo from '../../assets/Logo_color.png';
 
 interface ToggleButtonProps {
   toggled: boolean;
@@ -22,10 +23,15 @@ function Left({ setToggle }: LeftProps) {
 
   return (
     <LeftContainer>
-      <Logo>WalletKeeper</Logo>
+      <Logo>
+        <WhiteLogo src={BlueLogo} alt="" />
+        Wallet
+        <br />
+        Keeper
+      </Logo>
       <ToggleButton toggled={toggled} onClick={handleToggle}>
         <ToggleButtonText toggled={toggled}>
-          {toggled ? 'calendar' : 'chart'}
+          {toggled ? 'chart' : 'calendar'}
         </ToggleButtonText>
       </ToggleButton>
     </LeftContainer>
@@ -33,12 +39,10 @@ function Left({ setToggle }: LeftProps) {
 }
 
 const LeftContainer = styled.div`
-  position: fixed;
   left: 0;
   top: 0;
   height: 100%;
-  width: 138px;
-  background-color: ${theme.colors.black};
+  width: 170px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -48,16 +52,24 @@ const LeftContainer = styled.div`
 const Logo = styled.h4`
   position: relative;
   top: 8%;
+  height: 50px;
   font-family: 'poppins';
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   font-weight: 800;
-  color: ${theme.colors.white};
+  color: ${theme.colors.blue.main};
+`;
+
+const WhiteLogo = styled.img`
+  width: 5rem;
+  margin-bottom: 10px;
 `;
 
 const ToggleButton = styled.button<ToggleButtonProps>`
   position: relative;
   bottom: 8%;
-  color: ${({ toggled }) =>
-    toggled ? theme.colors.white : theme.colors.black};
+  color: ${theme.colors.black};
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -83,16 +95,20 @@ const ToggleButton = styled.button<ToggleButtonProps>`
     background-color: ${theme.colors.black};
     border-radius: 50%;
     transition: transform 0.3s ease;
-    transform: translateY(${({ toggled }) => (toggled ? '70px' : '0')});
+    transform: translateY(${({ toggled }) => (toggled ? '72px' : '0')});
     box-shadow: 3px 3px 5px ${theme.colors.blue.pressed};
   }
 `;
 const ToggleButtonText = styled.span<ToggleButtonProps>`
   font-family: 'poppins';
+  font-size: 0.8rem;
+  font-weight: 700;
   color: ${({ toggled }) =>
-    toggled ? theme.colors.white : theme.colors.white};
+    toggled ? theme.colors.black : theme.colors.black};
   writing-mode: vertical-lr;
   transform: rotate(-180deg);
+  transition: transform 0.3s ease;
+  transform: translateY(${({ toggled }) => (toggled ? '-23px' : '25px')});
 `;
 
 export default Left;

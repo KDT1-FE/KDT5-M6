@@ -17,7 +17,7 @@ export default function Home() {
   const month = useMemo(() => moment(value).format('M'), [value]);
   const year = useMemo(() => moment(value).format('YYYY'), [value]);
 
-  const [monthlyExpenses, setMonthlyExpenses] = useState<MontlyExpensesType>();
+  const [monthlyExpenses, setMonthlyExpenses] = useState<MontlyExpensesType>({});
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -48,14 +48,23 @@ export default function Home() {
     return [];
   }, [day, monthlyExpenses]);
 
-  console.log(dailyExpenses)
-  const expensesInfo = () =>{
-    if(dailyExpenses)
-    return <>
-      <span>총소비 : {}</span>
-      <span>소비횟수 : </span>
-    </>
-  }
+    const expenseDay = Object.keys(monthlyExpenses)
+    const totalAmount = dailyExpenses.map(item=>item.amount)
+    const a = expenseDay.map(item=>monthlyExpenses[item])
+    console.log(expenseDay)
+
+  // const expensesInfo = () =>{
+  //   const expenseDay = Object.keys(monthlyExpenses)
+  //   const totalAmount = dailyExpenses.map(item=>item.amount)
+  //   const a = expenseDay.map(item=>monthlyExpenses[item])
+  //   if(expenseDay.find(item=>monthlyExpenses[item])){
+  //     const sum = totalAmount.reduce((a,b)=>(a + b))
+  //     return <>
+  //     <span>총소비 : {sum}원</span>
+  //     <span>소비횟수 : {dailyExpenses.length}회</span>
+  //     </>
+  //   }
+  // }
 
   return (
     <>
@@ -65,7 +74,8 @@ export default function Home() {
       onChange={(value:Value)=>{onChange(value as Date)}}
       value={value}
       onClickDay={() => setDailyExpenseModalOpen(true)}
-      tileContent={expensesInfo}/>
+      // tileContent={expensesInfo}
+      showNeighboringMonth={false}/>
     }
 
       <ExpenditureForm />

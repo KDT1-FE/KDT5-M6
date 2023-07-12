@@ -17,7 +17,7 @@ function Middle({ selectedDate, setSelectedDate, toggle }: IMiddleProps) {
   return (
     <MidContainer>
       <TopArea>
-        <Stats />
+        <Stats date={date} setDate={setDate} />
       </TopArea>
       <BottomArea>
         {toggle ? (

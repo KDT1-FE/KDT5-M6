@@ -68,8 +68,10 @@ function Calendar({ selectedDate, setSelectedDate, date }: ICalendarProps) {
   return (
     <CalendarContainer>
       <CalendarHeader>
-        {daysOfWeek.map((day) => (
-          <CalendarDayHeader key={day}>{day}</CalendarDayHeader>
+        {daysOfWeek.map((day, index) => (
+          <CalendarDayHeader key={day} $index={index}>
+            {day}
+          </CalendarDayHeader>
         ))}
       </CalendarHeader>
       <CalendarBody>{generateCalendar()}</CalendarBody>
@@ -115,11 +117,18 @@ const CalendarHeader = styled.div`
   grid-template-columns: repeat(7, 1fr);
 `;
 
-const CalendarDayHeader = styled.div`
+const CalendarDayHeader = styled.div<{ $index: number }>`
   padding: 5px;
   display: flex;
+  font-weight: 700;
   align-items: center;
   justify-content: center;
+  color: ${({ $index, theme }) =>
+    $index === 6
+      ? theme.colors.blue.main
+      : $index === 0
+      ? theme.colors.red
+      : theme.colors.black};
 `;
 
 const CalendarDay = styled.div<{

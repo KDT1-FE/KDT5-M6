@@ -83,6 +83,7 @@ function PostModal({
           />
           <Switch
             style={{
+              fontFamily: 'Noto Sans KR',
               backgroundColor: isChecked
                 ? '#C62F2F'
                 : `${theme.colors.blue.main}`
@@ -113,11 +114,11 @@ function PostModal({
 }
 
 const ModalContainer = styled.div`
-  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  position: fixed;
   background-color: rgba(0, 0, 0, 0.3);
 `;
 
@@ -137,6 +138,7 @@ const ModalWrapper = styled.form`
   flex-direction: column;
   justify-content: center;
   background-color: #fff;
+  font-family: 'poppins', 'Noto Sans KR';
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.25);
 `;
 
@@ -167,8 +169,11 @@ const AddButton = styled.button`
   height: 40px;
   border: none;
   color: #fff;
+  display: flex;
   cursor: pointer;
+  align-items: center;
   border-radius: 20px;
+  justify-content: center;
   background-color: #4464ff;
 
   :focus {

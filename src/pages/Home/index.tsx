@@ -1,49 +1,48 @@
 import ExpenditureForm from '@/pages/Home/ExpenditureForm';
-import DailyExpenseModal from './DailyExpenseModal';
-import { FloatButton, Button } from 'antd';
+import { FloatButton } from 'antd';
+import DailyExpenseModal from '@/pages/Home/DailyExpenseModal';
+import '@/pages/Home/Calendar.scss';
 import { useEffect, useMemo, useState } from 'react';
-import { MonthlyExpenseType } from '@/types/expense';
 import formatDate from '@/utils/formatDateAndTime';
+import moment from 'moment';
+import { MontlyExpensesType } from '@/types/expenses';
+import Calendar from 'react-calendar';
 import { PlusOutlined } from '@ant-design/icons';
+import Search from '@/pages/Home/Search';
+import getExpenses from '@/pages/Home/getExpenses';
+import MySkeleton from '@/pages/Statistics/MySkeleton';
+import { Value } from 'react-calendar/dist/cjs/shared/types';
 
 export default function Home() {
-  const userId = useMemo(() => import.meta.env.VITE_USER_ID, []);
   const [dailyExpenseModalOpen, setDailyExpenseModalOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [open, setOpen] = useState(false);
   const [edit] = useState(true);
   const [list, setList] = useState(false);
   const [selected] = useState('');
 
-  // 날짜
-  const [year, setYear] = useState('2023');
-  const [month, setMonth] = useState('');
-  const [day, setDay] = useState('');
+  const [value, setValue] = useState(new Date());
+  const day = useMemo(() => moment(value).format('D'), [value]);
+  const month = useMemo(() => moment(value).format('M'), [value]);
+  const year = useMemo(() => moment(value).format('YYYY'), [value]);
 
-  const [monthlyExpenses, setMonthlyExpenses] = useState<MonthlyExpenseType>();
+  const [addExpenseModalOpen, setaddExpenseModalOpen] = useState(false);
+
+  const [monthlyExpenses, setMonthlyExpenses] = useState<MontlyExpensesType>();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
-    const fetchData = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 700));
+    setLoading(true);
+    const getData = async () => {
       try {
-        const response = await fetch(
-          `http://52.78.195.183:3003/api/expenses/calendar?year=${year}&month=${month}&userId=team3`,
-        );
-        if (!response.ok) {
-          console.log('서버에서 응답이 왔는데 원하는 값이 오지 않음');
-          return;
-        }
-        const data = await response.json();
-        setMonthlyExpenses(data);
+        const response = await getExpenses(year, month); // 분기가 나눠짐
+        setMonthlyExpenses(response);
       } catch (error) {
-        console.error('Error: 서버에서 응답이 안옴 ', error);
+        console.log(error);
       } finally {
-        setIsLoading(false);
+        setLoading(false);
       }
     };
-    fetchData();
-  }, [day, month, userId, year, list]);
+    getData();
+  }, [month, year, list]);
 
   const dailyExpenses = useMemo(() => {
     if (monthlyExpenses && monthlyExpenses[day]) {
@@ -56,33 +55,31 @@ export default function Home() {
     return [];
   }, [day, monthlyExpenses]);
 
-  const handleClickDay = () => {
-    setDailyExpenseModalOpen(true);
-    setMonth('7');
-    setDay('11');
+  const expensesInfo = () => {
+    if (dailyExpenses)
+      return (
+        <>
+          <span>총소비 : {}</span>
+          <span>소비횟수 : </span>
+        </>
+      );
   };
 
   return (
     <>
-      <FloatButton
-        type="primary"
-        icon={<PlusOutlined />}
-        onClick={() => {
-          setOpen(true);
-        }}
-      />
-      <ExpenditureForm
-        open={open}
-        setOpen={setOpen}
-        edit={edit}
-        list={list}
-        setList={setList}
-        selected={selected}
-      />
-      <Button onClick={handleClickDay}>
-        {/* 달력 각 칸마다 onClick event */}
-        7월11일
-      </Button>
+      <Search />
+      {loading ? (
+        <MySkeleton />
+      ) : (
+        <Calendar
+          onChange={(value: Value) => {
+            setValue(value as Date);
+          }}
+          value={value}
+          onClickDay={() => setDailyExpenseModalOpen(true)}
+          tileContent={expensesInfo}
+        />
+      )}
       <DailyExpenseModal
         month={month}
         day={day}
@@ -91,6 +88,21 @@ export default function Home() {
         setDailyExpenseModalOpen={setDailyExpenseModalOpen}
         list={list}
         setList={setList}
+      />
+      <ExpenditureForm
+        open={addExpenseModalOpen}
+        setOpen={setaddExpenseModalOpen}
+        edit={edit}
+        list={list}
+        setList={setList}
+        selected={selected}
+      />
+      <FloatButton
+        type="primary"
+        icon={<PlusOutlined />}
+        onClick={() => {
+          setaddExpenseModalOpen(true);
+        }}
       />
     </>
   );

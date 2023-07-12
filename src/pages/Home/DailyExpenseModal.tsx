@@ -1,11 +1,11 @@
 import { Modal } from 'antd';
-import { DailyExpenseType } from '@/types/expense';
 import DailyExpenseTable from './DailyExpenseTable';
+import { DailyExpensesType } from '@/types/expenses';
 
 interface DailyExpenseModalProps {
   month: string;
   day: string;
-  dailyExpenses: DailyExpenseType[];
+  dailyExpenses: DailyExpensesType[];
   dailyExpenseModalOpen: boolean;
   setDailyExpenseModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   list: boolean;

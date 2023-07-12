@@ -123,6 +123,7 @@ export default function ExpenditureForm({
             {edit ? '소비 지출 내역 등록' : '소비 지출 내역 수정'}
           </div>
         }
+        centered
         open={open}
         onOk={handleSubmit}
         onCancel={() => setOpen(false)}

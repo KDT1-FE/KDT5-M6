@@ -59,9 +59,6 @@ function Read({ selectedDate }: IReadProps) {
       </DateContain>
       <Wrap>
         <WrapP>총 {content.length}건</WrapP>
-        <WrapBtn type="button" onClick={handleModal}>
-          +
-        </WrapBtn>
       </Wrap>
       <ListWrap>
         <List
@@ -70,6 +67,11 @@ function Read({ selectedDate }: IReadProps) {
           getContent={getContent}
         />
       </ListWrap>
+      <WrapBtn>
+        <PlusBtn type="button" onClick={handleModal}>
+          추가하기
+        </PlusBtn>
+      </WrapBtn>
       {isModalOpen && (
         <PostModal
           getContent={getContent}
@@ -83,13 +85,12 @@ function Read({ selectedDate }: IReadProps) {
 const Container = styled.div`
   height: 100%;
   width: 100%;
-  position: relative;
   background-color: ${theme.colors.white};
 `;
 const DateContain = styled.div`
   width: 100%;
-  height: 100px;
-  padding-top: 20px;
+  height: 15%;
+  /* padding-top: 20px; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -116,16 +117,13 @@ const WrapP = styled.p`
   font-weight: 500;
   color: ${theme.colors.black.black50};
 `;
-const WrapBtn = styled.button`
-  z-index: 3;
-  position: absolute;
-  right: 35px;
-  bottom: 120px;
-  width: 80px;
-  height: 80px;
+const PlusBtn = styled.button`
+  z-index: 1;
+  width: 90%;
+  height: 60px;
+  border-radius: 30px;
   border: none;
-  border-radius: 50%;
-  font-size: 3rem;
+  font-size: 1rem;
   color: ${theme.colors.white};
   background-color: ${theme.colors.blue.main};
   box-shadow: 0px 0px 10px ${theme.colors.blue.main};
@@ -135,10 +133,16 @@ const WrapBtn = styled.button`
     box-shadow: 5px 5px 20px ${theme.colors.blue.main};
   }
 `;
+const WrapBtn = styled.div`
+  height: 10%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const ListWrap = styled.div`
-  height: 65%;
-  width: 95%;
-  margin: auto;
+  height: 60%;
+  width: 100%;
   margin-top: 10px;
   overflow-y: scroll;
 `;

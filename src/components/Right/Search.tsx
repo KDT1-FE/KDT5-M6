@@ -148,7 +148,7 @@ const SearchImg = styled.img`
 `;
 const Btns = styled.div`
   width: 100%;
-  padding: 0 10%;
+  padding: 0 8%;
   display: flex;
   gap: 10px;
 `;
@@ -185,12 +185,11 @@ const UnactiveBtn = styled.button`
 `;
 
 const ListContain = styled.div`
-  height: 60%;
+  height: 75%;
   width: 95%;
   margin: auto;
   margin-top: 10px;
   overflow-y: scroll;
 `;
-
 
 export default Search;

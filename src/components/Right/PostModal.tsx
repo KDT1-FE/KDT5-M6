@@ -121,6 +121,7 @@ const ModalContainer = styled.div`
   bottom: 0;
   position: fixed;
   background-color: ${theme.colors.black.black50};
+  z-index: 9;
 `;
 
 const ModalWrapper = styled.form`

@@ -44,11 +44,11 @@ const LeftArea = styled.div`
 `;
 const MiddleArea = styled.div`
   height: 100%;
-  width: 55%;
+  width: 60%;
   min-width: 500px;
 `;
 const RightArea = styled.div`
-  width: 33%;
+  width: 28%;
   display: flex;
   justify-content: center;
   align-items: center;

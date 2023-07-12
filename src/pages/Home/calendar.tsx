@@ -1,66 +1,56 @@
-import Calendar from "react-calendar"
-import { useState, useEffect, useRef } from 'react'
+import Calendar from 'react-calendar';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import '@/pages/Home/Calendar.scss';
 import '@/pages/Home/ExpenseModal.scss';
-import getExpenses from "@/pages/Home/getExpenses";
-import moment from "moment";
+import getExpenses from '@/pages/Home/getExpenses';
+import moment from 'moment';
+import { MontlyExpensesType } from '@/types/expenses';
+import { Value } from 'react-calendar/dist/cjs/shared/types';
 
 export default function MyCalendar() {
+  // state
   const [value, onChange] = useState(new Date());
-  const [expenseList, setExpenseList] = useState({})
-  const [dayInfo, setDayInfo] = useState([])
-  const [dateChanged, setDateChanged] = useState<boolean>(false)
-  const modalRef = useRef<HTMLInputElement | null>(null)
+  const day = useMemo(() => moment(value).format('D'), [value]);
+  const month = useMemo(() => moment(value).format('M'), [value]);
+  const year = useMemo(() => moment(value).format('YYYY'), [value]);
 
-  const day  = moment(value).format('D')
-
-  useEffect(()=>{
-    getExpenses(value).then(res=>{
-      setExpenseList(res)
-      if(res[day] === undefined){
-        setDayInfo([])
-      }else{
-        setDayInfo(res[day])
-      }
-      console.log(dayInfo)
-    })
-  },[value])
+  const [monthlyExpenses, setMonthlyExpenses] = useState<MontlyExpensesType>();
+  const [dayInfo, setDayInfo] = useState([]);
+  const [dateChanged, setDateChanged] = useState<boolean>(false);
+  const modalRef = useRef<HTMLInputElement | null>(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    function handleOutside(e: Event) {
-      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-        if (dateChanged) {
-          setDateChanged(false)
-        }
+    setLoading(true);
+    const getData = async () => {
+      try {
+        const response = await getExpenses(year, month); // 분기가 나눠짐
+        setMonthlyExpenses(response);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
       }
-    }
-    document.addEventListener('mousedown', handleOutside)
-    return () => {
-      document.removeEventListener('mousedown', handleOutside)
-    }
-  }, [modalRef, dateChanged])
+    };
+    getData();
+  }, [month, year]);
 
-  const changeData = (value: any) => {
-    onChange(value)
-    setDateChanged(true)
-  }
+  // 모달
 
-  return <>
-      {dateChanged && (dayInfo !== undefined)
-      ? <div className='modal-background'>
-          <div
-            className='modal'
-            ref={modalRef}>
-              {/* {dayInfo.map((item,index)=>(
+  return (
+    <>
+      {dateChanged && dayInfo !== undefined ? (
+        <div className="modal-background">
+          <div className="modal" ref={modalRef}>
+            {/* {dayInfo.map((item,index)=>(
                 <div>
                   {item[index].amount}원
                 </div>
               ))} */}
           </div>
         </div>
-      : null}
-    <Calendar
-      onChange={changeData}
-      value={value}/>
-  </>
+      ) : null}
+      <Calendar onChange={onChange} value={value} />
+    </>
+  );
 }

@@ -1,5 +1,5 @@
 .react-calendar {
-  width: 1300px;
+  width: 90vw;
   max-width: 100%;
   background: white;
   border: 1px solid #a0a096;
@@ -78,8 +78,8 @@
   font-size: 0.75em;
   font-weight: bold;
 }
-.react-calendar__month-view__days__day{
-  height:100px;
+.react-calendar__month-view__days__day {
+  height: 100px;
 }
 .react-calendar__month-view__days__day--weekend {
   color: #d10000;

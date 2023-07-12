@@ -36,8 +36,8 @@ function Right({ selectedDate }: IRightProps) {
 }
 
 const RightContainer = styled.div`
-  width: 85%;
-  height: 95%;
+  width: 90%;
+  height: 96%;
   background-color: ${theme.colors.blue.main};
   border-radius: 40px;
   box-shadow: 5px 5px 20px ${theme.colors.gray[1]};
@@ -49,7 +49,7 @@ const Btns = styled.div`
   background-color: ${theme.colors.blue.main};
 `;
 const BtnActive = styled.button`
-  width: 60%;
+  width: 50%;
   height: 100%;
   padding: 10px;
   text-align: center;
@@ -63,7 +63,7 @@ const BtnActive = styled.button`
 `;
 const BtnBlur = styled.button`
   height: 100%;
-  width: 40%;
+  width: 50%;
   padding: 10px;
   text-align: center;
   font-size: 1rem;

@@ -3,14 +3,15 @@ import BlueInput from '../common/BlueInput';
 import { Switch } from 'antd';
 import { theme } from '../../styles/theme';
 import { useState } from 'react';
-import { IContent, editData } from '../../lib/API';
+import { IContent, editData, IContentExtend } from '../../lib/API';
 
 interface IEditModalProps {
   selectedDate: string;
   setEditModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  data: IContentExtend[];
 }
 
-function EditModal({ selectedDate, setEditModalOpen }: IEditModalProps) {
+function EditModal({ selectedDate, setEditModalOpen, data }: IEditModalProps) {
   const [isChecked, setIsChecked] = useState(false);
   const [form, setForm] = useState<IContent>({
     amount: 0,
@@ -18,6 +19,7 @@ function EditModal({ selectedDate, setEditModalOpen }: IEditModalProps) {
     category: '',
     date: selectedDate
   });
+  console.log('editdata:', data);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -86,6 +88,7 @@ const ModalContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 9;
 `;
 
 const ModalWrapper = styled.form`

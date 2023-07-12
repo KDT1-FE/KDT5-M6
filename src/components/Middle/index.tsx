@@ -42,19 +42,19 @@ const MidContainer = styled.section`
   margin: auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  /* background-color: blue; */
 `;
 const TopArea = styled.div`
-  height: 20vh;
+  height: 20%;
   width: 100%;
   /* background-color: pink; */
 `;
 const BottomArea = styled.div`
-  height: 100%;
+  height: 80%;
   width: 100%;
   /* background-color: hotpink; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default Middle;

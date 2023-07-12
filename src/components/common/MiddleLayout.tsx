@@ -62,7 +62,7 @@ function MiddleLayout({ ...props }: IChildren) {
 }
 
 const LayoutWrapper = styled.div`
-  width: 95%;
+  width: 96%;
   height: 95%;
   min-height: 550px;
   margin: 10px;

@@ -1,4 +1,12 @@
-/* 글자 dragging방지 */
+/* 글자 dragging(복사)방지 */
 html {
   user-select: none;
+}
+
+/* 일별 지출 모달에서 아이콘 hover효과, 가상선택자이기 때문에 inline style css가 되지 않음 */
+.hover_icon {
+  transition: all 0.2s;
+}
+.hover_icon:hover {
+  transform: scale(1.2);
 }

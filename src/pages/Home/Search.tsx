@@ -1,18 +1,11 @@
 import { useState, useEffect, useMemo } from 'react';
-import { SearchOutlined } from '@ant-design/icons';
-import { Typography, Divider, Input, Modal, AutoComplete } from 'antd';
+import { Typography, Divider, Modal, AutoComplete } from 'antd';
 import { formatPaymentDate } from '@/utils/formatPaymentDate';
+import { SearchResultType } from '@/types/search';
 
 const { Text } = Typography;
 
-interface ResultType {
-  _id: number;
-  date: string;
-  category: string;
-  amount: number;
-}
-
-export default function Home() {
+export default function Search() {
   // 환경변수
   const userId = useMemo(() => import.meta.env.VITE_USER_ID, []);
 
@@ -20,7 +13,7 @@ export default function Home() {
   const [searchKeyword, setSearchKeyword] = useState(''); // 현재 검색어 상태를 저장
   const [searchError, setSearchError] = useState(''); // 검색 오류 메시지 상태
   const [open, setOpen] = useState(false); // 모달의 표시 여부를 제어하는 상태
-  const [searchResults, setSearchResults] = useState<ResultType[]>([]); // 검색 결과를 저장하는 상태
+  const [searchResults, setSearchResults] = useState<SearchResultType[]>([]); // 검색 결과를 저장하는 상태
   const [autoCompleteOptions, setAutoCompleteOptions] = useState<
     { value: string }[]
   >([]); // 자동완성 옵션을 저장하는 상태
@@ -60,7 +53,7 @@ export default function Home() {
       console.log('AutoComplete Data:', data);
       // 선택된 키워드와 일치하는 결과만 필터링
       const filteredResults = data.filter(
-        (result: ResultType) =>
+        (result: SearchResultType) =>
           result.category?.toLowerCase() === value.toLowerCase(),
       );
       setSearchResults(filteredResults);
@@ -80,8 +73,8 @@ export default function Home() {
         console.log('Data:', data);
         // 자동완성 옵션 설정
         const formattedOptions = data
-          .filter((item: ResultType) => item.category !== undefined)
-          .map((item: ResultType) => ({
+          .filter((item: SearchResultType) => item.category !== undefined)
+          .map((item: SearchResultType) => ({
             value: item.category,
           }));
         console.log('Formatted Options:', formattedOptions);
@@ -108,16 +101,18 @@ export default function Home() {
         );
         const data = await response.json();
         // 자동완성 데이터를 받아온 후, 추가적인 필터링 작업 수행
-        const filteredOptions = data.filter((item: ResultType) => {
+        const filteredOptions = data.filter((item: SearchResultType) => {
           const category = item.category.toLowerCase();
           const keyword = searchKeyword.toLowerCase();
           return category.includes(keyword) && category !== keyword;
         });
         // 자동완성 옵션 설정
-        const formattedOptions = filteredOptions.map((item: ResultType) => ({
-          value: item.category,
-          key: item._id, // 고유한 키로 item._id를 사용
-        }));
+        const formattedOptions = filteredOptions.map(
+          (item: SearchResultType) => ({
+            value: item.category,
+            key: item._id, // 고유한 키로 item._id를 사용
+          }),
+        );
         setAutoCompleteOptions(formattedOptions);
       } catch (error) {
         console.error(error);
@@ -157,7 +152,7 @@ export default function Home() {
         {searchResults.length === 0 ? (
           <Text>No results found.</Text>
         ) : (
-          searchResults.map((result: ResultType, index: number) => (
+          searchResults.map((result: SearchResultType, index: number) => (
             <div key={result._id}>
               <Text>{'물품: ' + result.category}</Text>
               <br />

@@ -11,6 +11,10 @@ export default function Home() {
   const [dailyExpenseModalOpen, setDailyExpenseModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [edit] = useState(true);
+  const [list, setList] = useState(false);
+  const [selected] = useState('');
+
   // 날짜
   const [year, setYear] = useState('2023');
   const [month, setMonth] = useState('');
@@ -39,7 +43,7 @@ export default function Home() {
       }
     };
     fetchData();
-  }, [day, month, userId, year]);
+  }, [day, month, userId, year, list]);
 
   const dailyExpenses = useMemo(() => {
     if (monthlyExpenses && monthlyExpenses[day]) {
@@ -67,7 +71,14 @@ export default function Home() {
           setOpen(true);
         }}
       />
-      <ExpenditureForm open={open} setOpen={setOpen} />
+      <ExpenditureForm
+        open={open}
+        setOpen={setOpen}
+        edit={edit}
+        list={list}
+        setList={setList}
+        selected={selected}
+      />
       <Button onClick={handleClickDay}>
         {/* 달력 각 칸마다 onClick event */}
         7월11일
@@ -78,6 +89,8 @@ export default function Home() {
         dailyExpenses={dailyExpenses}
         dailyExpenseModalOpen={dailyExpenseModalOpen}
         setDailyExpenseModalOpen={setDailyExpenseModalOpen}
+        list={list}
+        setList={setList}
       />
     </>
   );

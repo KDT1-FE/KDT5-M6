@@ -8,6 +8,8 @@ interface DailyExpenseModalProps {
   dailyExpenses: DailyExpenseType[];
   dailyExpenseModalOpen: boolean;
   setDailyExpenseModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  list: boolean;
+  setList: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function DailyExpenseModal({
@@ -16,6 +18,8 @@ export default function DailyExpenseModal({
   day,
   dailyExpenseModalOpen,
   setDailyExpenseModalOpen,
+  list,
+  setList,
 }: DailyExpenseModalProps) {
   return (
     <Modal
@@ -25,7 +29,7 @@ export default function DailyExpenseModal({
       onCancel={() => setDailyExpenseModalOpen(false)}
       footer={null}
     >
-      <DailyExpenseTable data={dailyExpenses} />
+      <DailyExpenseTable data={dailyExpenses} list={list} setList={setList} />
     </Modal>
   );
 }

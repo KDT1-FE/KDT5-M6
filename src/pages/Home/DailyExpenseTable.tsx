@@ -1,15 +1,29 @@
-import { Divider, Space, Table, theme, message, Popconfirm } from 'antd';
+import { Divider, Space, Table, message, Popconfirm } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { DailyExpenseType } from '@/types/expense';
 import { DeleteTwoTone, EditOutlined } from '@ant-design/icons';
 import { useState } from 'react';
+import ExpenditureForm from '@/pages/Home/ExpenditureForm';
 
 interface DailyExpenseTableProps {
   data: DailyExpenseType[];
+  list: boolean;
+  setList: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function DailyExpenseTable({ data }: DailyExpenseTableProps) {
+export default function DailyExpenseTable({
+  data,
+  list,
+  setList,
+}: DailyExpenseTableProps) {
+  const [open, setOpen] = useState(false);
+  const [edit, setEdit] = useState(false);
   const [selected, setSelected] = useState('');
+
+  const handleClickEdit = () => {
+    setOpen(true);
+    setEdit(false);
+  };
 
   const confirm = async () => {
     try {
@@ -22,6 +36,7 @@ export default function DailyExpenseTable({ data }: DailyExpenseTableProps) {
         return;
       }
       console.log('완료');
+      setList(!list);
     } catch (error) {
       console.log('서버로 부터 응답 안옴', error);
     } finally {
@@ -58,8 +73,19 @@ export default function DailyExpenseTable({ data }: DailyExpenseTableProps) {
       render: (_, data) => (
         <Space size="small">
           <EditOutlined
-            onClick={() => console.log(data._id)}
+            onClick={() => {
+              setSelected(data._id);
+              handleClickEdit();
+            }}
             className="hover_icon"
+          />
+          <ExpenditureForm
+            open={open}
+            setOpen={setOpen}
+            edit={edit}
+            list={list}
+            setList={setList}
+            selected={selected}
           />
           <Divider type="vertical" style={{ margin: '0' }} />
           <Popconfirm
@@ -78,9 +104,11 @@ export default function DailyExpenseTable({ data }: DailyExpenseTableProps) {
           >
             <DeleteTwoTone
               twoToneColor="red"
-              onClick={() => setSelected(data._id)}
+              onClick={() => {
+                setSelected(data._id);
+              }}
               className="hover_icon"
-            />{' '}
+            />
           </Popconfirm>
         </Space>
       ),

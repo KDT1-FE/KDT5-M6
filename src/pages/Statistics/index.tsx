@@ -4,8 +4,8 @@ import MySelect from '@/pages/Statistics/MySelect';
 import { getMonthLabels } from '@/utils/getMonthLabels';
 import { MONTH_RANGE_OPTIONS } from '@/data/constants';
 import { theme } from 'antd';
-import Chart from './Chart';
-import MySkeleton from './MySkeleton';
+import Chart from '@/pages/Statistics/Chart';
+import MySkeleton from '@/pages/Statistics/MySkeleton';
 
 export default function Statistics() {
   // theme 색 가져오기

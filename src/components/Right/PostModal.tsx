@@ -6,11 +6,16 @@ import BlueInput from '../common/BlueInput';
 import { theme } from '../../styles/theme';
 
 interface IPostModalProps {
+  getContent: () => Promise<void>;
   selectedDate: string;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function PostModal({ selectedDate, setIsModalOpen }: IPostModalProps) {
+function PostModal({
+  getContent,
+  selectedDate,
+  setIsModalOpen
+}: IPostModalProps) {
   const [isChecked, setIsChecked] = useState(false);
   const [form, setForm] = useState<IContent>({
     amount: 0,
@@ -21,10 +26,14 @@ function PostModal({ selectedDate, setIsModalOpen }: IPostModalProps) {
 
   // 제출 함수
   // check 해체(지출) 상태면 amount를 음수로 변환해 제출
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     {
-      isChecked ? postData({ ...form, amount: -form.amount }) : postData(form);
+      isChecked
+        ? await postData({ ...form, amount: -form.amount })
+        : await postData(form);
+      await getContent();
+      alert('내역이 추가되었습니다!');
     }
     setIsModalOpen(false);
   };

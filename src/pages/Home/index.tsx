@@ -24,7 +24,7 @@ export default function Home() {
       await new Promise((resolve) => setTimeout(resolve, 700));
       try {
         const response = await fetch(
-          `http://52.78.195.183:3003/api/expenses/calendar?year=${year}&month=${month}&userId=${userId}`,
+          `http://52.78.195.183:3003/api/expenses/calendar?year=${year}&month=${month}&userId=team3`,
         );
         if (!response.ok) {
           console.log('서버에서 응답이 왔는데 원하는 값이 오지 않음');

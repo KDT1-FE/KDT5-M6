@@ -8,13 +8,14 @@ import { theme } from '../../styles/theme';
 interface IListProps {
   data: IContentExtend[];
   selectedDate: string;
-  getContent: () => void; //일반함수 props
+  getContent: () => void;
 }
 
 function List({ data, selectedDate, getContent }: IListProps) {
   const [editModalOpen, setEditModalOpen] = useState(false);
+  const [id, setId] = useState('');
+  const [date, setDate] = useState('');
 
-  console.log('data:', data);
   const deletehandle = (e: React.MouseEvent, _id: string) => {
     e.preventDefault;
     const res = delData(_id);
@@ -24,44 +25,63 @@ function List({ data, selectedDate, getContent }: IListProps) {
     });
     return res;
   };
-  const openEditModal = (event: React.MouseEvent) => {
+  const openEditModal = (
+    event: React.MouseEvent,
+    _id: string,
+    date: string
+  ) => {
     event.preventDefault();
+    setId(_id);
+    setDate(date);
     setEditModalOpen(true);
-    console.log('edit');
   };
 
   return (
     <Wrap>
-      {data.map((el, index) => (
-        <StyledItem key={index}>
-          <ItemLeft>
-            <LeftWrap>
-              {el.amount < 0 ? (
-                <MinusAmount>{el.amount.toLocaleString()}</MinusAmount>
-              ) : (
-                <PlusAmount>+{el.amount.toLocaleString()}</PlusAmount>
-              )}
-              <Category>{el.category}</Category>
-            </LeftWrap>
-          </ItemLeft>
-          <ItemRight>
-            <Btns>
-              <EditBtn onClick={openEditModal}>수정</EditBtn>|
-              <DeleteBtn
-                onClick={(e: React.MouseEvent) => deletehandle(e, el._id)}
-              >
-                삭제
-              </DeleteBtn>
-            </Btns>
-            <Date>{formatDate(el.date)}</Date>
-          </ItemRight>
-        </StyledItem>
-      ))}
+      <>
+        {data &&
+          data.map((el, index) => (
+            <StyledItem key={index}>
+              <ItemLeft>
+                <LeftWrap>
+                  {el.amount < 0 ? (
+                    <MinusAmount>{el.amount.toLocaleString()}</MinusAmount>
+                  ) : (
+                    <PlusAmount>+{el.amount.toLocaleString()}</PlusAmount>
+                  )}
+                  <Category>{el.category}</Category>
+                </LeftWrap>
+              </ItemLeft>
+              <ItemRight>
+                <Btns>
+                  <EditBtn
+                    onClick={(e: React.MouseEvent) =>
+                      openEditModal(e, el._id, el.date)
+                    }
+                  >
+                    수정
+                  </EditBtn>
+                  |
+                  <DeleteBtn
+                    onClick={(e: React.MouseEvent) => deletehandle(e, el._id)}
+                  >
+                    삭제
+                  </DeleteBtn>
+                </Btns>
+                <Date>{formatDate(el.date)}</Date>
+              </ItemRight>
+            </StyledItem>
+          ))}
+      </>
+
       {editModalOpen && (
         <EditModal
           setEditModalOpen={setEditModalOpen}
           selectedDate={selectedDate}
           data={data}
+          getContent={getContent}
+          id={id}
+          date={date}
         />
       )}
     </Wrap>
@@ -74,6 +94,7 @@ const Wrap = styled.div`
   flex-direction: column;
   gap: 15px;
   align-items: center;
+  justify-content: center;
   font-family: 'poppins';
   font-weight: 500;
 `;
@@ -99,7 +120,7 @@ const LeftWrap = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 40px;
-  gap: 10px;
+  gap: 16px;
 `;
 const ItemRight = styled.div`
   height: 100%;
@@ -155,6 +176,7 @@ const Category = styled.span`
   color: ${theme.colors.gray[1]};
   font-weight: 500;
   margin-top: -5px;
+  font-size: 14px;
 `;
 
 export default List;

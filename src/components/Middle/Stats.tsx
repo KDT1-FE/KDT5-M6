@@ -13,13 +13,16 @@ interface IColorProps {
 
 function Stats({ date }: IStatsProps) {
   const [income, setIncome] = useState<number>();
+  const [lastIncome, setLastIncome] = useState<number>();
   const [spending, setSpending] = useState<number>();
-  const [thisMonth, setThisMonth] = useState<number | undefined>();
-  const [lastMonth, setLastMonth] = useState<number | undefined>();
-  const monthAmount = async (year: number, month: number, userId: string) => {
+  const [lastSpending, setLastSpending] = useState<number>();
+  const [thisMonth, setThisMonth] = useState<number>();
+  const [lastMonth, setLastMonth] = useState<number>();
+
+  const getLists = async (year: number, month: number, userId: string) => {
     const res = await getCalendar(year, month, userId);
     const newRes: IContentExtend[][] = Object.values(res);
-    let newArray: number[] = [];
+    const newArray: number[] = [];
     newRes.forEach((item) => {
       if (item) {
         item.forEach((i) => {
@@ -27,16 +30,35 @@ function Stats({ date }: IStatsProps) {
         });
       }
     });
-    const Income = newArray.filter((item) => item >= 0);
-    const Spending = newArray.filter((item) => item < 0);
+    return newArray;
+  };
 
+  const getIncome = (Lists: number[]) => {
+    const Income = Lists.filter((item) => item >= 0);
     const TotalIncome = Income.reduce((acc, cur) => acc + cur, 0);
+    return TotalIncome;
+  };
+
+  const getSpending = (Lists: number[]) => {
+    const Spending = Lists.filter((item) => item < 0);
     const TotalSpending = Spending.reduce((acc, cur) => acc + cur, 0);
-    console.log('총수입', TotalIncome, '총지출', TotalSpending);
+    return TotalSpending;
+  };
+
+  const monthAmount = async (year: number, month: number, userId: string) => {
+    const Lists = await getLists(year, month, userId);
+
+    const TotalIncome = getIncome(Lists);
+    const TotalSpending = getSpending(Lists);
+
     if (month === Month) {
       setIncome(TotalIncome);
       setSpending(TotalSpending);
+    } else if (month === LastMonth) {
+      setLastIncome(TotalIncome);
+      setLastSpending(TotalSpending);
     }
+
     const AmountTotal = TotalIncome + TotalSpending;
     return AmountTotal;
   };
@@ -47,7 +69,6 @@ function Stats({ date }: IStatsProps) {
     userId: string
   ) => {
     const total = await monthAmount(year, month, userId);
-    console.log('이번달합계', total);
     setThisMonth(total);
   };
 
@@ -57,7 +78,6 @@ function Stats({ date }: IStatsProps) {
     userId: string
   ) => {
     const total = await monthAmount(year, month, userId);
-    console.log('저번달합계', total);
     setLastMonth(total);
   };
 
@@ -79,16 +99,31 @@ function Stats({ date }: IStatsProps) {
       <Wrapper>
         <Title $IncomeColor>{Month}월 수입</Title>
         <Money $IncomeColor>{incomes}</Money>
+        <Compare $IncomeColor>
+          {Month - 1}월 대비{' '}
+          {Total.format(Math.abs((income ?? 0) - (lastIncome ?? 0)))}원{' '}
+          {(income ?? 0) - (lastIncome ?? 0) < 0 ? '▼' : '▲'}
+        </Compare>
       </Wrapper>
       <Line />
       <Wrapper>
         <Title $SpendingColor>{Month}월 지출</Title>
         <Money $SpendingColor>{spendings}</Money>
+        <Compare $SpendingColor>
+          {Month - 1}월 대비{' '}
+          {Total.format(Math.abs((spending ?? 0) - (lastSpending ?? 0)))}원{' '}
+          {(spending ?? 0) - (lastSpending ?? 0) < 0 ? '▲' : '▼'}
+        </Compare>
       </Wrapper>
       <Line />
       <Wrapper>
-        <Title>전 월 대비</Title>
-        <Money>{Total.format((thisMonth ?? 0) + (lastMonth ?? 0))}</Money>
+        <Title>합계</Title>
+        <Money>{Total.format(thisMonth as number)}</Money>
+        <Compare>
+          {Month - 1}월 대비{' '}
+          {Total.format(Math.abs((thisMonth ?? 0) - (lastMonth ?? 0)))}원{' '}
+          {(thisMonth ?? 0) - (lastMonth ?? 0) < 0 ? '▼' : '▲'}
+        </Compare>
       </Wrapper>
     </Container>
   );
@@ -129,6 +164,16 @@ const Wrapper = styled.div`
 const Money = styled.h2<IColorProps>`
   font-size: 30px;
 
+  ${({ $IncomeColor, $SpendingColor, theme }) => css`
+    color: ${$IncomeColor
+      ? theme.colors.blue.main
+      : $SpendingColor
+      ? theme.colors.red
+      : theme.colors.white};
+  `}
+`;
+
+const Compare = styled.span<IColorProps>`
   ${({ $IncomeColor, $SpendingColor, theme }) => css`
     color: ${$IncomeColor
       ? theme.colors.blue.main

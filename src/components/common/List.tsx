@@ -16,7 +16,6 @@ function List({ data, selectedDate, getContent }: IListProps) {
   const [id, setId] = useState('');
   const [date, setDate] = useState('');
 
-  console.log('data:', data);
   const deletehandle = (e: React.MouseEvent, _id: string) => {
     e.preventDefault;
     const res = delData(_id);
@@ -35,44 +34,44 @@ function List({ data, selectedDate, getContent }: IListProps) {
     setId(_id);
     setDate(date);
     setEditModalOpen(true);
-    console.log('edit');
   };
 
   return (
     <Wrap>
       <>
-        {data.map((el, index) => (
-          <StyledItem key={index}>
-            <ItemLeft>
-              <LeftWrap>
-                {el.amount < 0 ? (
-                  <MinusAmount>{el.amount.toLocaleString()}</MinusAmount>
-                ) : (
-                  <PlusAmount>+{el.amount.toLocaleString()}</PlusAmount>
-                )}
-                <Category>{el.category}</Category>
-              </LeftWrap>
-            </ItemLeft>
-            <ItemRight>
-              <Btns>
-                <EditBtn
-                  onClick={(e: React.MouseEvent) =>
-                    openEditModal(e, el._id, el.date)
-                  }
-                >
-                  수정
-                </EditBtn>
-                |
-                <DeleteBtn
-                  onClick={(e: React.MouseEvent) => deletehandle(e, el._id)}
-                >
-                  삭제
-                </DeleteBtn>
-              </Btns>
-              <Date>{formatDate(el.date)}</Date>
-            </ItemRight>
-          </StyledItem>
-        ))}
+        {data &&
+          data.map((el, index) => (
+            <StyledItem key={index}>
+              <ItemLeft>
+                <LeftWrap>
+                  {el.amount < 0 ? (
+                    <MinusAmount>{el.amount.toLocaleString()}</MinusAmount>
+                  ) : (
+                    <PlusAmount>+{el.amount.toLocaleString()}</PlusAmount>
+                  )}
+                  <Category>{el.category}</Category>
+                </LeftWrap>
+              </ItemLeft>
+              <ItemRight>
+                <Btns>
+                  <EditBtn
+                    onClick={(e: React.MouseEvent) =>
+                      openEditModal(e, el._id, el.date)
+                    }
+                  >
+                    수정
+                  </EditBtn>
+                  |
+                  <DeleteBtn
+                    onClick={(e: React.MouseEvent) => deletehandle(e, el._id)}
+                  >
+                    삭제
+                  </DeleteBtn>
+                </Btns>
+                <Date>{formatDate(el.date)}</Date>
+              </ItemRight>
+            </StyledItem>
+          ))}
       </>
 
       {editModalOpen && (

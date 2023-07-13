@@ -23,7 +23,6 @@ function Search({ selectedDate }: IReadProps) {
   };
   const onSubmit = async (keyword: string, userId: string) => {
     const res = await getSearch(keyword, userId);
-    console.log('searchres:', res);
     setContent(res);
   };
   const OnKeyPress = (e: React.KeyboardEvent) => {

@@ -33,7 +33,6 @@ function Read({ selectedDate }: IReadProps) {
       date.getMonth() + 1,
       'user123'
     );
-    console.log('res:', res);
 
     if (res[date.getDate()]) {
       setContent(res[date.getDate()]);

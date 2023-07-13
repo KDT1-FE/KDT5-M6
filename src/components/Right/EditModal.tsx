@@ -29,7 +29,6 @@ function EditModal({
     category: '',
     date: date
   });
-  console.log('editdata:', data);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;

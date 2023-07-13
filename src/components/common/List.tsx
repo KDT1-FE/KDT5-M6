@@ -61,6 +61,7 @@ function List({ data, selectedDate, getContent }: IListProps) {
         <EditModal
           setEditModalOpen={setEditModalOpen}
           selectedDate={selectedDate}
+          data={data}
         />
       )}
     </Wrap>
@@ -114,21 +115,21 @@ const Btns = styled.div`
   color: ${theme.colors.gray[1]};
   font-weight: 800;
   position: relative;
-  `;
+`;
 const EditBtn = styled.button`
   background-color: transparent;
   border: none;
   color: ${theme.colors.gray[1]};
   font-weight: bold;
   cursor: pointer;
-  `;
+`;
 const DeleteBtn = styled.button`
   background-color: transparent;
   margin-right: -6px;
   border: none;
+  font-weight: bold;
   color: ${theme.colors.gray[1]};
   cursor: pointer;
-  font-weight: 500;
 `;
 const Date = styled.span`
   color: ${theme.colors.gray[1]};

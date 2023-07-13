@@ -112,7 +112,8 @@ const TopContain = styled.div`
   flex-direction: column;
 `;
 const Inputs = styled.div`
-  width: 85%;
+  position: relative;
+  width: 90%;
   height: 60px;
   margin-top: 20px;
   padding: 15px;
@@ -120,35 +121,44 @@ const Inputs = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${theme.colors.gray[2]};
   &:hover {
     transition: all 0.3s;
-    color: ${theme.colors.white};
-    background-color: ${theme.colors.blue.pressed};
+  }
+  &:focus {
+    /* color: ${theme.colors.white};
+    background-color: ${theme.colors.blue.pressed}; */
   }
 `;
 const Input = styled.input`
-  width: 80%;
-  background-color: transparent;
+  width: 100%;
+  height: 60px;
+  background-color: ${theme.colors.gray[2]};
   border: none;
+  border-radius: 40px;
   outline: none;
   font-size: 1rem;
+  padding: 0 20px;
   &::placeholder {
     color: ${theme.colors.gray[1]};
   }
-  &:hover {
-    color: ${theme.colors.white};
+  &:focus {
+    /* background-color: ${theme.colors.blue.pressed};
+    color: ${theme.colors.white}; */
+    border: 1px solid ${theme.colors.blue.pressed};
+    box-shadow: 2px 2px 10px ${theme.colors.blue.pressed};
   }
 `;
 
 const SearchImg = styled.img`
+  position: absolute;
+  right: 30px;
   width: 30px;
   height: 30px;
   cursor: pointer;
 `;
 const Btns = styled.div`
   width: 100%;
-  padding: 0 10%;
+  padding: 0 8%;
   display: flex;
   gap: 10px;
 `;
@@ -185,12 +195,11 @@ const UnactiveBtn = styled.button`
 `;
 
 const ListContain = styled.div`
-  height: 60%;
+  height: 75%;
   width: 95%;
   margin: auto;
   margin-top: 10px;
   overflow-y: scroll;
 `;
-
 
 export default Search;

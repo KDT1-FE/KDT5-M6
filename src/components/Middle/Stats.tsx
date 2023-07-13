@@ -1,70 +1,95 @@
-import { styled } from 'styled-components';
-import { getCalendar } from '../../lib/API';
+import { styled, css } from 'styled-components';
+import { IContentExtend, getCalendar } from '../../lib/API';
 import { useEffect, useState } from 'react';
+import { theme } from '../../styles/theme';
+
 interface IStatsProps {
   date: Date;
-  setDate: React.Dispatch<React.SetStateAction<Date>>;
 }
-function Stats({ date }: IStatsProps) {
-  const [total, setTotal] = useState();
-  const [lastTotal, setLastTotal] = useState();
+interface IColorProps {
+  $IncomeColor?: boolean;
+  $SpendingColor?: boolean;
+}
 
-  const monthSpending = async (year: number, month: number, userId: string) => {
+function Stats({ date }: IStatsProps) {
+  const [income, setIncome] = useState<number>();
+  const [spending, setSpending] = useState<number>();
+  const [thisMonth, setThisMonth] = useState<number | undefined>();
+  const [lastMonth, setLastMonth] = useState<number | undefined>();
+  const monthAmount = async (year: number, month: number, userId: string) => {
     const res = await getCalendar(year, month, userId);
-    const newRes = Object.values(res);
-    let newArray = [];
+    const newRes: IContentExtend[][] = Object.values(res);
+    let newArray: number[] = [];
     newRes.forEach((item) => {
-      item.forEach((i) => {
-        newArray.push(i.amount);
-      });
+      if (item) {
+        item.forEach((i) => {
+          newArray.push(i.amount);
+        });
+      }
     });
     const Income = newArray.filter((item) => item >= 0);
     const Spending = newArray.filter((item) => item < 0);
 
-    const totalIncome = Income.reduce((acc, cur) => acc + cur, 0);
-    const totalSpending = Spending.reduce((acc, cur) => acc + cur, 0);
-
-    const MonthTotal = totalIncome + totalSpending;
-    return MonthTotal;
+    const TotalIncome = Income.reduce((acc, cur) => acc + cur, 0);
+    const TotalSpending = Spending.reduce((acc, cur) => acc + cur, 0);
+    console.log('총수입', TotalIncome, '총지출', TotalSpending);
+    if (month === Month) {
+      setIncome(TotalIncome);
+      setSpending(TotalSpending);
+    }
+    const AmountTotal = TotalIncome + TotalSpending;
+    return AmountTotal;
   };
 
-  const currentMonthTotal = async (
+  const currentMonthAmount = async (
     year: number,
     month: number,
     userId: string
   ) => {
-    const MonthTotal = await monthSpending(year, month, userId);
-    setTotal(MonthTotal);
+    const total = await monthAmount(year, month, userId);
+    console.log('이번달합계', total);
+    setThisMonth(total);
   };
-  const lastMonthTotal = async (
+
+  const LastMonthAmount = async (
     year: number,
     month: number,
     userId: string
   ) => {
-    const MonthTotal = await monthSpending(year, month, userId);
-    setLastTotal(MonthTotal);
+    const total = await monthAmount(year, month, userId);
+    console.log('저번달합계', total);
+    setLastMonth(total);
   };
 
   const LastMonth = new Date(date).getMonth();
   const Month = new Date(date).getMonth() + 1;
   const FullYear = new Date(date).getFullYear();
 
-  const Numformat = new Intl.NumberFormat('ko-KR');
+  const incomes = income?.toLocaleString();
+  const spendings = spending?.toLocaleString();
+  const Total = new Intl.NumberFormat('ko-KR');
 
   useEffect(() => {
-    lastMonthTotal(FullYear, LastMonth, 'user123');
-    currentMonthTotal(FullYear, Month, 'user123');
-  }, [Month, LastMonth]);
+    currentMonthAmount(FullYear, Month, 'user123');
+    LastMonthAmount(FullYear, LastMonth, 'user123');
+  });
 
   return (
     <Container>
-      <Title>{Month}월 누적 지출금액은 </Title>
-      <Title>
-        <Amount>{Numformat.format(total)}</Amount>원 입니다.
-      </Title>
-      <LastAmount>
-        지난 달 대비 {Numformat.format(total - lastTotal)}원 지출
-      </LastAmount>
+      <Wrapper>
+        <Title $IncomeColor>{Month}월 수입</Title>
+        <Money $IncomeColor>{incomes}</Money>
+      </Wrapper>
+      <Line />
+      <Wrapper>
+        <Title $SpendingColor>{Month}월 지출</Title>
+        <Money $SpendingColor>{spendings}</Money>
+      </Wrapper>
+      <Line />
+      <Wrapper>
+        <Title>전 월 대비</Title>
+        <Money>{Total.format((thisMonth ?? 0) + (lastMonth ?? 0))}</Money>
+      </Wrapper>
     </Container>
   );
 }
@@ -73,24 +98,47 @@ export default Stats;
 
 const Container = styled.div`
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
+  gap: 35px;
+  height: 150px;
+  width: 96%;
+  margin: 20px 20px 10px;
+  background-color: ${theme.colors.black.black100};
+  border-radius: 40px;
+  box-shadow: 5px 5px 20px;
+`;
+
+const Title = styled.h2<IColorProps>`
+  font-size: 20px;
+
+  ${({ $IncomeColor, $SpendingColor, theme }) => css`
+    color: ${$IncomeColor
+      ? theme.colors.blue.main
+      : $SpendingColor
+      ? theme.colors.red
+      : theme.colors.white};
+  `}
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   gap: 10px;
-  height: 200px;
-  width: 730px;
-  margin-left: 30px;
 `;
-const Title = styled.h2`
-  font-size: 40px;
+const Money = styled.h2<IColorProps>`
+  font-size: 30px;
+
+  ${({ $IncomeColor, $SpendingColor, theme }) => css`
+    color: ${$IncomeColor
+      ? theme.colors.blue.main
+      : $SpendingColor
+      ? theme.colors.red
+      : theme.colors.white};
+  `}
 `;
 
-const Amount = styled.span`
-  color: #ff6969;
-`;
-
-const LastAmount = styled.p`
-  color: #6a6e83;
-  margin: 10px 5px 0;
-  font-size: 15px;
+const Line = styled.div`
+  border-left: 1px solid ${theme.colors.white};
+  height: 63px;
 `;

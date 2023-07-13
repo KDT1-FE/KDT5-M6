@@ -19,7 +19,7 @@ function Stats({ date }: IStatsProps) {
   const monthAmount = async (year: number, month: number, userId: string) => {
     const res = await getCalendar(year, month, userId);
     const newRes: IContentExtend[][] = Object.values(res);
-    let newArray: number[] = [];
+    const newArray: number[] = [];
     newRes.forEach((item) => {
       if (item) {
         item.forEach((i) => {

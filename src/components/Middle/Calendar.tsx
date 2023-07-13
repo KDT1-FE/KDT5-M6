@@ -81,11 +81,11 @@ function Calendar({ selectedDate, setSelectedDate, date }: ICalendarProps) {
 
 const CalendarContainer = styled.div`
   gap: 10px;
-  width: 400px;
   height: 300px;
   display: grid;
-  margin: 30px auto 0;
+  margin: 8% auto 0;
   font-family: 'poppins';
+  justify-content: center;
   grid-template-rows: auto 1fr;
 `;
 
@@ -136,10 +136,10 @@ const CalendarDay = styled.div<{
   $isSelected?: boolean;
   $isSaturday?: boolean;
 }>`
-  cursor: pointer;
-  height: 60px;
+  height: 100%;
   padding: 5px;
   display: flex;
+  cursor: pointer;
   align-items: center;
   justify-content: center;
   color: ${({ $isSaturday, $isSunday, theme }) =>

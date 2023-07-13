@@ -6,20 +6,29 @@ import { useState } from 'react';
 import { IContent, editData, IContentExtend } from '../../lib/API';
 
 interface IEditModalProps {
+  getContent: () => void;
   selectedDate: string;
   setEditModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   data: IContentExtend[];
+  id: string;
+  date: string;
 }
 
-function EditModal({ selectedDate, setEditModalOpen, data }: IEditModalProps) {
+function EditModal({
+  selectedDate,
+  setEditModalOpen,
+  data,
+  getContent,
+  id,
+  date
+}: IEditModalProps) {
   const [isChecked, setIsChecked] = useState(false);
   const [form, setForm] = useState<IContent>({
     amount: 0,
     userId: 'user123',
     category: '',
-    date: selectedDate
+    date: date
   });
-  console.log('editdata:', data);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -28,6 +37,22 @@ function EditModal({ selectedDate, setEditModalOpen, data }: IEditModalProps) {
       [name]: value
     }));
   };
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    {
+      isChecked
+        ? await editData(id, {
+            ...form,
+            amount: -form.amount,
+            category: form.category
+          })
+        : await editData(id, form);
+      getContent();
+      alert('내역이 수정되었습니다!');
+    }
+    setEditModalOpen(false);
+  };
+  console.log('form:', form);
 
   return (
     <ModalContainer
@@ -36,6 +61,9 @@ function EditModal({ selectedDate, setEditModalOpen, data }: IEditModalProps) {
       }}
     >
       <ModalWrapper
+        onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
+          handleSubmit(event);
+        }}
         onClick={(event: React.MouseEvent) => {
           event.stopPropagation();
         }}
@@ -45,17 +73,26 @@ function EditModal({ selectedDate, setEditModalOpen, data }: IEditModalProps) {
           <Date>{selectedDate.split('T')[0]}</Date>
         </TitleWrapper>
         <SwitchWrapper>
-          <AmountInput
+          <BlueInput
             type="number"
             name="amount"
             placeholder="금액을 기입해 주세요"
             required
-            middle="true"
+            $middle="true"
+            onChange={handleChange}
+            value={form.amount === 0 || isNaN(form.amount) ? '' : form.amount}
+            onInput={(event: React.FormEvent<HTMLInputElement>) =>
+              (event.currentTarget.value = event.currentTarget.value.replace(
+                /[^0-9]/g,
+                ''
+              ))
+            }
           />
           <Switch
             style={{
+              fontFamily: 'Noto Sans KR',
               backgroundColor: isChecked
-                ? '#C62F2F'
+                ? `${theme.colors.red}`
                 : `${theme.colors.blue.main}`
             }}
             checkedChildren="지출"
@@ -66,42 +103,50 @@ function EditModal({ selectedDate, setEditModalOpen, data }: IEditModalProps) {
             }}
           />
         </SwitchWrapper>
-        <Title>내용</Title>
-        <ContentInput
-          placeholder="수입/지출 내역을 작성해주세요."
-          required
-          large="true"
-          onChange={handleChange}
-        />
+        <ContentWrapper>
+          <Title>내용</Title>
+          <BlueInput
+            placeholder="수입/지출 내역을 작성해주세요."
+            name="category"
+            required
+            $large="true"
+            onChange={handleChange}
+            value={form.category}
+          />
+        </ContentWrapper>
         <AddButton>수정하기</AddButton>
       </ModalWrapper>
     </ModalContainer>
   );
 }
 const ModalContainer = styled.div`
-  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: fixed;
+  background-color: ${theme.colors.black.black50};
   z-index: 9;
 `;
 
 const ModalWrapper = styled.form`
-  width: 450px;
-  height: 300px;
-  padding: 20px;
-  border-radius: 20px;
-  background-color: #fff;
-  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.25);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  gap: 20px;
+  width: 500px;
+  height: 350px;
+  margin: auto;
+  padding: 30px 50px;
   display: flex;
+  position: absolute;
+  border-radius: 20px;
   flex-direction: column;
   justify-content: center;
-  gap: 20px;
+  background-color: ${theme.colors.white};
+  font-family: 'poppins', 'Noto Sans KR';
+  box-shadow: 4px 4px 20px ${theme.colors.black.black30};
 `;
 
 const TitleWrapper = styled.div`
@@ -112,38 +157,48 @@ const TitleWrapper = styled.div`
 
 const Title = styled.span`
   font-weight: 700;
+  margin-left: 10px;
 `;
 
 const Date = styled.span`
-  font-weight: 700;
+  font-weight: 500;
+  font-size: 0.8rem;
+  font-family: 'poppins';
+  color: ${theme.colors.black.black50};
 `;
+
 const SwitchWrapper = styled.div`
-  gap: 20px;
+  gap: 15px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
 
-const AmountInput = styled(BlueInput)`
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-  }
+const ContentWrapper = styled.div`
+  gap: 15px;
+  display: flex;
+  flex-direction: column;
 `;
-const ContentInput = styled(BlueInput)``;
 
 const AddButton = styled.button`
-  width: auto;
-  height: 40px;
+  width: 100%;
+  height: 50px;
   border: none;
-  color: #fff;
+  display: flex;
   cursor: pointer;
-  border-radius: 20px;
-  background-color: #4464ff;
-
-  :focus {
-    color: #6a6e83;
-    background-color: #a8b1ce;
+  font-size: 1rem;
+  margin-top: 20px;
+  font-weight: 600;
+  align-self: center;
+  align-items: center;
+  border-radius: 30px;
+  justify-content: center;
+  color: ${theme.colors.white};
+  background-color: ${theme.colors.blue.main};
+  &:focus {
+    color: ${theme.colors.gray[2]};
+    background-color: ${theme.colors.gray[1]};
   }
 `;
 export default EditModal;

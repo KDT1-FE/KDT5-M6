@@ -1,13 +1,15 @@
 import { Modal } from 'antd';
-import { DailyExpenseType } from '@/types/expense';
 import DailyExpenseTable from './DailyExpenseTable';
+import { DailyExpensesType } from '@/types/expenses';
 
 interface DailyExpenseModalProps {
   month: string;
   day: string;
-  dailyExpenses: DailyExpenseType[];
+  dailyExpenses: DailyExpensesType[];
   dailyExpenseModalOpen: boolean;
   setDailyExpenseModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  list: boolean;
+  setList: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function DailyExpenseModal({
@@ -16,6 +18,8 @@ export default function DailyExpenseModal({
   day,
   dailyExpenseModalOpen,
   setDailyExpenseModalOpen,
+  list,
+  setList,
 }: DailyExpenseModalProps) {
   return (
     <Modal
@@ -25,7 +29,7 @@ export default function DailyExpenseModal({
       onCancel={() => setDailyExpenseModalOpen(false)}
       footer={null}
     >
-      <DailyExpenseTable data={dailyExpenses} />
+      <DailyExpenseTable data={dailyExpenses} list={list} setList={setList} />
     </Modal>
   );
 }

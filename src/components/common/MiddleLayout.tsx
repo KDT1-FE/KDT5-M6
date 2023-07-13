@@ -41,7 +41,7 @@ function MiddleLayout({ ...props }: IChildren) {
             setDate(new Date(date.getFullYear(), date.getMonth() - 1))
           }
         >
-          <Lefticon src={back} alt="" />
+          <Lefticon src={back} alt="Left" />
         </LeftArrow>
         <Monthly>
           {(date.getMonth() + 1).toString().padStart(2, '0')}.{' '}
@@ -53,7 +53,7 @@ function MiddleLayout({ ...props }: IChildren) {
             setDate(new Date(date.getFullYear(), date.getMonth() + 1))
           }
         >
-          <Righticon src={forward} alt="" />
+          <Righticon src={forward} alt="Right" />
         </RightArrow>
       </Title>
       <ContentWrapper>{childrenWithProps}</ContentWrapper>
@@ -62,24 +62,22 @@ function MiddleLayout({ ...props }: IChildren) {
 }
 
 const LayoutWrapper = styled.div`
-  width: 96%;
+  width: 100%;
   height: 95%;
-  min-height: 550px;
-  margin: 10px;
-  padding: 10px;
-  background-color: ${theme.colors.white};
-  border-radius: 40px;
-  box-shadow: 5px 5px 20px ${theme.colors.gray[1]};
   display: flex;
-  flex-direction: column;
+  padding: 10px;
+  min-height: 550px;
   align-items: center;
-  justify-content: space-between;
+  border-radius: 40px;
+  flex-direction: column;
+  background-color: ${theme.colors.white};
+  box-shadow: 5px 5px 20px ${theme.colors.gray[1]};
 `;
 const Title = styled.span`
   width: 50%;
   display: flex;
-  align-items: center;
   margin-top: 25px;
+  align-items: center;
   justify-content: space-between;
 `;
 const Lefticon = styled.img`
@@ -87,26 +85,26 @@ const Lefticon = styled.img`
 `;
 const LeftArrow = styled.button`
   border: 0;
-  background-color: transparent;
   font-size: 2rem;
+  background-color: transparent;
   &:hover {
     cursor: pointer;
   }
 `;
 const Monthly = styled.span`
   margin: 25px;
-  text-align: center;
-  font-size: 2.5rem;
-  font-family: 'poppins';
   font-weight: 500;
+  font-size: 2.5rem;
+  text-align: center;
+  font-family: 'poppins';
 `;
 const Righticon = styled.img`
   width: 1rem;
 `;
 const RightArrow = styled.button`
   border: 0;
-  background-color: transparent;
   font-size: 2rem;
+  background-color: transparent;
   &:hover {
     cursor: pointer;
   }
@@ -114,6 +112,7 @@ const RightArrow = styled.button`
 const ContentWrapper = styled.div`
   width: 100%;
   height: 100%;
+  display: flex;
 `;
 
 export default MiddleLayout;

@@ -15,26 +15,27 @@ function App() {
       <LeftArea>
         <Left setToggle={setToggle} />
       </LeftArea>
-      <MiddleArea>
-        <Middle
-          selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
-          toggle={toggle}
-        />
-      </MiddleArea>
-      <RightArea>
-        <Right selectedDate={selectedDate} />
-      </RightArea>
+      <AreaWrapper>
+        <MiddleArea>
+          <Middle
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+            toggle={toggle}
+          />
+        </MiddleArea>
+        <RightArea>
+          <Right selectedDate={selectedDate} />
+        </RightArea>
+      </AreaWrapper>
     </Conatainer>
   );
 }
 
 const Conatainer = styled.div`
-  display: flex;
   height: 100vh;
-  background-color: ${theme.colors.gray[2]};
   display: flex;
   justify-content: space-around;
+  background-color: ${theme.colors.gray[2]};
 `;
 
 const LeftArea = styled.div`
@@ -42,16 +43,24 @@ const LeftArea = styled.div`
   min-width: 170px;
   background-color: ${theme.colors.black.black100};
 `;
+
+const AreaWrapper = styled.div`
+  gap: 30px;
+  width: 88%;
+  display: flex;
+  padding: 0 30px;
+`;
+
 const MiddleArea = styled.div`
+  width: 65%;
   height: 100%;
-  width: 60%;
   min-width: 500px;
 `;
 const RightArea = styled.div`
-  width: 28%;
+  width: 35%;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 `;
 
 export default App;

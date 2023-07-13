@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import List from '../common/List';
-import { IContent, IContentExtend, getSearch } from '../../lib/API';
+import { IContentExtend, getSearch } from '../../lib/API';
 import { theme } from '../../styles/theme';
 import { useState } from 'react';
 
@@ -25,7 +25,7 @@ function Search({ selectedDate }: IReadProps) {
     const res = await getSearch(keyword, userId);
     setContent(res);
   };
-  const OnKeyPress = (e: any) => {
+  const OnKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       onSubmit(keyword, 'user123'); // Enter 입력이 되면 클릭 이벤트 실행
     }
@@ -78,6 +78,7 @@ function Search({ selectedDate }: IReadProps) {
             }
           })}
         </Btns>
+        <Count>총 {content.length}건</Count>
       </TopContain>
       <ListContain>
         <List
@@ -96,11 +97,18 @@ function Search({ selectedDate }: IReadProps) {
   );
 }
 
+const Count = styled.div`
+  color: ${theme.colors.black.black50};
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0 30px;
+  margin-top: 20px;
+`;
 const Container = styled.div`
   background-color: ${theme.colors.white};
   height: 100%;
   width: 100%;
-  /* background-color: ${theme.colors.blue} */
 `;
 const TopContain = styled.div`
   width: 100%;
@@ -121,13 +129,6 @@ const Inputs = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  &:hover {
-    transition: all 0.3s;
-  }
-  &:focus {
-    /* color: ${theme.colors.white};
-    background-color: ${theme.colors.blue.pressed}; */
-  }
 `;
 const Input = styled.input`
   width: 100%;
@@ -137,15 +138,14 @@ const Input = styled.input`
   border-radius: 40px;
   outline: none;
   font-size: 1rem;
-  padding: 0 20px;
+  padding: 0 48px 0 20px;
   &::placeholder {
     color: ${theme.colors.gray[1]};
   }
   &:focus {
-    /* background-color: ${theme.colors.blue.pressed};
-    color: ${theme.colors.white}; */
     border: 1px solid ${theme.colors.blue.pressed};
     box-shadow: 2px 2px 10px ${theme.colors.blue.pressed};
+    transition: all 0.1s;
   }
 `;
 

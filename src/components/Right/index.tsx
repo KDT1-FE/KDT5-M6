@@ -36,7 +36,7 @@ function Right({ selectedDate }: IRightProps) {
 }
 
 const RightContainer = styled.div`
-  width: 90%;
+  width: 100%;
   height: 96%;
   background-color: ${theme.colors.blue.main};
   border-radius: 40px;

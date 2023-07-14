@@ -23,6 +23,7 @@ function MiddleLayout({ ...props }: IChildren) {
     setDate
   };
 
+  // props를 children에게 넘겨주기
   const childrenWithProps = React.Children.map(children, (child) => {
     if (isValidElement(child)) {
       return React.cloneElement(child, {

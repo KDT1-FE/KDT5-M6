@@ -6,12 +6,14 @@ import BlueInput from '../common/BlueInput';
 import { theme } from '../../styles/theme';
 
 interface IPostModalProps {
+  setChange: React.Dispatch<React.SetStateAction<boolean>>;
   getContent: () => Promise<void>;
   selectedDate: string;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function PostModal({
+  setChange,
   getContent,
   selectedDate,
   setIsModalOpen
@@ -36,6 +38,7 @@ function PostModal({
       alert('내역이 추가되었습니다!');
     }
     setIsModalOpen(false);
+    setChange((prev) => !prev);
   };
 
   // input에 입력된 내용을 form

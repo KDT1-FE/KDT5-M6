@@ -1,19 +1,21 @@
 import { styled } from 'styled-components';
 import List from '../common/List';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PostModal from './PostModal';
 import { IContentExtend, getCalendar } from '../../lib/API';
 import { theme } from '../../styles/theme';
 
 interface IReadProps {
   selectedDate: string;
+  setChange: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Read({ selectedDate }: IReadProps) {
+function Read({ selectedDate, setChange }: IReadProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [content, setContent] = useState<IContentExtend[]>([]);
   const [date, setDate] = useState<Date>(new Date());
 
+  // PostModal 열기
   const handleModal = (event: React.MouseEvent) => {
     event.preventDefault();
     event.stopPropagation();
@@ -27,7 +29,8 @@ function Read({ selectedDate }: IReadProps) {
     }
   }, [selectedDate]);
 
-  const getContent = async () => {
+  // 선택된 날짜에 대한 내역 불러오기
+  const getContent = useCallback(async () => {
     const res = await getCalendar(
       date.getFullYear(),
       date.getMonth() + 1,
@@ -39,11 +42,11 @@ function Read({ selectedDate }: IReadProps) {
     } else {
       setContent([]);
     }
-  };
+  }, [date]);
 
   useEffect(() => {
     getContent();
-  }, [date]);
+  }, [date, getContent]);
 
   const days = ['일', '월', '화', '수', '목', '금', '토'];
 
@@ -61,6 +64,7 @@ function Read({ selectedDate }: IReadProps) {
       </Wrap>
       <ListWrap>
         <List
+          setChange={setChange}
           data={content}
           selectedDate={selectedDate}
           getContent={getContent}
@@ -73,6 +77,7 @@ function Read({ selectedDate }: IReadProps) {
       </WrapBtn>
       {isModalOpen && (
         <PostModal
+          setChange={setChange}
           getContent={getContent}
           selectedDate={selectedDate}
           setIsModalOpen={setIsModalOpen}

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import { theme } from '../../styles/theme';
-import BlueLogo from '../../assets/Logo_color.png';
+import ColorLogo from '../../assets/Logo_color.png';
 
 interface ToggleButtonProps {
-  toggled: boolean;
+  $toggled: boolean;
 }
 // LeftProps 타입 추가 및 setToggle 상태 업데이트
 interface LeftProps {
@@ -24,13 +24,15 @@ function Left({ setToggle }: LeftProps) {
   return (
     <LeftContainer>
       <Logo>
-        <WhiteLogo src={BlueLogo} alt="" />
-        Wallet
-        <br />
-        Keeper
+        <ColoredLogo src={ColorLogo} alt="" />
+        <Text>
+          Wallet
+          <br />
+          Keeper
+        </Text>
       </Logo>
-      <ToggleButton toggled={toggled} onClick={handleToggle}>
-        <ToggleButtonText toggled={toggled}>
+      <ToggleButton $toggled={toggled} onClick={handleToggle}>
+        <ToggleButtonText $toggled={toggled}>
           {toggled ? 'chart' : 'calendar'}
         </ToggleButtonText>
       </ToggleButton>
@@ -42,7 +44,7 @@ const LeftContainer = styled.div`
   left: 0;
   top: 0;
   height: 100%;
-  width: 170px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -52,39 +54,40 @@ const LeftContainer = styled.div`
 const Logo = styled.h4`
   position: relative;
   top: 8%;
-  height: 50px;
-  font-family: 'poppins';
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-weight: 800;
-  color: ${theme.colors.blue.main};
+  justify-content: space-between;
+`;
+const ColoredLogo = styled.img`
+  width: 50%;
+  margin-bottom: 10px;
 `;
 
-const WhiteLogo = styled.img`
-  width: 5rem;
-  margin-bottom: 10px;
+const Text = styled.div`
+  font-family: 'poppins';
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: ${theme.colors.blue.main};
 `;
 
 const ToggleButton = styled.button<ToggleButtonProps>`
   position: relative;
   bottom: 8%;
-  color: ${theme.colors.black.black50};
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 60px;
   height: 132px;
-  background-color: ${({ toggled }) =>
-    toggled ? theme.colors.blue.main : theme.colors.blue.main};
+  background-color: ${theme.colors.blue.main};
   border-radius: 40px;
   border: none;
   outline: none;
   cursor: pointer;
   position: relative;
   transition: background-color 0.3s ease;
-
   &:before {
     content: '';
     position: absolute;
@@ -95,7 +98,7 @@ const ToggleButton = styled.button<ToggleButtonProps>`
     background-color: ${theme.colors.black.black100};
     border-radius: 50%;
     transition: transform 0.3s ease;
-    transform: translateY(${({ toggled }) => (toggled ? '72px' : '0')});
+    transform: translateY(${({ $toggled }) => ($toggled ? '72px' : '0')});
     box-shadow: 3px 3px 5px ${theme.colors.blue.pressed};
   }
 `;
@@ -103,12 +106,10 @@ const ToggleButtonText = styled.span<ToggleButtonProps>`
   font-family: 'poppins';
   font-size: 0.8rem;
   font-weight: 700;
-  color: ${({ toggled }) =>
-    toggled ? theme.colors.black : theme.colors.black};
+  color: ${theme.colors.black.black50};
   writing-mode: vertical-lr;
-  transform: rotate(-180deg);
   transition: transform 0.3s ease;
-  transform: translateY(${({ toggled }) => (toggled ? '-23px' : '25px')});
+  transform: translateY(${({ $toggled }) => ($toggled ? '-23px' : '25px')});
 `;
 
 export default Left;

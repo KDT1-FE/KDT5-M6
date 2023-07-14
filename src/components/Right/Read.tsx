@@ -48,15 +48,15 @@ function Read({ selectedDate, setChange }: IReadProps) {
     getContent();
   }, [date, getContent]);
 
-  const days = ['일', '월', '화', '수', '목', '금', '토'];
+  const days = ['sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   return (
     <Container>
       <DateContain>
         <StDate>
-          {date.getDate()}일 &nbsp;
+          {date.getDate()}
+          <Num>일 .</Num>&nbsp;
           {days[date.getDay()]}
-          요일
         </StDate>
       </DateContain>
       <Wrap>
@@ -93,39 +93,50 @@ const Container = styled.div`
 `;
 const DateContain = styled.div`
   width: 100%;
-  height: 15%;
-  /* padding-top: 20px; */
+  height: 10%;
+  padding-top: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 const StDate = styled.p`
   margin: 25px;
+  font-family: 'poppins';
   text-align: center;
-  font-size: 2.4rem;
-  font-weight: 500;
+  font-size: 1.5rem;
+  font-weight:700;
   word-spacing: -0.1em;
+  color: ${theme.colors.black.black100};
+`;
+const Num = styled.span`
+  font-family: 'Noto sans KR';
+  font-size: 1.4rem;
 `;
 const Wrap = styled.div`
-  height: 5%;
   display: flex;
+  margin: 10px 10px;
   justify-content: space-between;
   align-items: end;
   padding: 0 30px;
 `;
 const WrapP = styled.p`
   width: 120px;
-  margin-left: 20px;
-  font-size: 1rem;
+  font-size: .8rem;
   text-align: left;
   font-weight: 500;
   color: ${theme.colors.black.black50};
+`;
+const ListWrap = styled.div`
+  height: 67%;
+  width: 100%;
+  overflow-y: scroll;
 `;
 const PlusBtn = styled.button`
   z-index: 1;
   width: 90%;
   height: 60px;
-  border-radius: 30px;
+  margin-bottom: 30px;
+  border-radius: 25px;
   border: none;
   font-size: 1rem;
   color: ${theme.colors.white};
@@ -137,18 +148,13 @@ const PlusBtn = styled.button`
     box-shadow: 5px 5px 20px ${theme.colors.blue.main};
   }
 `;
+
 const WrapBtn = styled.div`
   height: 10%;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-const ListWrap = styled.div`
-  height: 60%;
-  width: 100%;
-  margin-top: 10px;
-  overflow-y: scroll;
 `;
 
 export default Read;

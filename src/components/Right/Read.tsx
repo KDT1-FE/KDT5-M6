@@ -14,6 +14,7 @@ function Read({ selectedDate }: IReadProps) {
   const [content, setContent] = useState<IContentExtend[]>([]);
   const [date, setDate] = useState<Date>(new Date());
 
+  // PostModal 열기
   const handleModal = (event: React.MouseEvent) => {
     event.preventDefault();
     event.stopPropagation();
@@ -27,6 +28,7 @@ function Read({ selectedDate }: IReadProps) {
     }
   }, [selectedDate]);
 
+  // 선택된 날짜에 대한 내역 불러오기
   const getContent = useCallback(async () => {
     const res = await getCalendar(
       date.getFullYear(),

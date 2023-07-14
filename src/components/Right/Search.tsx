@@ -21,7 +21,7 @@ function Search({ setChange, selectedDate }: IReadProps) {
 
   // 버튼 클릭시 클릭 이벤트 실행
   const ButtonClick = () => {
-    onSubmit(keyword, 'user123');
+    onSubmit(keyword, 'toy2_team4');
   };
 
   // 검색시 해당 검색내용 state에 저장
@@ -33,7 +33,7 @@ function Search({ setChange, selectedDate }: IReadProps) {
   // Enter 입력이 되면 클릭 이벤트 실행
   const OnKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      onSubmit(keyword, 'user123');
+      onSubmit(keyword, 'toy2_team4');
     }
   };
 

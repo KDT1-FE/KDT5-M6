@@ -80,7 +80,7 @@ function Chart({ date }: ICalendarProps) {
   );
 
   useEffect(() => {
-    monthAmount(FullYear, Month, 'user123');
+    monthAmount(FullYear, Month, 'toy2_team4');
   }, [FullYear, monthAmount, Month]);
 
   // minus 값을 +로 변환하여 표시

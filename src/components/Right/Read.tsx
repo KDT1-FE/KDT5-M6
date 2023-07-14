@@ -34,7 +34,7 @@ function Read({ selectedDate, setChange }: IReadProps) {
     const res = await getCalendar(
       date.getFullYear(),
       date.getMonth() + 1,
-      'user123'
+      'toy2_team4'
     );
 
     if (res[date.getDate()]) {

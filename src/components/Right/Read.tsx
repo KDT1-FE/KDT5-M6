@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import List from '../common/List';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PostModal from './PostModal';
 import { IContentExtend, getCalendar } from '../../lib/API';
 import { theme } from '../../styles/theme';
@@ -27,7 +27,7 @@ function Read({ selectedDate }: IReadProps) {
     }
   }, [selectedDate]);
 
-  const getContent = async () => {
+  const getContent = useCallback(async () => {
     const res = await getCalendar(
       date.getFullYear(),
       date.getMonth() + 1,
@@ -39,11 +39,11 @@ function Read({ selectedDate }: IReadProps) {
     } else {
       setContent([]);
     }
-  };
+  }, [date]);
 
   useEffect(() => {
     getContent();
-  }, [date]);
+  }, [date, getContent]);
 
   const days = ['일', '월', '화', '수', '목', '금', '토'];
 

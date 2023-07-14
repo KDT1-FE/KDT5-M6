@@ -9,6 +9,7 @@ function App() {
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString());
   // Left 컴포넌트에 setToggle prop 전달
   const [toggle, setToggle] = useState(false);
+  const [change, setChange] = useState(false);
 
   return (
     <Conatainer>
@@ -18,13 +19,14 @@ function App() {
       <AreaWrapper>
         <MiddleArea>
           <Middle
+            change={change}
             selectedDate={selectedDate}
             setSelectedDate={setSelectedDate}
             toggle={toggle}
           />
         </MiddleArea>
         <RightArea>
-          <Right selectedDate={selectedDate} />
+          <Right selectedDate={selectedDate} setChange={setChange} />
         </RightArea>
       </AreaWrapper>
     </Conatainer>

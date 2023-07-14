@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { IContent, editData } from '../../lib/API';
 
 interface IEditModalProps {
+  setChange: React.Dispatch<React.SetStateAction<boolean>>;
   getContent: () => void;
   selectedDate: string;
   setEditModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,6 +15,7 @@ interface IEditModalProps {
 }
 
 function EditModal({
+  setChange,
   selectedDate,
   setEditModalOpen,
   getContent,
@@ -52,6 +54,7 @@ function EditModal({
       alert('내역이 수정되었습니다!');
     }
     setEditModalOpen(false);
+    setChange((prev) => !prev);
   };
 
   return (

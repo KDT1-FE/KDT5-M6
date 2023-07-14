@@ -7,9 +7,10 @@ import { theme } from '../../styles/theme';
 
 interface IReadProps {
   selectedDate: string;
+  setChange: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Read({ selectedDate }: IReadProps) {
+function Read({ selectedDate, setChange }: IReadProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [content, setContent] = useState<IContentExtend[]>([]);
   const [date, setDate] = useState<Date>(new Date());
@@ -63,6 +64,7 @@ function Read({ selectedDate }: IReadProps) {
       </Wrap>
       <ListWrap>
         <List
+          setChange={setChange}
           data={content}
           selectedDate={selectedDate}
           getContent={getContent}
@@ -75,6 +77,7 @@ function Read({ selectedDate }: IReadProps) {
       </WrapBtn>
       {isModalOpen && (
         <PostModal
+          setChange={setChange}
           getContent={getContent}
           selectedDate={selectedDate}
           setIsModalOpen={setIsModalOpen}

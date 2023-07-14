@@ -6,12 +6,13 @@ import EditModal from '../Right/EditModal';
 import { theme } from '../../styles/theme';
 
 interface IListProps {
+  setChange: React.Dispatch<React.SetStateAction<boolean>>;
   data: IContentExtend[];
   selectedDate: string;
   getContent: () => void;
 }
 
-function List({ data, selectedDate, getContent }: IListProps) {
+function List({ setChange, data, selectedDate, getContent }: IListProps) {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [id, setId] = useState('');
   const [date, setDate] = useState('');
@@ -79,6 +80,7 @@ function List({ data, selectedDate, getContent }: IListProps) {
 
       {editModalOpen && (
         <EditModal
+          setChange={setChange}
           setEditModalOpen={setEditModalOpen}
           selectedDate={selectedDate}
           getContent={getContent}

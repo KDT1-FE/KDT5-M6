@@ -36,14 +36,13 @@ interface IContentExtendPeriod {
   totalAmount: number;
 }
 
-function extractData(data: IContentExtendPeriod[]): {
+function extractData(data: IContentExtendPeriod[], currentMonth: number): {
   month: string;
   plus: number;
   minus: number;
 } {
-  const currentDate = new Date();
-  const currentMonth = currentDate.getMonth() + 1;
-
+  // const currentDate = new Date();
+  // const currentMonth = currentDate.getMonth() + 1;
   let plusTotal = 0;
   let minusTotal = 0;
 
@@ -62,7 +61,7 @@ function extractData(data: IContentExtendPeriod[]): {
   return { month: currentMonth.toString(), plus: plusTotal, minus: minusTotal };
 }
 
-function Chart({ date }: ICalendarProps) {
+function Chart({ date, setDate }: ICalendarProps) {
   const [content, setContent] = useState<IContentExtend[]>([]);
   const [monthlyAmount, setMonthlyAmount] = useState<{
     plus: number;
@@ -77,7 +76,8 @@ function Chart({ date }: ICalendarProps) {
         setContent(res);
         console.log(`🤔 Data for ${period}:`, res); // 데이터 콘솔에 출력
 
-        const { month, plus, minus } = extractData(res); // 데이터 추출
+        const currentMonth = date.getMonth() + 1;
+        const { month, plus, minus } = extractData(res, currentMonth); // 데이터 추출
         setMonthlyAmount({ plus, minus });
         console.log(`📊 Monthly data for ${month}:`, { plus, minus });
       } catch (error) {
@@ -89,8 +89,10 @@ function Chart({ date }: ICalendarProps) {
     periods.forEach((period) => {
       fetchData(period);
     });
-  }, []);
+  }, [date]);
 
+  // minus 값을 +로 변환하여 표시
+  const transformedMinus = Math.abs(monthlyAmount.minus);
   // 라이브러리 문법
   const chartOptions = {
     responsive: true,
@@ -141,7 +143,7 @@ function Chart({ date }: ICalendarProps) {
         label: '₩',
         data: [
           { x: '수입', y: monthlyAmount.plus },
-          { x: '지출', y: monthlyAmount.minus }
+          { x: '지출', y: transformedMinus }
         ],
         backgroundColor: ['#4464FF', '#FF6969']
       }
@@ -151,7 +153,7 @@ function Chart({ date }: ICalendarProps) {
   return (
     <ChartGraph>
       {/* 라이브러리 문법 */}
-      <Bar data={chartData} options={chartOptions} width="100%" height="60%" />
+      <Bar data={chartData} options={chartOptions} width="90%" height="60%" />
     </ChartGraph>
   );
 }
@@ -160,7 +162,7 @@ const ChartGraph = styled.div`
   margin: auto;
   margin-top: 50px;
   /* margin-bottom: 5px; */
-  width: 85%;
+  width: 80%;
   max-width: 900px;
 `;
 

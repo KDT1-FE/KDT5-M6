@@ -11,16 +11,19 @@ interface ICalendarProps {
 function Calendar({ selectedDate, setSelectedDate, date }: ICalendarProps) {
   const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
+  // 날짜 선택시 해당 날짜 데이터를 state에 저장
   const handleClick = (year: number, month: number, day: number) => {
     const clickedDate = new Date(year, month, day);
     const formattedDate = formatDateKrISO(clickedDate);
     setSelectedDate(formattedDate);
   };
 
+  // 해당 달의 일 수 구하기
   const getDaysInMonth = (year: number, month: number) => {
     return new Date(year, month + 1, 0).getDate();
   };
 
+  // 달력 생성
   const generateCalendar = () => {
     const year = date.getFullYear();
     const month = date.getMonth();

@@ -68,6 +68,7 @@
 
 ### Develoment
 
+ <p>
   <img src="https://img.shields.io/badge/html5-E34F26?stylestyle=flat&logo=html5&logoColor=white">
   <img src="https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=axios&logoColor=white">
   <img src="https://img.shields.io/badge/react-61DAFB?style=flat&logo=react&logoColor=white">
@@ -75,23 +76,47 @@
   <img src="https://img.shields.io/badge/styled components-DB7093?style=flat&logo=styledcomponents&logoColor=white">
   <img src="https://img.shields.io/badge/Chart.js-FF6384?style=flat&logo=Chart.js&logoColor=white">
   <img src="https://img.shields.io/badge/Ant Design-0170FE?style=flat&logo=Ant Design&logoColor=white">
+</p>
 
 ### Config
 
+<p>
 <img src="https://img.shields.io/badge/Vite-646CFF?style=flat&logo=Vite&logoColor=white"/>
 <img src="https://img.shields.io/badge/npm-CB3837?style=flat&logo=npm&logoColor=white"/>
+</p>
 
 ### Enviroment
 
+<p>
 <img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=flat&logo=Visual Studio Code&logoColor=white"/>
 <img src="https://img.shields.io/badge/Git-F05032?style=flat&logo=Git&logoColor=white"/>
 <img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/>
-
+</p>
 <br/>
 
 ### Cowork Tools
 
+<p>
 <img src="https://img.shields.io/badge/Slack-4A154B?style=flat&logo=Slack&logoColor=white" />
 <img src="https://img.shields.io/badge/Notion-000000?style=flat&logo=Notion&logoColor=white" />
 <img src="https://img.shields.io/badge/Figma-F24E1E?style=flat&logo=Figma&logoColor=white" />
 <img src="https://img.shields.io/badge/Zoom-2D8CFF?style=flat&logo=Zoom&logoColor=white" />
+</p>
+
+## 전체 화면 구성
+
+|                      **메인 페이지**                      |                          **수입 추가**                          |
+| :-------------------------------------------------------: | :-------------------------------------------------------------: |
+| <img src="public/imgs/main.png" width=460px alt="메인" /> | <img src="public/imgs/Income.png" width=460px alt="수입추가" /> |
+
+|                           **지출 추가**                           |                        **전체 내역 검색(전체)**                         |
+| :---------------------------------------------------------------: | :---------------------------------------------------------------------: |
+| <img src="public/imgs/Spending.png" width=460px alt="지출추가" /> | <img src="public/imgs/All.png" width=460px alt="전체 내역 검색-전체" /> |
+
+|                      **전체 내역 검색(수입)**                       |                      **전체 내역 검색(지출)**                       |
+| :-----------------------------------------------------------------: | :-----------------------------------------------------------------: |
+| <img src="public/imgs/All-Income.png" width=460px alt="지출추가" /> | <img src="public/imgs/All-Spending.png" width=460px alt="어바웃" /> |
+
+**차트 부분**<br/><br/>
+
+  <img src="public/imgs/Chart.png" width=1678px alt="차트 부분" />

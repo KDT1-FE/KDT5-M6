@@ -5,10 +5,11 @@ import { theme } from '../../styles/theme';
 import { ChangeEvent, useState } from 'react';
 
 interface IReadProps {
+  setChange: React.Dispatch<React.SetStateAction<boolean>>;
   selectedDate: string;
 }
 
-function Search({ selectedDate }: IReadProps) {
+function Search({ setChange, selectedDate }: IReadProps) {
   const [content, setContent] = useState<IContentExtend[]>([]);
   const [keyword, setKeyword] = useState('');
   const [filter, setFilter] = useState(0);
@@ -94,6 +95,7 @@ function Search({ selectedDate }: IReadProps) {
               ? content.filter((i) => i.amount >= 0)
               : content.filter((i) => i.amount < 0)
           }
+          setChange={setChange}
           selectedDate={selectedDate}
           getContent={ButtonClick}
         />

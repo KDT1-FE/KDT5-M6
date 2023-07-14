@@ -30,7 +30,7 @@ function Right({ selectedDate, setChange }: IRightProps) {
       {active ? (
         <Read selectedDate={selectedDate} setChange={setChange} />
       ) : (
-        <Search selectedDate={selectedDate} />
+        <Search selectedDate={selectedDate} setChange={setChange} />
       )}
     </RightContainer>
   );

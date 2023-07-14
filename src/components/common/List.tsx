@@ -6,16 +6,18 @@ import EditModal from '../Right/EditModal';
 import { theme } from '../../styles/theme';
 
 interface IListProps {
+  setChange: React.Dispatch<React.SetStateAction<boolean>>;
   data: IContentExtend[];
   selectedDate: string;
   getContent: () => void;
 }
 
-function List({ data, selectedDate, getContent }: IListProps) {
+function List({ setChange, data, selectedDate, getContent }: IListProps) {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [id, setId] = useState('');
   const [date, setDate] = useState('');
 
+  // 삭제 로직
   const deletehandle = (e: React.MouseEvent, _id: string) => {
     e.preventDefault;
     const res = delData(_id);
@@ -25,6 +27,8 @@ function List({ data, selectedDate, getContent }: IListProps) {
     });
     return res;
   };
+
+  // EditModal 열기
   const openEditModal = (
     event: React.MouseEvent,
     _id: string,
@@ -76,9 +80,9 @@ function List({ data, selectedDate, getContent }: IListProps) {
 
       {editModalOpen && (
         <EditModal
+          setChange={setChange}
           setEditModalOpen={setEditModalOpen}
           selectedDate={selectedDate}
-          data={data}
           getContent={getContent}
           id={id}
           date={date}

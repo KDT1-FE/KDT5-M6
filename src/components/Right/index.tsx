@@ -6,9 +6,10 @@ import { theme } from '../../styles/theme';
 
 interface IRightProps {
   selectedDate: string;
+  setChange: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Right({ selectedDate }: IRightProps) {
+function Right({ selectedDate, setChange }: IRightProps) {
   const [active, setActive] = useState(true);
 
   return (
@@ -27,7 +28,7 @@ function Right({ selectedDate }: IRightProps) {
         </Btns>
       )}
       {active ? (
-        <Read selectedDate={selectedDate} />
+        <Read selectedDate={selectedDate} setChange={setChange} />
       ) : (
         <Search selectedDate={selectedDate} />
       )}

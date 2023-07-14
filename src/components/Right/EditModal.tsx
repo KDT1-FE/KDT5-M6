@@ -3,21 +3,21 @@ import BlueInput from '../common/BlueInput';
 import { Switch } from 'antd';
 import { theme } from '../../styles/theme';
 import { useState } from 'react';
-import { IContent, editData, IContentExtend } from '../../lib/API';
+import { IContent, editData } from '../../lib/API';
 
 interface IEditModalProps {
+  setChange: React.Dispatch<React.SetStateAction<boolean>>;
   getContent: () => void;
   selectedDate: string;
   setEditModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  data: IContentExtend[];
   id: string;
   date: string;
 }
 
 function EditModal({
+  setChange,
   selectedDate,
   setEditModalOpen,
-  data,
   getContent,
   id,
   date
@@ -30,6 +30,7 @@ function EditModal({
     date: date
   });
 
+  // input에 입력된 내용을 state에 저장
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setForm((prev) => ({
@@ -37,6 +38,8 @@ function EditModal({
       [name]: value
     }));
   };
+
+  // 수정 폼 제출
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     {
@@ -51,8 +54,8 @@ function EditModal({
       alert('내역이 수정되었습니다!');
     }
     setEditModalOpen(false);
+    setChange((prev) => !prev);
   };
-  console.log('form:', form);
 
   return (
     <ModalContainer

@@ -7,17 +7,23 @@ import { useState } from 'react';
 
 //toggle prop을 toggled로 변경
 interface IMiddleProps {
+  change: boolean;
   selectedDate: string;
   setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
   toggle: boolean;
 }
 
-function Middle({ selectedDate, setSelectedDate, toggle }: IMiddleProps) {
+function Middle({
+  change,
+  selectedDate,
+  setSelectedDate,
+  toggle
+}: IMiddleProps) {
   const [date, setDate] = useState(new Date());
   return (
     <MidContainer>
       <TopArea>
-        <Stats date={date} setDate={setDate} />
+        <Stats date={date} change={change} />
       </TopArea>
       <BottomArea>
         <MiddleLayout date={date} setDate={setDate}>

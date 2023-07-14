@@ -1,17 +1,18 @@
 import { styled, css } from 'styled-components';
 import { IContentExtend, getCalendar } from '../../lib/API';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { theme } from '../../styles/theme';
 
 interface IStatsProps {
   date: Date;
+  change: boolean;
 }
 interface IColorProps {
   $IncomeColor?: boolean;
   $SpendingColor?: boolean;
 }
 
-function Stats({ date }: IStatsProps) {
+function Stats({ date, change }: IStatsProps) {
   const [income, setIncome] = useState<number>();
   const [lastIncome, setLastIncome] = useState<number>();
   const [spending, setSpending] = useState<number>();
@@ -19,6 +20,15 @@ function Stats({ date }: IStatsProps) {
   const [thisMonth, setThisMonth] = useState<number>();
   const [lastMonth, setLastMonth] = useState<number>();
 
+  const LastMonth = new Date(date).getMonth();
+  const Month = new Date(date).getMonth() + 1;
+  const FullYear = new Date(date).getFullYear();
+
+  const incomes = income?.toLocaleString();
+  const spendings = spending?.toLocaleString();
+  const Total = new Intl.NumberFormat('ko-KR');
+
+  // amount만 모아둔 배열 생성
   const getLists = async (year: number, month: number, userId: string) => {
     const res = await getCalendar(year, month, userId);
     const newRes: IContentExtend[][] = Object.values(res);
@@ -33,66 +43,46 @@ function Stats({ date }: IStatsProps) {
     return newArray;
   };
 
+  // 수입 계산
   const getIncome = (Lists: number[]) => {
     const Income = Lists.filter((item) => item >= 0);
     const TotalIncome = Income.reduce((acc, cur) => acc + cur, 0);
     return TotalIncome;
   };
 
+  // 지출 계산
   const getSpending = (Lists: number[]) => {
     const Spending = Lists.filter((item) => item < 0);
     const TotalSpending = Spending.reduce((acc, cur) => acc + cur, 0);
     return TotalSpending;
   };
 
-  const monthAmount = async (year: number, month: number, userId: string) => {
-    const Lists = await getLists(year, month, userId);
+  // 수입과 지출, 합산 금액을 state에 저장
+  const monthAmount = useCallback(
+    async (year: number, month: number, userId: string) => {
+      const Lists = await getLists(year, month, userId);
 
-    const TotalIncome = getIncome(Lists);
-    const TotalSpending = getSpending(Lists);
+      const TotalIncome = getIncome(Lists);
+      const TotalSpending = getSpending(Lists);
+      const AmountTotal = TotalIncome + TotalSpending;
 
-    if (month === Month) {
-      setIncome(TotalIncome);
-      setSpending(TotalSpending);
-    } else if (month === LastMonth) {
-      setLastIncome(TotalIncome);
-      setLastSpending(TotalSpending);
-    }
-
-    const AmountTotal = TotalIncome + TotalSpending;
-    return AmountTotal;
-  };
-
-  const currentMonthAmount = async (
-    year: number,
-    month: number,
-    userId: string
-  ) => {
-    const total = await monthAmount(year, month, userId);
-    setThisMonth(total);
-  };
-
-  const LastMonthAmount = async (
-    year: number,
-    month: number,
-    userId: string
-  ) => {
-    const total = await monthAmount(year, month, userId);
-    setLastMonth(total);
-  };
-
-  const LastMonth = new Date(date).getMonth();
-  const Month = new Date(date).getMonth() + 1;
-  const FullYear = new Date(date).getFullYear();
-
-  const incomes = income?.toLocaleString();
-  const spendings = spending?.toLocaleString();
-  const Total = new Intl.NumberFormat('ko-KR');
+      if (month === Month) {
+        setIncome(TotalIncome);
+        setSpending(TotalSpending);
+        setThisMonth(AmountTotal);
+      } else if (month === LastMonth) {
+        setLastIncome(TotalIncome);
+        setLastSpending(TotalSpending);
+        setLastMonth(AmountTotal);
+      }
+    },
+    [LastMonth, Month]
+  );
 
   useEffect(() => {
-    currentMonthAmount(FullYear, Month, 'user123');
-    LastMonthAmount(FullYear, LastMonth, 'user123');
-  });
+    monthAmount(FullYear, Month, 'user123');
+    monthAmount(FullYear, LastMonth, 'user123');
+  }, [FullYear, monthAmount, Month, LastMonth, change]);
 
   return (
     <Container>

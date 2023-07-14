@@ -15,6 +15,10 @@ export interface IContent {
   category: string;
   date: string;
 }
+export interface IContentExtend extends IContent {
+  _id: string;
+  __v: number;
+}
 
 // 소비 기록 작성
 const postData = async (content: IContent) => {

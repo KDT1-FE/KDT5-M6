@@ -73,6 +73,7 @@ const LayoutWrapper = styled.div`
   flex-direction: column;
   background-color: ${theme.colors.white};
   box-shadow: 5px 5px 20px ${theme.colors.gray[1]};
+  color: ${theme.colors.black.black100};
 `;
 const Title = styled.span`
   width: 50%;

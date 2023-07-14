@@ -97,7 +97,7 @@ const PrevDay = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${theme.colors.gray[1]};
+  color: ${theme.colors.black.black30};
 `;
 
 const NextDay = styled.div`
@@ -105,7 +105,7 @@ const NextDay = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${theme.colors.gray[1]};
+  color: ${theme.colors.black.black30};
 `;
 
 const CalendarBody = styled.div`
@@ -160,8 +160,15 @@ const CalendarDay = styled.div<{
     align-items: center;
     justify-content: center;
     background-color: ${({ $isSelected }) =>
-      $isSelected ? '#5A81FA' : 'transparent'};
+      $isSelected ? '#4464FF' : 'transparent'};
     color: ${({ $isSelected, theme }) => $isSelected && theme.colors.white};
+    box-shadow: 3px 3px 10px
+      ${({ $isSelected }) => ($isSelected ? '#4464FF' : 'transparent')};
+    &:hover {
+      transition: all 0.3s;
+      box-shadow: 5px 5px 15px
+        ${({ $isSelected }) => ($isSelected ? '#4464FF' : 'transparent')};
+    }
   }
 `;
 export default Calendar;

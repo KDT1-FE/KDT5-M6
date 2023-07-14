@@ -127,15 +127,26 @@ const Container = styled.div`
   align-items: center;
   gap: 35px;
   height: 150px;
-  width: 96%;
-  margin: 20px 20px 10px;
+  width: 100%;
+  padding: 20px 20px 10px;
   background-color: ${theme.colors.black.black100};
   border-radius: 40px;
-  box-shadow: 5px 5px 20px;
+  box-shadow: 5px 5px 15px ${theme.colors.black.black50};
+  font-family: 'poppins';
+  text-align: left;
+  font-weight: 400;
+  word-spacing: -0.1em;
+`;
+
+const Wrapper = styled.div`
+  margin: 0 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
 `;
 
 const Title = styled.h2<IColorProps>`
-  font-size: 20px;
+  font-size: 1rem;
 
   ${({ $IncomeColor, $SpendingColor, theme }) => css`
     color: ${$IncomeColor
@@ -146,13 +157,9 @@ const Title = styled.h2<IColorProps>`
   `}
 `;
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`;
 const Money = styled.h2<IColorProps>`
-  font-size: 30px;
+  font-size: 2rem;
+  font-weight: 800;
 
   ${({ $IncomeColor, $SpendingColor, theme }) => css`
     color: ${$IncomeColor
@@ -171,9 +178,17 @@ const Compare = styled.span<IColorProps>`
       ? theme.colors.red
       : theme.colors.white};
   `}
+  font-size: .8rem;
+  opacity: calc(0.2);
+  &:hover {
+    transition: 0.3s;
+    opacity: 1;
+  }
 `;
 
 const Line = styled.div`
   border-left: 1px solid ${theme.colors.white};
   height: 63px;
+  border: 1px solid ${theme.colors.black.black50};
+  mix-blend-mode: multiply;
 `;

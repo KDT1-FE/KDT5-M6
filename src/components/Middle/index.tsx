@@ -48,16 +48,18 @@ const MidContainer = styled.section`
   margin: auto;
   display: flex;
   flex-direction: column;
+  align-items:center;
 `;
 const TopArea = styled.div`
   height: 20%;
   width: 100%;
-  /* background-color: pink; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 const BottomArea = styled.div`
   height: 80%;
   width: 100%;
-  /* background-color: hotpink; */
   display: flex;
   justify-content: center;
   align-items: center;

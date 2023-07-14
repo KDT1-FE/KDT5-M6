@@ -80,8 +80,8 @@ function Stats({ date, change }: IStatsProps) {
   );
 
   useEffect(() => {
-    monthAmount(FullYear, Month, 'user123');
-    monthAmount(FullYear, LastMonth, 'user123');
+    monthAmount(FullYear, Month, 'toy2_team4');
+    monthAmount(FullYear, LastMonth, 'toy2_team4');
   }, [FullYear, monthAmount, Month, LastMonth, change]);
 
   return (

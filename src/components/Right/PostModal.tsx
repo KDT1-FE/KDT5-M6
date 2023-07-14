@@ -21,7 +21,7 @@ function PostModal({
   const [isChecked, setIsChecked] = useState(false);
   const [form, setForm] = useState<IContent>({
     amount: 0,
-    userId: 'user123',
+    userId: 'toy2_team4',
     category: '',
     date: selectedDate
   });

@@ -34,7 +34,7 @@ function Read({ selectedDate, setChange }: IReadProps) {
     const res = await getCalendar(
       date.getFullYear(),
       date.getMonth() + 1,
-      'user123'
+      'toy2_team4'
     );
 
     if (res[date.getDate()]) {
@@ -104,7 +104,7 @@ const StDate = styled.p`
   font-family: 'poppins';
   text-align: center;
   font-size: 1.5rem;
-  font-weight:700;
+  font-weight: 700;
   word-spacing: -0.1em;
   color: ${theme.colors.black.black100};
 `;
@@ -121,7 +121,7 @@ const Wrap = styled.div`
 `;
 const WrapP = styled.p`
   width: 120px;
-  font-size: .8rem;
+  font-size: 0.8rem;
   text-align: left;
   font-weight: 500;
   color: ${theme.colors.black.black50};

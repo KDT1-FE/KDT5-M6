@@ -5,10 +5,11 @@ import { theme } from '../../styles/theme';
 import { ChangeEvent, useState } from 'react';
 
 interface IReadProps {
+  setChange: React.Dispatch<React.SetStateAction<boolean>>;
   selectedDate: string;
 }
 
-function Search({ selectedDate }: IReadProps) {
+function Search({ setChange, selectedDate }: IReadProps) {
   const [content, setContent] = useState<IContentExtend[]>([]);
   const [keyword, setKeyword] = useState('');
   const [filter, setFilter] = useState(0);
@@ -20,7 +21,7 @@ function Search({ selectedDate }: IReadProps) {
 
   // 버튼 클릭시 클릭 이벤트 실행
   const ButtonClick = () => {
-    onSubmit(keyword, 'user123');
+    onSubmit(keyword, 'toy2_team4');
   };
 
   // 검색시 해당 검색내용 state에 저장
@@ -32,7 +33,7 @@ function Search({ selectedDate }: IReadProps) {
   // Enter 입력이 되면 클릭 이벤트 실행
   const OnKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      onSubmit(keyword, 'user123');
+      onSubmit(keyword, 'toy2_team4');
     }
   };
 
@@ -94,6 +95,7 @@ function Search({ selectedDate }: IReadProps) {
               ? content.filter((i) => i.amount >= 0)
               : content.filter((i) => i.amount < 0)
           }
+          setChange={setChange}
           selectedDate={selectedDate}
           getContent={ButtonClick}
         />

@@ -16,6 +16,7 @@ function List({ data, selectedDate, getContent }: IListProps) {
   const [id, setId] = useState('');
   const [date, setDate] = useState('');
 
+  // 삭제 로직
   const deletehandle = (e: React.MouseEvent, _id: string) => {
     e.preventDefault;
     const res = delData(_id);
@@ -25,6 +26,8 @@ function List({ data, selectedDate, getContent }: IListProps) {
     });
     return res;
   };
+
+  // EditModal 열기
   const openEditModal = (
     event: React.MouseEvent,
     _id: string,
@@ -78,7 +81,6 @@ function List({ data, selectedDate, getContent }: IListProps) {
         <EditModal
           setEditModalOpen={setEditModalOpen}
           selectedDate={selectedDate}
-          data={data}
           getContent={getContent}
           id={id}
           date={date}

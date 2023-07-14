@@ -2,32 +2,37 @@ import { styled } from 'styled-components';
 import List from '../common/List';
 import { IContentExtend, getSearch } from '../../lib/API';
 import { theme } from '../../styles/theme';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 interface IReadProps {
   selectedDate: string;
 }
 
 function Search({ selectedDate }: IReadProps) {
-  // 테스트용 임시 데이터
   const [content, setContent] = useState<IContentExtend[]>([]);
   const [keyword, setKeyword] = useState('');
   const [filter, setFilter] = useState(0);
 
-  const inputChange = (e: any) => {
+  // 입력된 값을 state에 저장
+  const inputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
   };
 
+  // 버튼 클릭시 클릭 이벤트 실행
   const ButtonClick = () => {
     onSubmit(keyword, 'user123');
   };
+
+  // 검색시 해당 검색내용 state에 저장
   const onSubmit = async (keyword: string, userId: string) => {
     const res = await getSearch(keyword, userId);
     setContent(res);
   };
+
+  // Enter 입력이 되면 클릭 이벤트 실행
   const OnKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      onSubmit(keyword, 'user123'); // Enter 입력이 되면 클릭 이벤트 실행
+      onSubmit(keyword, 'user123');
     }
   };
 

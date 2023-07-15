@@ -20,11 +20,10 @@ export default function Banner({ message, type }: BannerProps) {
     <Alert
       type={type}
       message={message}
-      closable
       banner
       style={{
         width: '100%',
-        marginBottom: 20,
+        marginBottom: 8,
         opacity: alertOpacity,
         transition: 'ease-in-out 0.5s',
       }}

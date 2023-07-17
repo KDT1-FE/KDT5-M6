@@ -28,6 +28,7 @@ export default function ExpenditureForm({
   list,
   setList,
   selected,
+  setToggleAdd
 }: espenseFormProps) {
   // { selected }: espenseEditDeletProps,
   const [isSending, setIsSending] = useState(false);
@@ -69,6 +70,7 @@ export default function ExpenditureForm({
       }
       console.log('성공!!');
       // 성공적으로 추가함
+      setToggleAdd((prev:boolean)=>!prev)
     } catch (error) {
       console.log('서버로 부터 응답 안옴', error);
     } finally {
@@ -103,6 +105,7 @@ export default function ExpenditureForm({
       }
       console.log('수정!!');
       // 성공적으로 수정함
+      setToggleAdd((prev:boolean)=>!prev)
     } catch (error) {
       console.log('서버로 부터 응답 안옴', error);
     } finally {

@@ -7,8 +7,9 @@ const { Text } = Typography;
 
 interface SearchProps {
   toggleAdded: boolean;
+  dailyExpenses: SearchResultType[];
 }
-export default function Search({ toggleAdded }: SearchProps) {
+export default function Search({ dailyExpenses, toggleAdded }: SearchProps) {
   // userId 환경변수
   const userId = useMemo(() => import.meta.env.VITE_USER_ID, []);
 
@@ -102,6 +103,7 @@ export default function Search({ toggleAdded }: SearchProps) {
         </Text>
       </form>
       <SearchResultModal
+        dailyExpenses={dailyExpenses}
         searchResultModalOpen={searchResultModalOpen}
         searchResults={searchResults}
         setSearchResultModalOpen={setSearchResultModalOpen}

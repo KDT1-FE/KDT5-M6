@@ -55,7 +55,7 @@ export default function Home() {
 
   return (
     <>
-      <Search toggleAdded={toggleAdded} />
+      <Search dailyExpenses={dailyExpenses} toggleAdded={toggleAdded} />
       <FloatButton
         type="primary"
         icon={<PlusOutlined />}

@@ -12,12 +12,14 @@ interface SearchResultModalProps {
   searchResultModalOpen: boolean;
   setSearchResultModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   searchResults: SearchResultType[];
+  dailyExpenses: SearchResultType[];
 }
 
 export default function SearchResultModal({
   searchResultModalOpen,
   setSearchResultModalOpen,
   searchResults,
+  dailyExpenses,
 }: SearchResultModalProps) {
   const [selectedDate, setSelectedDate] = useState<string>('');
 
@@ -96,9 +98,7 @@ export default function SearchResultModal({
         >
           <Table
             columns={columns}
-            dataSource={searchResults.filter((result) =>
-              moment(result.date).isSame(selectedDate, 'day'),
-            )}
+            dataSource={dailyExpenses}
             size="small"
             bordered
           />

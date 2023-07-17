@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import {
   DatePicker,
   Space,
@@ -12,9 +12,15 @@ import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker';
 interface espenseFormProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setToggleAdded: Dispatch<SetStateAction<boolean>>;
+  toggleAdded: boolean;
 }
 
-export default function ExpenditureForm({ open, setOpen }: espenseFormProps) {
+export default function ExpenditureForm({
+  open,
+  setOpen,
+  setToggleAdded,
+}: espenseFormProps) {
   const [isSending, setIsSending] = useState(false);
   const [inputText, setInputText] = useState('');
   const [inputNumber, setInputNumber] = useState(0);
@@ -53,6 +59,7 @@ export default function ExpenditureForm({ open, setOpen }: espenseFormProps) {
         return;
       }
       console.log('성공!!');
+      setToggleAdded((prev: boolean) => !prev);
       // 성공적으로 추가함
     } catch (error) {
       console.log('서버로 부터 응답 안옴', error);

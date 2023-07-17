@@ -1,11 +1,10 @@
 import { SearchResultType } from '@/types/search';
-import { formatPaymentDate } from '@/utils/formatPaymentDate';
+import formatDate from '@/utils/formatDateAndTime';
 import { Typography, Modal, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { DailyExpenseType } from '@/types/expense';
 import { useState } from 'react';
-import DailyExpenseModal from './DailyExpenseModal';
 import moment from 'moment';
+import '@/index.css';
 
 const { Text } = Typography;
 
@@ -22,7 +21,7 @@ export default function SearchResultModal({
 }: SearchResultModalProps) {
   const [selectedDate, setSelectedDate] = useState<string>('');
 
-  const columns: ColumnsType<DailyExpenseType> = [
+  const columns: ColumnsType<SearchResultType> = [
     {
       title: '소비내역',
       dataIndex: 'category',
@@ -43,7 +42,10 @@ export default function SearchResultModal({
       dataIndex: 'date',
       key: 'date',
       align: 'center',
-      render: (date: string) => formatPaymentDate(date),
+      render: (time: string) => {
+        const formattedDate = formatDate(time);
+        return `${formattedDate.date} ${formattedDate.time}`;
+      },
     },
   ];
 
@@ -73,26 +75,34 @@ export default function SearchResultModal({
             dataSource={searchResults}
             size="small"
             bordered
+            rowClassName="table-row"
             onRow={(record) => ({
               onClick: () => handleRowClick(record.date),
             })}
-            rowKey={(record) => record.id} // 고유한 식별자를 사용하여 key prop 설정
+            rowKey={(record) => record._id}
           />
         )}
       </Modal>
 
       {selectedDate && (
-        <DailyExpenseModal
-          month={moment(selectedDate).format('M')}
-          day={moment(selectedDate).format('D')}
-          dailyExpenseModalOpen={true}
-          setDailyExpenseModalOpen={closeModal}
-          dailyExpenses={
-            searchResults.filter(
-              (result) => result.date === selectedDate,
-            ) as DailyExpenseType[]
-          }
-        />
+        <Modal
+          centered
+          title={`${moment(selectedDate).format('M')}월 ${moment(
+            selectedDate,
+          ).format('D')}일`}
+          open={searchResultModalOpen}
+          onCancel={() => setSelectedDate('')}
+          footer={null}
+        >
+          <Table
+            columns={columns}
+            dataSource={searchResults.filter((result) =>
+              moment(result.date).isSame(selectedDate, 'day'),
+            )}
+            size="small"
+            bordered
+          />
+        </Modal>
       )}
     </>
   );

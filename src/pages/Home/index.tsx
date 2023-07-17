@@ -23,6 +23,7 @@ export default function Home() {
 
   const [monthlyExpenses, setMonthlyExpenses] = useState<MontlyExpensesType>();
   const [loading, setLoading] = useState(false);
+  const [toggleAdded, setToggleAdded] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -54,7 +55,7 @@ export default function Home() {
 
   return (
     <>
-      <Search />
+      <Search toggleAdded={toggleAdded} />
       <FloatButton
         type="primary"
         icon={<PlusOutlined />}
@@ -65,6 +66,8 @@ export default function Home() {
       <ExpenditureForm
         open={addExpenseModalOpen}
         setOpen={setaddExpenseModalOpen}
+        setToggleAdded={setToggleAdded}
+        toggleAdded={toggleAdded}
       />
       <Calendar
         onChange={(val: Value) => setValue(val as Date)}

@@ -5,7 +5,10 @@ import SearchResultModal from './SearchResultModal';
 
 const { Text } = Typography;
 
-export default function Search() {
+interface SearchProps {
+  toggleAdded: boolean;
+}
+export default function Search({ toggleAdded }: SearchProps) {
   // userId 환경변수
   const userId = useMemo(() => import.meta.env.VITE_USER_ID, []);
 
@@ -35,7 +38,7 @@ export default function Search() {
       }
     };
     fetchData();
-  }, [userId]);
+  }, [userId, toggleAdded]);
 
   //  검색 키워드의 변화가 발생하면 autoCompleteOptions을 다음과 같이 바꿈
   useEffect(() => {
@@ -54,6 +57,9 @@ export default function Search() {
     e.preventDefault();
     if (searchKeyword.trim() === '') {
       setSearchErrorMessage('검색어를 입력해주세요.');
+      setTimeout(() => {
+        setSearchErrorMessage('');
+      }, 2000);
       return;
     }
     try {
@@ -72,28 +78,6 @@ export default function Search() {
       console.error(error, '서버로 부터 응답이 안옴');
     }
   };
-
-  // 에러메시지 2초뒤 제거
-  useEffect(() => {
-    let timerId: NodeJS.Timeout | null = null;
-
-    // 2초 후에 에러 메시지를 초기화
-    const clearErrorMessage = () => {
-      setSearchErrorMessage('');
-    };
-
-    // 검색 오류 메시지가 있을 경우 타이머를 시작하고 2초 후에 초기화
-    if (searchErrorMessage) {
-      timerId = setTimeout(clearErrorMessage, 2000);
-    }
-
-    // 컴포넌트가 언마운트될 때 타이머를 정리
-    return () => {
-      if (timerId) {
-        clearTimeout(timerId);
-      }
-    };
-  }, [searchErrorMessage]);
 
   return (
     <>

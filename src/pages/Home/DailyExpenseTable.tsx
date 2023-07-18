@@ -3,42 +3,32 @@ import type { ColumnsType } from 'antd/es/table';
 import { DailyExpensesType } from '@/types/expenses';
 import { DeleteTwoTone, EditOutlined } from '@ant-design/icons';
 import { useState } from 'react';
-import ExpenditureForm from '@/pages/Home/ExpenditureForm';
+import ExpenditureForm from './ExpenditureForm';
 
 interface DailyExpenseTableProps {
-  data: DailyExpensesType[];
-  list: boolean;
-  setList: React.Dispatch<React.SetStateAction<boolean>>;
+  dailyExpenses: DailyExpensesType[];
+  setToggleFetch: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function DailyExpenseTable({
-  data,
-  list,
-  setList,
+  dailyExpenses,
+  setToggleFetch,
 }: DailyExpenseTableProps) {
   const [open, setOpen] = useState(false);
-  const [edit, setEdit] = useState(false);
-  const [selectedId, setSelectedId] = useState('');
-  const [selectedAmount, setSelectedAmount] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedDate, setSelectedDate] = useState('');
 
-  const handleClickEdit = () => {
-    setOpen(true);
-    setEdit(false);
-  };
+  const [selectedData, setSelectedData] = useState<DailyExpensesType>();
 
   const confirm = async () => {
     try {
       const response = await fetch(
-        `http://52.78.195.183:3003/api/expenses/${selectedId}`,
+        `http://52.78.195.183:3003/api/expenses/${selectedData?._id}`,
         { method: 'DELETE', headers: { 'content-type': 'application/json' } },
       );
       if (!response.ok) {
         console.log('서버로 부터 응답이 왔는데 에러임.');
         return;
       }
-      setList(!list);
+      setToggleFetch((prev) => !prev);
     } catch (error) {
       console.log('서버로 부터 응답 안옴', error);
     } finally {
@@ -73,55 +63,52 @@ export default function DailyExpenseTable({
       key: 'action',
       align: 'center',
       render: (_, data) => (
-        <Space size="small">
-          <EditOutlined
-            onClick={() => {
-              setSelectedId(data._id);
-              setSelectedAmount(data.amount);
-              setSelectedCategory(data.category);
-              setSelectedDate(data.date);
-              handleClickEdit();
-            }}
-            className="hover_icon"
-          />
-          <ExpenditureForm
-            open={open}
-            setOpen={setOpen}
-            edit={edit}
-            list={list}
-            setList={setList}
-            selectedId={selectedId}
-            selectedAmount={selectedAmount}
-            selectedCategory={selectedCategory}
-            selectedDate={selectedDate}
-          />
-          <Divider type="vertical" style={{ margin: '0' }} />
-          <Popconfirm
-            title="소비 기록 삭제"
-            description={
-              <span style={{ marginRight: '20px' }}>
-                소비 기록을 삭제하시겠습니까?
-              </span>
-            }
-            onConfirm={confirm}
-            onCancel={() => {
-              message.error('삭제 취소');
-            }}
-            okText="삭제"
-            cancelText="취소"
-          >
-            <DeleteTwoTone
-              twoToneColor="red"
+        <div>
+          <Space size="small">
+            <EditOutlined
               onClick={() => {
-                setSelectedId(data._id);
+                setSelectedData(data);
+                setOpen(true);
               }}
               className="hover_icon"
             />
-          </Popconfirm>
-        </Space>
+            <Divider type="vertical" style={{ margin: '0' }} />
+            <Popconfirm
+              title="소비 기록 삭제"
+              description={
+                <span style={{ marginRight: '20px' }}>
+                  소비 기록을 삭제하시겠습니까?
+                </span>
+              }
+              onConfirm={confirm}
+              onCancel={() => {
+                message.error('삭제 취소');
+              }}
+              okText="삭제"
+              cancelText="취소"
+            >
+              <DeleteTwoTone
+                twoToneColor="red"
+                onClick={() => {
+                  setSelectedId(data._id);
+                }}
+                className="hover_icon"
+              />
+            </Popconfirm>
+          </Space>
+          <ExpenditureForm
+            setToggleFetch={setToggleFetch}
+            open={open}
+            setOpen={setOpen}
+            edit
+            selectedData={selectedData}
+          />
+        </div>
       ),
     },
   ];
 
-  return <Table columns={columns} dataSource={data} size="small" bordered />;
+  return (
+    <Table columns={columns} dataSource={dailyExpenses} size="small" bordered />
+  );
 }

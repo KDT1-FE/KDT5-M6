@@ -8,8 +8,7 @@ interface DailyExpenseModalProps {
   dailyExpenses: DailyExpensesType[];
   dailyExpenseModalOpen: boolean;
   setDailyExpenseModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  list: boolean;
-  setList: React.Dispatch<React.SetStateAction<boolean>>;
+  setToggleFetch: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function DailyExpenseModal({
@@ -18,8 +17,7 @@ export default function DailyExpenseModal({
   day,
   dailyExpenseModalOpen,
   setDailyExpenseModalOpen,
-  list,
-  setList,
+  setToggleFetch,
 }: DailyExpenseModalProps) {
   return (
     <Modal
@@ -29,7 +27,10 @@ export default function DailyExpenseModal({
       onCancel={() => setDailyExpenseModalOpen(false)}
       footer={null}
     >
-      <DailyExpenseTable data={dailyExpenses} list={list} setList={setList} />
+      <DailyExpenseTable
+        dailyExpenses={dailyExpenses}
+        setToggleFetch={setToggleFetch}
+      />
     </Modal>
   );
 }

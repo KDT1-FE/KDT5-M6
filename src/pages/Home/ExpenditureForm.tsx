@@ -1,46 +1,37 @@
-import { Dispatch, SetStateAction, useState } from 'react';
-import {
-  DatePicker,
-  Space,
-  Button,
-  Modal,
-  Input,
-  // Select,
-} from 'antd';
+import { useEffect, useState } from 'react';
+import { DatePicker, Space, Button, Modal, Input } from 'antd';
 import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker';
+import { DailyExpensesType } from '@/types/expenses';
 
 interface espenseFormProps {
+  selectedData?: DailyExpensesType;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-
   setToggleFetch: React.Dispatch<React.SetStateAction<boolean>>;
   edit?: boolean;
-  list: boolean;
-  setList: React.Dispatch<React.SetStateAction<boolean>>;
-  selectedId?: string | null;
-  selectedAmount?: number;
-  selectedCategory?: string;
-  selectedDate?: string;
 }
 
 export default function ExpenditureForm({
+  selectedData,
   open,
   setOpen,
   edit,
-  list,
-  setList,
-  selectedId,
-  selectedAmount,
-  selectedCategory,
-  selectedDate,
   setToggleFetch,
 }: espenseFormProps) {
-  // { selected }: espenseEditDeletProps,
   const [isSending, setIsSending] = useState(false);
-  const [inputText, setInputText] = useState('');
-  const [inputNumber, setInputNumber] = useState(0);
+  const [inputText, setInputText] = useState<string>();
+  const [inputNumber, setInputNumber] = useState<number>();
   const [selecteDate, setSelecteDate] = useState('');
-  // const [plusMinus, setPlusMinus] = useState('-');
+
+  useEffect(() => {
+    if (
+      selectedData?.category !== undefined &&
+      selectedData?.category !== undefined
+    ) {
+      setInputText(selectedData.category);
+      setInputNumber(selectedData.amount);
+    }
+  }, [selectedData?.amount, selectedData?.category]);
 
   const selectDateHandler = (
     _value: DatePickerProps['value'] | RangePickerProps['value'],
@@ -53,8 +44,8 @@ export default function ExpenditureForm({
     setSelecteDate(selecteDate);
   };
 
-  const displaydate = selectedDate?.slice(0, 10);
-  const dispalyTime = selectedDate?.slice(11, 19);
+  const displaydate = selectedData?.date?.slice(0, 10);
+  const dispalyTime = selectedData?.date?.slice(11, 19);
   const displayDate = `${displaydate} ${dispalyTime}`;
 
   // const { Option } = Select;
@@ -62,7 +53,7 @@ export default function ExpenditureForm({
   const cancleHandler = () => {
     setIsSending(false);
     setOpen(false);
-    setInputNumber(0);
+    setInputNumber(undefined);
     setInputText('');
     setSelecteDate('');
   };
@@ -70,7 +61,7 @@ export default function ExpenditureForm({
   const handleSubmit = async () => {
     setIsSending(true);
     await new Promise((resolve) => setTimeout(resolve, 300));
-    if (inputText.length <= 0) {
+    if (inputText && inputText.length <= 0) {
       alert('카테고리를 입력해주세요');
     }
     if (selecteDate.length <= 0) {
@@ -103,7 +94,6 @@ export default function ExpenditureForm({
     } finally {
       setIsSending(false);
       setOpen(false);
-      setList(!list);
       setInputNumber(0);
       setInputText('');
       setSelecteDate('');
@@ -116,16 +106,16 @@ export default function ExpenditureForm({
 
     try {
       const response = await fetch(
-        `http://52.78.195.183:3003/api/expenses/${selectedId}`,
+        `http://52.78.195.183:3003/api/expenses/${selectedData?._id}`,
         {
           method: 'PUT',
           headers: { 'content-type': 'application/json' },
 
           body: JSON.stringify({
-            amount: inputNumber || selectedAmount,
+            amount: inputNumber,
             userId: 'team3',
-            category: inputText || selectedCategory,
-            date: selecteDate || selectedDate,
+            category: inputText,
+            date: selecteDate,
           }),
         },
       );
@@ -133,14 +123,12 @@ export default function ExpenditureForm({
         console.log('서버로 부터 응답이 왔는데 에러임.');
         return;
       }
-      console.log('수정 완료');
-      // 성공적으로 수정함
+      setToggleFetch((prev) => !prev);
     } catch (error) {
       console.log('서버로 부터 응답 안옴', error);
     } finally {
       setIsSending(false);
       setOpen(false);
-      setList(!list);
       setInputNumber(0);
       setInputText('');
       setSelecteDate('');
@@ -153,7 +141,7 @@ export default function ExpenditureForm({
         centered
         title={
           <div style={{ textAlign: 'left', margin: '20px 25px 5px' }}>
-            {edit ? '소비 지출 내역 수정' : '소비 지출 내역 등록'}
+            {edit ? `${selectedData?.category}` : '소비 지출 내역 등록'}
           </div>
         }
         open={open}
@@ -180,7 +168,7 @@ export default function ExpenditureForm({
               border: 'none',
               boxShadow: '2px 2px 8px rgb(240 240 240 / 88%)',
             }}
-            onClick={handleSubmit}
+            onClick={edit ? handleEdit : handleSubmit}
             loading={isSending}
             disabled={isSending}
           >
@@ -194,7 +182,7 @@ export default function ExpenditureForm({
           style={{ width: '100%', display: 'block' }}
         >
           <DatePicker
-            placeholder={edit ? '일자 선택' : `${displayDate}`}
+            placeholder={edit ? displayDate : `일자 선택`}
             showTime
             onChange={selectDateHandler}
             style={{
@@ -203,8 +191,8 @@ export default function ExpenditureForm({
           />
 
           <Input
-            placeholder={edit ? '지출 품목' : selectedCategory}
-            value={edit ? inputText : null || inputText}
+            placeholder="지출 품목"
+            value={inputText}
             onChange={(e) => {
               setInputText(e.target.value);
             }}
@@ -215,24 +203,13 @@ export default function ExpenditureForm({
 
           <Input
             type="number"
-            // addonBefore={
-            //   <Select
-            //     defaultValue="-"
-            //     onChange={(value: string) => {
-            //       setPlusMinus(value);
-            //     }}
-            //     style={{ width: 60 }}
-            //   >
-            //     <Option value="+">+</Option>
-            //     <Option value="-">-</Option>
-            //   </Select>
-            // }
             addonAfter="₩"
             step={100}
-            placeholder={edit ? '0' : selectedAmount}
-            defaultValue={edit ? '0' : inputNumber || selectedAmount}
-            value={edit ? inputNumber || null : inputNumber || null}
-            onChange={(e) => setInputNumber(Number(e.target.value))}
+            placeholder="소비 금액"
+            value={inputNumber}
+            onChange={(e) => {
+              setInputNumber(Number(e.target.value));
+            }}
           />
         </Space>
       </Modal>

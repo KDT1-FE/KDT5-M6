@@ -14,7 +14,6 @@ import { Value } from 'react-calendar/dist/cjs/shared/types';
 import Search from './Search';
 
 export default function Home() {
-  const [list, setList] = useState(false);
   const [togglefetch, setToggleFetch] = useState(false);
   const [value, setValue] = useState(new Date()); // 선택한 날짜
 
@@ -45,7 +44,7 @@ export default function Home() {
       }
     };
     getData();
-  }, [month, year, list, togglefetch, addExpenseModalOpen]);
+  }, [month, year, togglefetch, addExpenseModalOpen]);
 
   const dailyExpenses = useMemo(() => {
     if (monthlyExpenses && monthlyExpenses[day]) {
@@ -125,15 +124,12 @@ export default function Home() {
         dailyExpenses={dailyExpenses}
         dailyExpenseModalOpen={dailyExpenseModalOpen}
         setDailyExpenseModalOpen={setDailyExpenseModalOpen}
-        list={list}
-        setList={setList}
+        setToggleFetch={setToggleFetch}
       />
       <ExpenditureForm
         open={addExpenseModalOpen}
-        list={list}
-        setList={setList}
-        setOpen={setAddExpenseModalOpen}
         setToggleFetch={setToggleFetch}
+        setOpen={setAddExpenseModalOpen}
       />
       <FloatButton
         type="primary"

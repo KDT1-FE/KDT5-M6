@@ -5,29 +5,30 @@ import SearchResultModal from './SearchResultModal';
 
 const { Text } = Typography;
 
-export default function Search() {
-  // 과제 1. 에러 메세지가 나왔을 때 다시 입력을 하면 에러메세지가 사라지는게 아니라 2초가 지나면 에러메세지가 사라지게 만들어주세요
-
-  // 과제 2. 대문자로 입력한 값들도 검색이 되도록 해주세요.
-  // 예) food로 검색했을 경우 FOOD도 검색이 되게
-
-  // 과제 3. 새로운 소비 기록을 등록하 다음 해당 검색어로 검색을 하면 자동완성이 되지 않습니다. 이 문제를 해결해주세요.
-
+interface SearchProps {
+  togglefetch: boolean;
+  dailyExpenses: SearchResultType[];
+  setValue: React.Dispatch<React.SetStateAction<Date>>;
+  setDailyExpenseModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export default function Search({
+  dailyExpenses,
+  togglefetch,
+  setValue,
+  setDailyExpenseModalOpen,
+}: SearchProps) {
   // userId 환경변수
   const userId = useMemo(() => import.meta.env.VITE_USER_ID, []);
 
-  // 입력되는 검색 키워드
-  const [searchKeyword, setSearchKeyword] = useState('');
+  const [searchKeyword, setSearchKeyword] = useState(''); // 입력되는 검색 키워드
+  const [searchResults, setSearchResults] = useState<SearchResultType[]>([]); // 검색 결과를 저장하는 상태
+  const [searchErrorMessage, setSearchErrorMessage] = useState(''); // 검색 오류 메세지
+  const [searchResultModalOpen, setSearchResultModalOpen] = useState(false); // 검색 모달 열림 닫힘 상태
+  const [searchCategories, setSearchCategories] = useState<string[]>([]); // 중복이 제거된 검색 카테고리들 ['food', 'pet food', 'mac book', ...] // 중복이 제거된 카테고리 데이터를 가져옴 [ "aws", 'food' ....;]
+  const [autoCompleteOptions, setAutoCompleteOptions] = useState<
+    { value: string }[]
+  >([]); // 자동완성에 들어갈 값들 [{value: 'food'}, {value: 'pet food'}, {value: 'mac book'}]
 
-  // 검색 오류 메세지
-  const [searchErrorMessage, setSearchErrorMessage] = useState('');
-
-  // 검색 모달 열림 닫힘 상태
-  const [searchResultModalOpen, setSearchResultModalOpen] = useState(false);
-
-  // 중복이 제거된 검색 카테고리들 ['food', 'pet food', 'mac book', ...]
-  const [searchCategories, setSearchCategories] = useState<string[]>([]);
-  // 중복이 제거된 카테고리 데이터를 가져옴 [ "aws", 'food' ....;]
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -45,29 +46,28 @@ export default function Search() {
       }
     };
     fetchData();
-  }, [userId]);
-
-  // 자동완성에 들어갈 값들 [{value: 'food'}, {value: 'pet food'}, {value: 'mac book'}]
-  const [autoCompleteOptions, setAutoCompleteOptions] = useState<
-    { value: string }[]
-  >([]);
+  }, [userId, togglefetch]);
 
   //  검색 키워드의 변화가 발생하면 autoCompleteOptions을 다음과 같이 바꿈
   useEffect(() => {
     const filtered = !searchKeyword
-      ? [] // 검색 키워드를 입력하지 않은 경우에는 빈 문자열을 return
+      ? [] // 검색 키워드를 입력하지 않은 경우에는 빈 배열을 반환
       : searchCategories // 검색 키워드를 입력한 경우
-          .filter((category) => category.includes(searchKeyword))
-          .map((item) => ({ value: item }));
-    setAutoCompleteOptions(filtered); // autoCompletOption값으로 지정
+          .filter((category) =>
+            category.toLowerCase().includes(searchKeyword.toLowerCase()),
+          )
+          .map((item) => ({ value: item })); // 대소문자 구분 없이 원래의 값 그대로 저장
+    setAutoCompleteOptions(filtered); // autoCompleteOption값으로 지정
   }, [searchCategories, searchKeyword]);
 
-  const [searchResults, setSearchResults] = useState<SearchResultType[]>([]); // 검색 결과를 저장하는 상태
   // 검색어를 제출하는 핸들러 함수
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (searchKeyword.trim() === '') {
       setSearchErrorMessage('검색어를 입력해주세요.');
+      setTimeout(() => {
+        setSearchErrorMessage('');
+      }, 2000);
       return;
     }
     try {
@@ -110,6 +110,9 @@ export default function Search() {
         </Text>
       </form>
       <SearchResultModal
+        setDailyExpenseModalOpen={setDailyExpenseModalOpen}
+        setValue={setValue}
+        dailyExpenses={dailyExpenses}
         searchResultModalOpen={searchResultModalOpen}
         searchResults={searchResults}
         setSearchResultModalOpen={setSearchResultModalOpen}

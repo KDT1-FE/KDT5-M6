@@ -1,5 +1,5 @@
 export interface SearchResultType {
-  _id: number;
+  _id: string;
   date: string;
   category: string;
   amount: number;

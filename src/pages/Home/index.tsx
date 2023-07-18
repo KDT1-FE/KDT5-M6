@@ -11,10 +11,11 @@ import { PlusOutlined } from '@ant-design/icons';
 import getExpenses from '@/pages/Home/getExpenses';
 import MySkeleton from '@/components/MySkeleton';
 import { Value } from 'react-calendar/dist/cjs/shared/types';
+import Search from './Search';
 
 export default function Home() {
   const [list, setList] = useState(false);
-  const [toggleAdd, setToggleAdd] = useState(false);
+  const [togglefetch, setToggleFetch] = useState(false);
   const [value, setValue] = useState(new Date()); // 선택한 날짜
 
   const day = useMemo(() => moment(value).format('D'), [value]);
@@ -44,7 +45,7 @@ export default function Home() {
       }
     };
     getData();
-  }, [month, year, list]);
+  }, [month, year, list, togglefetch]);
 
   const dailyExpenses = useMemo(() => {
     if (monthlyExpenses && monthlyExpenses[day]) {
@@ -112,7 +113,12 @@ export default function Home() {
           }}
         />
       )}
-
+      <Search
+        dailyExpenses={dailyExpenses}
+        togglefetch={togglefetch}
+        setValue={setValue}
+        setDailyExpenseModalOpen={setDailyExpenseModalOpen}
+      />
       <DailyExpenseModal
         month={month}
         day={day}
@@ -125,9 +131,7 @@ export default function Home() {
       <ExpenditureForm
         open={addExpenseModalOpen}
         setOpen={setAddExpenseModalOpen}
-        list={list}
-        setList={setList}
-        setToggleAdd={setToggleAdd}
+        setToggleFetch={setToggleFetch}
       />
       <FloatButton
         type="primary"

@@ -1,3 +1,5 @@
+export const API_BASE_URL = 'http://52.78.195.183:3003';
+
 // 사이드바 메뉴 아이템
 import {
   CarryOutOutlined,

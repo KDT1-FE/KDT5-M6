@@ -45,7 +45,7 @@ export default function Home() {
       }
     };
     getData();
-  }, [month, year, list, togglefetch]);
+  }, [month, year, list, togglefetch, addExpenseModalOpen]);
 
   const dailyExpenses = useMemo(() => {
     if (monthlyExpenses && monthlyExpenses[day]) {
@@ -130,6 +130,8 @@ export default function Home() {
       />
       <ExpenditureForm
         open={addExpenseModalOpen}
+        list={list}
+        setList={setList}
         setOpen={setAddExpenseModalOpen}
         setToggleFetch={setToggleFetch}
       />

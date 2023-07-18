@@ -18,7 +18,10 @@ export default function DailyExpenseTable({
 }: DailyExpenseTableProps) {
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [selected, setSelected] = useState('');
+  const [selectedId, setSelectedId] = useState('');
+  const [selectedAmount, setSelectedAmount] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedDate, setSelectedDate] = useState('');
 
   const handleClickEdit = () => {
     setOpen(true);
@@ -28,7 +31,7 @@ export default function DailyExpenseTable({
   const confirm = async () => {
     try {
       const response = await fetch(
-        `http://52.78.195.183:3003/api/expenses/${selected}`,
+        `http://52.78.195.183:3003/api/expenses/${selectedId}`,
         { method: 'DELETE', headers: { 'content-type': 'application/json' } },
       );
       if (!response.ok) {
@@ -73,7 +76,10 @@ export default function DailyExpenseTable({
         <Space size="small">
           <EditOutlined
             onClick={() => {
-              setSelected(data._id);
+              setSelectedId(data._id);
+              setSelectedAmount(data.amount);
+              setSelectedCategory(data.category);
+              setSelectedDate(data.date);
               handleClickEdit();
             }}
             className="hover_icon"
@@ -84,7 +90,10 @@ export default function DailyExpenseTable({
             edit={edit}
             list={list}
             setList={setList}
-            selected={selected}
+            selectedId={selectedId}
+            selectedAmount={selectedAmount}
+            selectedCategory={selectedCategory}
+            selectedDate={selectedDate}
           />
           <Divider type="vertical" style={{ margin: '0' }} />
           <Popconfirm
@@ -104,7 +113,7 @@ export default function DailyExpenseTable({
             <DeleteTwoTone
               twoToneColor="red"
               onClick={() => {
-                setSelected(data._id);
+                setSelectedId(data._id);
               }}
               className="hover_icon"
             />

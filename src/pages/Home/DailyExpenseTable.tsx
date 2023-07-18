@@ -35,7 +35,6 @@ export default function DailyExpenseTable({
         console.log('서버로 부터 응답이 왔는데 에러임.');
         return;
       }
-      console.log('완료');
       setList(!list);
     } catch (error) {
       console.log('서버로 부터 응답 안옴', error);

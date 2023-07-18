@@ -13,10 +13,7 @@ interface espenseFormProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   edit?: boolean;
-  list: boolean;
-  setList: React.Dispatch<React.SetStateAction<boolean>>;
-  selected?: string | null;
-  setToggleAdd: React.Dispatch<React.SetStateAction<boolean>>;
+  setToggleFetch: React.Dispatch<React.SetStateAction<boolean>>;
 }
 // interface espenseEditDeletProps {
 //   selected: string | null;
@@ -26,9 +23,7 @@ export default function ExpenditureForm({
   open,
   setOpen,
   edit,
-  setList,
-  selected,
-  setToggleAdd,
+  setToggleFetch,
 }: espenseFormProps) {
   // { selected }: espenseEditDeletProps,
   const [isSending, setIsSending] = useState(false);
@@ -69,53 +64,50 @@ export default function ExpenditureForm({
         return;
       }
       console.log('성공!!');
-
-      setToggleAdd((prev: boolean) => !prev);
+      setToggleFetch((prev: boolean) => !prev);
     } catch (error) {
       console.log('서버로 부터 응답 안옴', error);
     } finally {
       setIsSending(false);
       setOpen(false);
-      setList(true);
       setInputNumber(0);
       setInputText('');
     }
   };
 
-  const handleEdit = async () => {
-    setIsSending(true);
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    try {
-      const response = await fetch(
-        `http://52.78.195.183:3003/api/expenses/${selected}`,
-        {
-          method: 'PUT',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({
-            amount: inputNumber,
-            userId: 'team3',
-            category: inputText,
-            date: selectedDate,
-          }),
-        },
-      );
-      if (!response.ok) {
-        console.log('서버로 부터 응답이 왔는데 에러임.');
-        return;
-      }
-      console.log('수정!!');
-      // 성공적으로 수정함
-      setToggleAdd((prev: boolean) => !prev);
-    } catch (error) {
-      console.log('서버로 부터 응답 안옴', error);
-    } finally {
-      setIsSending(false);
-      setOpen(false);
-      setList(true);
-      setInputNumber(0);
-      setInputText('');
-    }
-  };
+  // const handleEdit = async () => {
+  //   setIsSending(true);
+  //   await new Promise((resolve) => setTimeout(resolve, 300));
+  //   try {
+  //     const response = await fetch(
+  //       `http://52.78.195.183:3003/api/expenses/${selected}`,
+  //       {
+  //         method: 'PUT',
+  //         headers: { 'content-type': 'application/json' },
+  //         body: JSON.stringify({
+  //           amount: inputNumber,
+  //           userId: 'team3',
+  //           category: inputText,
+  //           date: selectedDate,
+  //         }),
+  //       },
+  //     );
+  //     if (!response.ok) {
+  //       console.log('서버로 부터 응답이 왔는데 에러임.');
+  //       return;
+  //     }
+  //     console.log('수정!!');
+  //     // 성공적으로 수정함
+  //     setToggleAdd((prev: boolean) => !prev);
+  //   } catch (error) {
+  //     console.log('서버로 부터 응답 안옴', error);
+  //   } finally {
+  //     setIsSending(false);
+  //     setOpen(false);
+  //     setInputNumber(0);
+  //     setInputText('');
+  //   }
+  // };
 
   return (
     <>
@@ -123,7 +115,7 @@ export default function ExpenditureForm({
         centered
         title={
           <div style={{ textAlign: 'left', margin: '20px 25px 5px' }}>
-            {edit ? '소비 지출 내역 등록' : '소비 지출 내역 수정'}
+            {edit ? '소비 지출 내역 수정' : '소비 지출 내역 등록'}
           </div>
         }
         open={open}
@@ -146,11 +138,11 @@ export default function ExpenditureForm({
               border: 'none',
               boxShadow: '2px 2px 8px rgb(240 240 240 / 88%)',
             }}
-            onClick={edit ? handleSubmit : handleEdit}
+            onClick={handleSubmit}
             loading={isSending}
             disabled={isSending}
           >
-            {edit ? '등록하기' : '수정하기'}
+            {edit ? '수정하기' : '등록하기'}
           </Button>
         }
       >

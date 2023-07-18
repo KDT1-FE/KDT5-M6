@@ -1,10 +1,9 @@
 import { SearchResultType } from '@/types/search';
-import formatDate from '@/utils/formatDateAndTime';
 import { Typography, Modal, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { useState } from 'react';
-import moment from 'moment';
 import '@/index.css';
+import formatDateAndTime from '@/utils/formatDateAndTime';
 
 const { Text } = Typography;
 
@@ -13,16 +12,18 @@ interface SearchResultModalProps {
   setSearchResultModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   searchResults: SearchResultType[];
   dailyExpenses: SearchResultType[];
+  setValue: React.Dispatch<React.SetStateAction<Date>>;
+  setDailyExpenseModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function SearchResultModal({
   searchResultModalOpen,
   setSearchResultModalOpen,
   searchResults,
-  dailyExpenses,
+  setValue,
+  setDailyExpenseModalOpen,
 }: SearchResultModalProps) {
   const [selectedDate, setSelectedDate] = useState<string>('');
-
   const columns: ColumnsType<SearchResultType> = [
     {
       title: '소비내역',
@@ -45,7 +46,7 @@ export default function SearchResultModal({
       key: 'date',
       align: 'center',
       render: (time: string) => {
-        const formattedDate = formatDate(time);
+        const formattedDate = formatDateAndTime(time);
         return `${formattedDate.date} ${formattedDate.time}`;
       },
     },
@@ -53,6 +54,8 @@ export default function SearchResultModal({
 
   const handleRowClick = (date: string) => {
     setSelectedDate(date);
+    setDailyExpenseModalOpen(true);
+    setSearchResultModalOpen(false);
   };
 
   const closeModal = () => {
@@ -79,31 +82,15 @@ export default function SearchResultModal({
             bordered
             rowClassName="table-row"
             onRow={(record) => ({
-              onClick: () => handleRowClick(record.date),
+              onClick: () => {
+                setValue(new Date(record.date));
+                handleRowClick(record.date);
+              },
             })}
             rowKey={(record) => record._id}
           />
         )}
       </Modal>
-
-      {selectedDate && (
-        <Modal
-          centered
-          title={`${moment(selectedDate).format('M')}월 ${moment(
-            selectedDate,
-          ).format('D')}일`}
-          open={searchResultModalOpen}
-          onCancel={() => setSelectedDate('')}
-          footer={null}
-        >
-          <Table
-            columns={columns}
-            dataSource={dailyExpenses}
-            size="small"
-            bordered
-          />
-        </Modal>
-      )}
     </>
   );
 }

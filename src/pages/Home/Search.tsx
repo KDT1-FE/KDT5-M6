@@ -6,10 +6,17 @@ import SearchResultModal from './SearchResultModal';
 const { Text } = Typography;
 
 interface SearchProps {
-  toggleAdded: boolean;
+  togglefetch: boolean;
   dailyExpenses: SearchResultType[];
+  setValue: React.Dispatch<React.SetStateAction<Date>>;
+  setDailyExpenseModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
-export default function Search({ dailyExpenses, toggleAdded }: SearchProps) {
+export default function Search({
+  dailyExpenses,
+  togglefetch,
+  setValue,
+  setDailyExpenseModalOpen,
+}: SearchProps) {
   // userId 환경변수
   const userId = useMemo(() => import.meta.env.VITE_USER_ID, []);
 
@@ -39,7 +46,7 @@ export default function Search({ dailyExpenses, toggleAdded }: SearchProps) {
       }
     };
     fetchData();
-  }, [userId, toggleAdded]);
+  }, [userId, togglefetch]);
 
   //  검색 키워드의 변화가 발생하면 autoCompleteOptions을 다음과 같이 바꿈
   useEffect(() => {
@@ -103,6 +110,8 @@ export default function Search({ dailyExpenses, toggleAdded }: SearchProps) {
         </Text>
       </form>
       <SearchResultModal
+        setDailyExpenseModalOpen={setDailyExpenseModalOpen}
+        setValue={setValue}
         dailyExpenses={dailyExpenses}
         searchResultModalOpen={searchResultModalOpen}
         searchResults={searchResults}

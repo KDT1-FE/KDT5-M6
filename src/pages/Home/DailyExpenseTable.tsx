@@ -90,7 +90,7 @@ export default function DailyExpenseTable({
               <DeleteTwoTone
                 twoToneColor="red"
                 onClick={() => {
-                  setSelectedId(data._id);
+                  setSelectedData(data);
                 }}
                 className="hover_icon"
               />

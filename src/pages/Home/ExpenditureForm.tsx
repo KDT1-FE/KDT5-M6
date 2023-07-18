@@ -30,8 +30,9 @@ export default function ExpenditureForm({
     ) {
       setInputText(selectedData.category);
       setInputNumber(selectedData.amount);
+      setSelecteDate(selectedData.date);
     }
-  }, [selectedData?.amount, selectedData?.category]);
+  }, [selectedData?.amount, selectedData?.category, selectedData?.date]);
 
   const selectDateHandler = (
     _value: DatePickerProps['value'] | RangePickerProps['value'],
@@ -96,7 +97,6 @@ export default function ExpenditureForm({
       setOpen(false);
       setInputNumber(0);
       setInputText('');
-      setSelecteDate('');
     }
   };
 
@@ -141,7 +141,7 @@ export default function ExpenditureForm({
         centered
         title={
           <div style={{ textAlign: 'left', margin: '20px 25px 5px' }}>
-            {edit ? `${selectedData?.category}` : '소비 지출 내역 등록'}
+            {edit ? '소비 지출 내역 수정' : '소비 지출 내역 등록'}
           </div>
         }
         open={open}

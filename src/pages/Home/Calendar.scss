@@ -71,6 +71,10 @@
   padding: 0.5em;
 }
 
+abbr[title] {
+  text-decoration: none;
+}
+
 .react-calendar__month-view__weekNumbers .react-calendar__tile {
   display: flex;
   align-items: center;

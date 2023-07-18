@@ -57,19 +57,6 @@ export default function Home() {
     return [];
   }, [day, monthlyExpenses]);
 
-  // // 1-31까지 배열에 넣음
-  // const perDay = [];
-  // for (let i = 1; i < 32; i++) {
-  //   perDay.push(i);
-  // }
-  // // 해당 배열들을 monthlyExpenses에 넣고, 각 소비일의 첫번째 데이터로 된 배열을 만듦
-  // const checkDay = perDay
-  //   .map((x) => monthlyExpenses[x] && monthlyExpenses[x].find((y) => y))
-  //   .filter((z) => z !== undefined);
-
-  // // 배열 내에서 'YYYY-MM-DD'형식으로된 배열을 만듦
-  // const expenseDay = checkDay.map((x) => x?.date.substring(0, 10));
-
   const expenseDay = useMemo(
     () =>
       Object.keys(monthlyExpenses).map(

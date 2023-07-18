@@ -71,6 +71,10 @@
   padding: 0.5em;
 }
 
+abbr[title] {
+  text-decoration: none;
+}
+
 .react-calendar__month-view__weekNumbers .react-calendar__tile {
   display: flex;
   align-items: center;
@@ -86,7 +90,7 @@
   align-items: center;
 }
 .react-calendar__month-view__days__day--weekend {
-  color: #d10000;
+  -color: #d10000;
 }
 
 .react-calendar__month-view__days__day--neighboringMonth {

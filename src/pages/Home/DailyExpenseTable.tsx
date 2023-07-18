@@ -1,12 +1,12 @@
 import { Divider, Space, Table, message, Popconfirm } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { DailyExpenseType } from '@/types/expense';
+import { DailyExpensesType } from '@/types/expenses';
 import { DeleteTwoTone, EditOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import ExpenditureForm from '@/pages/Home/ExpenditureForm';
 
 interface DailyExpenseTableProps {
-  data: DailyExpenseType[];
+  data: DailyExpensesType[];
   list: boolean;
   setList: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -44,7 +44,7 @@ export default function DailyExpenseTable({
     }
   };
 
-  const columns: ColumnsType<DailyExpenseType> = [
+  const columns: ColumnsType<DailyExpensesType> = [
     {
       title: '소비내역',
       dataIndex: 'category',

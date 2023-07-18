@@ -64,7 +64,7 @@ export default function SearchResultModal({
     <>
       <Modal
         centered
-        title="검색 결과"
+        title="검색결과"
         open={searchResultModalOpen}
         onCancel={closeModal}
         footer={null}

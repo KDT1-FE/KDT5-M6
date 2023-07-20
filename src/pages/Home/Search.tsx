@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { Typography, AutoComplete } from 'antd';
 import { SearchResultType } from '@/types/search';
 import SearchResultModal from './SearchResultModal';
+import { API_BASE_URL } from '@/data/constants';
 
 const { Text } = Typography;
 
@@ -76,7 +77,7 @@ export default function Search({
     }
     try {
       const response = await fetch(
-        `http://52.78.195.183:3003/api/expenses/search?q=${searchKeyword}&userId=${userId}`,
+        `${API_BASE_URL}/api/expenses/search?q=${searchKeyword}&userId=${userId}`,
       );
       if (!response.ok) {
         console.log('서버로 응답이 왔는데 이상한게 옴');

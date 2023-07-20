@@ -4,6 +4,7 @@ import { DailyExpensesType } from '@/types/expenses';
 import { DeleteTwoTone, EditOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import ExpenditureForm from '@/pages/Home/ExpenditureForm';
+import { API_BASE_URL } from '@/data/constants';
 
 //DailyExpenseTable에서 받아오는 props 데이터 type interface
 interface DailyExpenseTableProps {
@@ -26,7 +27,7 @@ export default function DailyExpenseTable({
     await new Promise((resolve) => setTimeout(resolve, 500));
     try {
       const response = await fetch(
-        `http://52.78.195.183:3003/api/expenses/${selectedData?._id}`,
+        `${API_BASE_URL}/api/expenses/${selectedData?._id}`,
         { method: 'DELETE', headers: { 'content-type': 'application/json' } },
       );
       if (!response.ok) {

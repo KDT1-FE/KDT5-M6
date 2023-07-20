@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { DatePicker, Space, Button, Modal, Input, message } from 'antd';
 import { DailyExpensesType } from '@/types/expenses';
 import dayjs from 'dayjs';
+import { API_BASE_URL } from '@/data/constants';
 
 //Home index에서 받아오는 props 데이터 type interface
 interface espenseFormProps {
@@ -55,7 +56,7 @@ export default function ExpenditureForm({
     await new Promise((resolve) => setTimeout(resolve, 300));
 
     try {
-      const response = await fetch('http://52.78.195.183:3003/api/expenses', {
+      const response = await fetch(`${API_BASE_URL}/api/expenses`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
@@ -102,7 +103,7 @@ export default function ExpenditureForm({
 
     try {
       const response = await fetch(
-        `http://52.78.195.183:3003/api/expenses/${selectedData?._id}`,
+        `${API_BASE_URL}/api/expenses/${selectedData?._id}`,
         {
           method: 'PUT',
           headers: { 'content-type': 'application/json' },

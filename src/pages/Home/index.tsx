@@ -138,7 +138,7 @@ export default function Home() {
           className="loading-animation"
           style={{ display: 'flex', alignItems: 'center', zIndex: 2000 }}
         >
-          <img src="src\assets\favicon.png" alt="loading" width={50} />
+          <img src="src/assets/favicon.png" alt="loading" width={50} />
           <span
             style={{
               paddingLeft: 20,

@@ -23,7 +23,7 @@ export default function SearchResultModal({
   setValue,
   setDailyExpenseModalOpen,
 }: SearchResultModalProps) {
-  const [selectedDate, setSelectedDate] = useState<string>('');
+  // 검색 결과를 표시하기 위한 테이블 컬럼 정의
   const columns: ColumnsType<SearchResultType> = [
     {
       title: '소비내역',
@@ -39,6 +39,7 @@ export default function SearchResultModal({
       sorter: {
         compare: (a, b) => a.amount - b.amount,
       },
+      render: (amount: number) => amount.toLocaleString(), // 천 단위로 구분하여 표시
     },
     {
       title: '시간',
@@ -52,14 +53,14 @@ export default function SearchResultModal({
     },
   ];
 
+  // 검색 결과 테이블에서 행을 클릭했을 때의 핸들러 함수
   const handleRowClick = (date: string) => {
-    setSelectedDate(date);
     setDailyExpenseModalOpen(true);
     setSearchResultModalOpen(false);
   };
 
+  // 모달을 닫는 함수
   const closeModal = () => {
-    setSelectedDate('');
     setSearchResultModalOpen(false);
   };
 
@@ -75,6 +76,7 @@ export default function SearchResultModal({
         {searchResults.length === 0 ? (
           <Text>No results found.</Text>
         ) : (
+          // 검색 결과가 있는 경우 테이블로 표시
           <Table
             columns={columns}
             dataSource={searchResults}

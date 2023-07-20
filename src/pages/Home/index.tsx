@@ -12,7 +12,6 @@ import Search from '@/pages/Home/Search';
 import getExpenses from '@/pages/Home/getExpenses';
 import MySkeleton from '@/components/MySkeleton';
 import { Value } from 'react-calendar/dist/cjs/shared/types';
-import { each } from 'chart.js/helpers';
 
 export default function Home() {
   const [edit] = useState(true);
@@ -25,19 +24,17 @@ export default function Home() {
   const month = useMemo(() => moment(value).format('M'), [value]);
   const year = useMemo(() => moment(value).format('YYYY'), [value]);
 
-  const [activeMonth, setActiveMonth] = useState(month)
-
-  const getActiveMonth = (activeStartDate : moment.MomentInput) => {
-    console.log(activeStartDate)
-    const newActiveMonth = moment(activeStartDate).format('M')
-    setActiveMonth(newActiveMonth)
-  }
-  console.log(activeMonth)
-
   const [monthlyExpenses, setMonthlyExpenses] = useState<MontlyExpensesType>({});
   const [dailyExpenseModalOpen, setDailyExpenseModalOpen] = useState(false);
   const [addExpenseModalOpen, setaddExpenseModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const [activeMonth, setActiveMonth] = useState(month)
+
+  const getActiveMonth = (activeStartDate : moment.MomentInput) => {
+    const newActiveMonth = moment(activeStartDate).format('M')
+    setActiveMonth(newActiveMonth)
+  }
 
   useEffect(() => {
     setLoading(true);
@@ -114,8 +111,8 @@ export default function Home() {
           onClickDay={() => setDailyExpenseModalOpen(true)}
           tileContent={addContent}
           showNeighboringMonth={false}
-          onActiveStartDateChange={({activeStartDate})=>
-          getActiveMonth(activeStartDate)}/>
+          onActiveStartDateChange={({activeStartDate})=>getActiveMonth(activeStartDate)}
+          />
     }
 
       <DailyExpenseModal

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { DatePicker, Space, Button, Modal, Input } from 'antd';
+import { DatePicker, Space, Button, Modal, Input, message } from 'antd';
 import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker';
 import { DailyExpensesType } from '@/types/expenses';
 import dayjs from 'dayjs';
@@ -25,36 +25,32 @@ export default function ExpenditureForm({
   const [isSending, setIsSending] = useState(false);
   // 소비내역 등록, 수정 시 입력값 및 지정 변수
   const [inputText, setInputText] = useState('');
-  const [inputNumber, setInputNumber] = useState('' as string);
-  const [selecteDate, setSelecteDate] = useState('');
+  const [inputNumber, setInputNumber] = useState('');
+  const [inputDate, setInputDate] = useState<dayjs.Dayjs | null>(null);
 
   //일별 소비 목록에서 수정버튼을 클릭했을때 선택된 데이터를 가져와서 입력값에 넣어주는 useeffect
   useEffect(() => {
-    if (
-      selectedData?.category !== undefined &&
-      selectedData?.category !== undefined
-    ) {
+    if (selectedData) {
       setInputText(selectedData.category);
-      //amount의 number type을 string type으로 변경
-      setInputNumber(selectedData.amount as unknown as string);
-      setSelecteDate(selectedData.date);
+      setInputNumber(selectedData.amount.toString());
+      setInputDate(dayjs(selectedData.date).add(-9, 'hour'));
     }
-  }, [selectedData?.amount, selectedData?.category, selectedData?.date]);
+  }, [selectedData]);
 
   //Date 입력값 선택 시 api 요청 데이터에 맞게 변경해주는 변수
-  const selectDateHandler = (
-    _value: DatePickerProps['value'] | RangePickerProps['value'],
-    dateString: string,
-  ) => {
-    const date = dateString;
-    const Time = date.slice(0, 10);
-    const Date = date.slice(11, 19);
-    const selecteDate = `${Time}T${Date}`;
-    setSelecteDate(selecteDate);
-  };
+  // const selectDateHandler = (
+  //   _value: DatePickerProps['value'] | RangePickerProps['value'],
+  //   dateString: string,
+  // ) => {
+  //   const date = dateString;
+  //   const Time = date.slice(0, 10);
+  //   const Date = date.slice(11, 19);
+  //   const selecteDate = `${Time}T${Date}`;
+  //   setInputDate(selecteDate);
+  // };
 
   //Date 표시 format 지정
-  const dateFormat = 'YYYY-MM-DD HH:mm:ss';
+  // const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 
   // cancel 버튼 클릭시 실행되는 함수, 로딩 종료 및 모달창 닫기
   const cancleHandler = () => {
@@ -64,53 +60,67 @@ export default function ExpenditureForm({
 
   //등록버튼 클릭시 실행되는 함수
   const handleSubmit = async () => {
-    setIsSending(true);
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    //카테고리 유효성검사(입력된값의 길이가 0과 같더나 작을때) 후 알럿메세지
-    if (inputText && inputText.length <= 0) {
-      alert('카테고리를 입력해주세요');
-    }
-    //날짜 유효성검사(입력된값의 길이가 0과 같더나 작을때) 후 알럿메세지
-    if (selecteDate.length <= 0) {
-      alert('날짜를 입력해주세요');
-    }
-    //지출금액 유효성검사(입력된값의 길이가 0과 같더나 작을때) 후 알럿메세지
-    if (inputNumber.length <= 0) {
-      alert('지출금액을 입력해주세요');
-      cancleHandler();
+    if (!inputDate) {
+      message.error('날짜를 선택해주세요');
       return;
     }
+    if (!inputText.trim()) {
+      message.error('소비 내용을 입력해주세요');
+      return;
+    }
+    if (!inputNumber.trim()) {
+      message.error('소비 금액을 입력해주세요');
+      return;
+    }
+
+    setIsSending(true);
+    await new Promise((resolve) => setTimeout(resolve, 300));
+
     try {
       const response = await fetch('http://52.78.195.183:3003/api/expenses', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
-          amount: inputNumber,
+          amount: inputNumber.trim(),
           userId: 'team3',
-          category: inputText,
-          date: selecteDate,
+          category: inputText.trim(),
+          date: dayjs(inputDate).add(9, 'hour').toISOString(),
         }),
       });
       if (!response.ok) {
         console.log('서버로 부터 응답이 왔는데 에러임.');
+        message.error('오류가 발생하였습니다');
         return;
       }
       setToggleFetch((prev: boolean) => !prev);
-      // 성공적으로 추가함
+      message.success('소비 내역이 등록되었습니다');
     } catch (error) {
       console.log('서버로 부터 응답 안옴', error);
+      message.error('오류가 발생하였습니다');
     } finally {
-      cancleHandler();
-      //등록완료 후 모달이 종료되었을때 입력값을 초기화시켜주는 변수
+      setIsSending(false);
+      setOpen(false);
       setInputNumber('');
       setInputText('');
     }
   };
-
   //수정버튼 클릭시 실행되는 함수
   const handleEdit = async () => {
     setIsSending(true);
     await new Promise((resolve) => setTimeout(resolve, 300));
+
+    if (!inputDate) {
+      message.error('날짜를 선택해주세요');
+      return;
+    }
+    if (!inputText.trim()) {
+      message.error('소비 내용을 입력해주세요');
+      return;
+    }
+    if (!inputNumber.trim()) {
+      message.error('소비 금액을 입력해주세요');
+      return;
+    }
 
     try {
       const response = await fetch(
@@ -120,10 +130,10 @@ export default function ExpenditureForm({
           headers: { 'content-type': 'application/json' },
 
           body: JSON.stringify({
-            amount: inputNumber,
+            amount: inputNumber.trim(),
             userId: 'team3',
-            category: inputText,
-            date: selecteDate,
+            category: inputText.trim(),
+            date: dayjs(inputDate).add(9, 'hour').toISOString(),
           }),
         },
       );
@@ -131,15 +141,14 @@ export default function ExpenditureForm({
         console.log('서버로 부터 응답이 왔는데 에러임.');
         return;
       }
-      setToggleFetch((prev) => !prev);
+      setToggleFetch((prev: boolean) => !prev);
+      message.success('소비 내역이 등록되었습니다');
     } catch (error) {
       console.log('서버로 부터 응답 안옴', error);
+      message.error('오류가 발생하였습니다');
     } finally {
-      cancleHandler();
-      //수정완료 후 모달이 종료되었을때 입력값을 초기화시켜주는 변수
-      setInputNumber('');
-      setInputText('');
-      setSelecteDate('');
+      setIsSending(false);
+      setOpen(false);
     }
   };
 
@@ -150,7 +159,7 @@ export default function ExpenditureForm({
         //edit 값이 true 일때 수정 타이틀, flase 일때 등록 타이틀 표시
         title={
           <div style={{ textAlign: 'left', margin: '20px 25px 5px' }}>
-            {edit ? '소비 지출 내역 수정' : '소비 지출 내역 등록'}
+            {edit ? '소비 내역 수정' : '소비 내역 등록'}
           </div>
         }
         //open 변수가 true 일때 모달창 open
@@ -158,6 +167,9 @@ export default function ExpenditureForm({
         //x 버튼 클릭시 open 변수가 flase로 지정후 모달 종료됨
         onCancel={() => {
           setOpen(false);
+          setInputDate(edit ? dayjs(selectedData?.date).add(-9, 'hour') : null);
+          setInputNumber(edit ? selectedData?.amount.toString() ?? '' : '');
+          setInputText(edit ? selectedData?.category ?? '' : '');
         }}
         bodyStyle={{
           margin: '20px auto 15px',
@@ -185,42 +197,24 @@ export default function ExpenditureForm({
           </Button>
         }
       >
-        <Space
-          direction="vertical"
-          align="center"
-          style={{ width: '100%', display: 'block' }}
-        >
+        <Space direction="vertical" size="middle" style={{ width: '100%' }}>
           <DatePicker
-            //날짜 선택
-            placeholder="일자 선택"
-            //edit 값이 true 일때 수정 기능 함수 실행, flase 일때 등록 기능 함수 실행
-            value={edit ? dayjs(selecteDate, dateFormat) : undefined}
-            //요청 데이터에서 필요로 하는 날짜 형식
-            format={dateFormat}
+            value={inputDate}
+            onChange={(data: dayjs.Dayjs | null) => setInputDate(data)}
+            style={{ width: '100%' }}
             showTime
-            //Date 입력값 선택 시 api 요청 데이터에 맞게 변경해주는 변수
-            onChange={selectDateHandler}
-            style={{
-              marginBottom: '5px',
-            }}
           />
           <Input
-            // 카테고리 입력
-            placeholder="지출 품목"
+            placeholder="소비 내용"
             value={inputText}
             onChange={(e) => {
               setInputText(e.target.value);
             }}
-            style={{
-              marginBottom: '5px',
-            }}
           />
-
           <Input
-            // 지출금액 입력
             type="number"
-            addonAfter="₩"
             step={100}
+            addonAfter="₩"
             placeholder="소비 금액"
             value={inputNumber}
             onChange={(e) => {

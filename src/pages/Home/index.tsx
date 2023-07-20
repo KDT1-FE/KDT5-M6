@@ -44,7 +44,7 @@ export default function Home() {
       }
     };
     getData();
-  }, [month, year, togglefetch, addExpenseModalOpen]);
+  }, [month, year, togglefetch]);
 
   const dailyExpenses = useMemo(() => {
     if (monthlyExpenses && monthlyExpenses[day]) {

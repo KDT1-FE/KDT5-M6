@@ -37,7 +37,7 @@ export default function Search({
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://52.78.195.183:3003/api/categories?userId=${userId}`,
+          `${API_BASE_URL}/api/categories?userId=${userId}`,
         );
         if (!response.ok) {
           console.log('서버로 응답이 왔는데 이상한게 옴');

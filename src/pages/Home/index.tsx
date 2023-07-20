@@ -35,14 +35,10 @@ export default function Home() {
   useEffect(() => {
     //loading 값 false면 스켈레톤 적용
     const getData = async () => {
-<<<<<<< HEAD
       setLoading(true);
       await new Promise((resolve) => {
         setTimeout(resolve, 700);
       });
-=======
-      setMonthlyExpenses({})
->>>>>>> calendar
       try {
         const response = await getExpenses(year, month);
         // api로 받아온 데이터 monthlyExpenses에 저장

@@ -2,11 +2,11 @@
   width: 80vw;
   max-width: 1200px;
   background: white;
-  border: 1px solid #a0a096;
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.125em;
   position:absolute;
-  top:120px;
+  top:10%;
+  border-radius: 15px;
 }
 
 .react-calendar--doubleView {
@@ -45,15 +45,27 @@
 .react-calendar__navigation {
   display: flex;
   height: 60px;
-  // margin-bottom: 1em;
 }
 .react-calendar__navigation__arrow{
+  width:60px;
   font-size:45px;
+  color:#525252;
+  padding-bottom:5px;
+}
+.react-calendar__navigation__next-button:hover{
+  border-radius:0 15px 0 0;
+}
+.react-calendar__navigation__prev-button:hover{
+  border-radius:15px 0 0 0;
+}
+.react-calendar__navigation__next-button{
+  -padding-right:20px;
 }
 
 .react-calendar__navigation__label__labelText{
-  // color:#fff;
+  color:#525252;
   font-size:20px;
+  font-weight: bold;
 }
 
 .react-calendar__navigation button {
@@ -64,8 +76,8 @@
 .react-calendar__navigation button:disabled {
   background-color: #fff;
   color:#000;
-  font-weight:bold;
-  font-family: 'Gabo Drive', sans-serif;
+  -font-weight:bold;
+  -font-family: 'Gabo Drive', sans-serif;
 }
 
 .react-calendar__navigation button:enabled:hover,
@@ -85,17 +97,18 @@
   line-height:55px;
   padding: 0.5em;
   padding-right:13px;
-  background-color: #000;
-  border-right:1px solid #fff;
+  background-color: #fff6de;
   display:flex;
   justify-content: flex-end;
+  display:flex;
+  justify-content: center;
+  align-items: center;
   abbr[title]{
-    color:#fff;
-    font-size:22px;
+    color:#525252;
+    font-size:18px;
     font-weight:700;
   }
   &:last-child{
-    background-color: #43b04c;
     border-right:none;
   }
 }
@@ -109,42 +122,48 @@ abbr[title] {
   display:flex;
   justify-content: flex-start;
   align-items:flex-end;
-  border:1px solid #000;
+  border:1px solid #d9d9d9;
   box-sizing: border-box;
+  color:#525252;
   abbr{
-    font-family: 'Gabo Drive', sans-serif; 
-    padding:3px 3px 0px 0px;                
+    -font-family: 'Gabo Drive', sans-serif; 
+    padding:3px 3px 0px 0px;               
   }
   .expense{
-    width:70%;
+    width:110%;
     height:60px;
     display:flex;
     flex-direction: column;
     text-align: left;
     margin-top:20px;
+    padding-top:20px;
     position:relative;
+    margin:auto;
     div{
       position:relative;
-      color:#fff;
-      border-radius:5px;
+      color:#525252;
+      border-radius:20px 0 0 20px;
       text-align: center;
-      padding:2px 0;
-      margin-bottom:5px;
+      padding:6px 0;
+      margin-top:10px;
+      margin-left:20px;
       &:last-child{
-        width:25px;
-        height:25px;
-        font-size:15px;
-        line-height:20px;
-        font-family: 'Gabo Drive', sans-serif;
+        width:15px;
+        height:15px;
+        font-size:8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        -font-family: 'Gabo Drive', sans-serif;
         border-radius: 50%;
         position:absolute;
-        top:-40px;
-        left:20px;
+        top:-27px;
+        left:-18px;
       }
     }
   }
   abbr{
-    font-size:30px;
+    font-size:20px;
   }
 }
 
@@ -163,7 +182,7 @@ abbr[title] {
 
 .react-calendar__month-view__days__day--neighboringMonth {
   color: #757575;
-  border:1px solid #000;
+  border:1px solid #292929;
   pointer-events: none;
   abbr{
     display:none;
@@ -195,13 +214,12 @@ abbr[title] {
 }
 
 .react-calendar__tile--now {
-  background: #ffff76;
-  -color:#fff;
+  background: #fff6de;
 }
 
 .react-calendar__tile--now:enabled:hover,
 .react-calendar__tile--now:enabled:focus {
-  background: #ffffa9;
+  background: #fff8eb;
 }
 
 .react-calendar__tile--hasActive {

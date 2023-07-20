@@ -9,9 +9,7 @@ import { MontlyExpensesType } from '@/types/expenses';
 import Calendar from 'react-calendar';
 import { PlusOutlined } from '@ant-design/icons';
 import getExpenses from '@/pages/Home/getExpenses';
-import MySkeleton from '@/components/MySkeleton';
 import { Value } from 'react-calendar/dist/cjs/shared/types';
-import { ExpensesColor } from '@/utils/colorForExpense';
 import Search from './Search';
 
 export default function Home() {
@@ -36,7 +34,6 @@ export default function Home() {
   // 월 소비 데이터 통신
   useEffect(() => {
     //loading 값 false면 스켈레톤 적용
-    setLoading(true);
     const getData = async () => {
       try {
         const response = await getExpenses(year, month);
@@ -44,8 +41,6 @@ export default function Home() {
         setMonthlyExpenses(response);
       } catch (error) {
         console.log(error);
-      } finally {
-        setLoading(false);
       }
     };
     getData();
@@ -63,8 +58,20 @@ export default function Home() {
   }, [day, monthlyExpenses]);
 
   const {
-    token: { colorPrimary },
+    token: { colorPrimary, colorPrimaryBg },
   } = theme.useToken();
+
+  const ExpensesColor = (a: number) => {
+    if(a<=30000){
+      return '#C0D98A'
+    }else if(a>30000 && a<=60000){
+      return '#A6C4F0'
+    }else if(a>60000 && a<=90000){
+      return '#FFE68D'
+    }else if(a>90000){
+      return '#F8AB9A'
+    }
+  }
 
   //소비한 날들만 배열데이터로 저장
   const expenseDay = useMemo(
@@ -95,11 +102,10 @@ export default function Home() {
       const dailyExpensesSumFormatted = dailyExpensesSum.toLocaleString(); // 표기법 변경
       contents.push(
           <div key={date.toISOString()} className='expense'>
-            <br/>
             <div style={{background:`${ExpensesColor(dailyExpensesSum)}`}}>
               {dailyExpensesSumFormatted}원
             </div>
-            <div style={{background:`${colorPrimary}`}}>{dailyExpense.length}</div>
+            <div style={{background:`${colorPrimary}`, color:`${colorPrimaryBg}`}}>{dailyExpense.length}</div>
           </div>
       );
     }
@@ -108,11 +114,6 @@ export default function Home() {
 
   return (
     <>
-      {loading ? (
-        <div>
-          <MySkeleton />
-        </div>
-      ) : (
           <Calendar
             onChange={(value: Value) => {
               setValue(value as Date);
@@ -130,7 +131,6 @@ export default function Home() {
               setValue(activeStartDate!);
             }}
           />
-      )}
       <Search
         dailyExpenses={dailyExpenses}
         togglefetch={togglefetch}

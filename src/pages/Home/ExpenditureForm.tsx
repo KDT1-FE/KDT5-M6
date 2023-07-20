@@ -12,10 +12,11 @@ import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker';
 interface espenseFormProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  edit: boolean;
+  edit?: boolean;
   list: boolean;
   setList: React.Dispatch<React.SetStateAction<boolean>>;
-  selected: string | null;
+  selected?: string | null;
+  setToggleAdd: React.Dispatch<React.SetStateAction<boolean>>;
 }
 // interface espenseEditDeletProps {
 //   selected: string | null;
@@ -25,10 +26,9 @@ export default function ExpenditureForm({
   open,
   setOpen,
   edit,
-  list,
   setList,
   selected,
-  setToggleAdd
+  setToggleAdd,
 }: espenseFormProps) {
   // { selected }: espenseEditDeletProps,
   const [isSending, setIsSending] = useState(false);
@@ -70,7 +70,7 @@ export default function ExpenditureForm({
       }
       console.log('성공!!');
       // 성공적으로 추가함
-      setToggleAdd((prev:boolean)=>!prev)
+      setToggleAdd((prev: boolean) => !prev);
     } catch (error) {
       console.log('서버로 부터 응답 안옴', error);
     } finally {
@@ -105,7 +105,7 @@ export default function ExpenditureForm({
       }
       console.log('수정!!');
       // 성공적으로 수정함
-      setToggleAdd((prev:boolean)=>!prev)
+      setToggleAdd((prev: boolean) => !prev);
     } catch (error) {
       console.log('서버로 부터 응답 안옴', error);
     } finally {
@@ -126,7 +126,6 @@ export default function ExpenditureForm({
             {edit ? '소비 지출 내역 등록' : '소비 지출 내역 수정'}
           </div>
         }
-        centered
         open={open}
         onOk={handleSubmit}
         onCancel={() => setOpen(false)}

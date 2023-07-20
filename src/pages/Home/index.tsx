@@ -77,10 +77,10 @@ export default function Home() {
         .map((item) => item.amount)
         .reduce((a, b) => a + b, 0);
       //총소비량
-
+      const dailyExpensesSumFormatted = dailyExpensesSum.toLocaleString(); // 표기법 변경
       contents.push(
         <div key={date.toISOString()}>
-          <span>총소비 : {dailyExpensesSum}원</span>
+          <span>총소비 금액 : {dailyExpensesSumFormatted}원</span>
           <br />
           <span>소비횟수 : {dailyExpense.length}회</span>
         </div>,

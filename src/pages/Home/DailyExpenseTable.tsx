@@ -58,6 +58,7 @@ export default function DailyExpenseTable({
       sorter: {
         compare: (a, b) => a.amount - b.amount,
       },
+      render: (amount: number) => amount.toLocaleString(),
     },
     {
       title: '시간',

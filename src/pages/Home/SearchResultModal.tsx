@@ -1,7 +1,6 @@
 import { SearchResultType } from '@/types/search';
 import { Typography, Modal, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { useState } from 'react';
 import '@/index.css';
 import formatDateAndTime from '@/utils/formatDateAndTime';
 

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { DatePicker, Space, Button, Modal, Input, message } from 'antd';
-import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker';
 import { DailyExpensesType } from '@/types/expenses';
 import dayjs from 'dayjs';
 

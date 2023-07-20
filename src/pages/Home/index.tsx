@@ -11,6 +11,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import getExpenses from '@/pages/Home/getExpenses';
 import { Value } from 'react-calendar/dist/cjs/shared/types';
 import Search from './Search';
+import loadingImg from '@/assets/favicon.png';
 
 export default function Home() {
   const [togglefetch, setToggleFetch] = useState(false);
@@ -138,7 +139,7 @@ export default function Home() {
           className="loading-animation"
           style={{ display: 'flex', alignItems: 'center', zIndex: 2000 }}
         >
-          <img src="src/assets/favicon.png" alt="loading" width={50} />
+          <img src={loadingImg} alt="loading" width={50} />
           <span
             style={{
               paddingLeft: 20,

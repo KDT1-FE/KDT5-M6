@@ -37,27 +37,6 @@ export default function ExpenditureForm({
     }
   }, [selectedData]);
 
-  //Date 입력값 선택 시 api 요청 데이터에 맞게 변경해주는 변수
-  // const selectDateHandler = (
-  //   _value: DatePickerProps['value'] | RangePickerProps['value'],
-  //   dateString: string,
-  // ) => {
-  //   const date = dateString;
-  //   const Time = date.slice(0, 10);
-  //   const Date = date.slice(11, 19);
-  //   const selecteDate = `${Time}T${Date}`;
-  //   setInputDate(selecteDate);
-  // };
-
-  //Date 표시 format 지정
-  // const dateFormat = 'YYYY-MM-DD HH:mm:ss';
-
-  // cancel 버튼 클릭시 실행되는 함수, 로딩 종료 및 모달창 닫기
-  const cancleHandler = () => {
-    setIsSending(false);
-    setOpen(false);
-  };
-
   //등록버튼 클릭시 실행되는 함수
   const handleSubmit = async () => {
     if (!inputDate) {
@@ -142,7 +121,7 @@ export default function ExpenditureForm({
         return;
       }
       setToggleFetch((prev: boolean) => !prev);
-      message.success('소비 내역이 등록되었습니다');
+      message.success('소비 내역이 수정되었습니다');
     } catch (error) {
       console.log('서버로 부터 응답 안옴', error);
       message.error('오류가 발생하였습니다');

@@ -1,4 +1,4 @@
-export const API_BASE_URL = 'http://52.78.195.183:3003';
+export const API_BASE_URL = 'https://chickenlecture.xyz';
 
 // 사이드바 메뉴 아이템
 import {
@@ -28,7 +28,7 @@ export const TEAM_MEMBERS = [
     github: 'https://github.com/howooking',
     imgUrl: 'https://avatars.githubusercontent.com/u/87072568?v=4',
     roles: ['팀장', '소비통계'],
-    comment: '호우는 귀엽다',
+    comment: '수학의 정석 한권',
   },
   {
     name: '이시우',

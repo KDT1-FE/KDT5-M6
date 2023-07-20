@@ -35,12 +35,18 @@ export default function Home() {
   useEffect(() => {
     //loading 값 false면 스켈레톤 적용
     const getData = async () => {
+      setLoading(true);
+      await new Promise((resolve) => {
+        setTimeout(resolve, 700);
+      });
       try {
         const response = await getExpenses(year, month);
         // api로 받아온 데이터 monthlyExpenses에 저장
         setMonthlyExpenses(response);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
     getData();
@@ -58,20 +64,20 @@ export default function Home() {
   }, [day, monthlyExpenses]);
 
   const {
-    token: { colorPrimary, colorPrimaryBg },
+    token: { colorPrimary },
   } = theme.useToken();
 
   const ExpensesColor = (a: number) => {
-    if(a<=30000){
-      return '#C0D98A'
-    }else if(a>30000 && a<=60000){
-      return '#A6C4F0'
-    }else if(a>60000 && a<=90000){
-      return '#FFE68D'
-    }else if(a>90000){
-      return '#F8AB9A'
+    if (a <= 50000) {
+      return '#C0D98A';
+    } else if (a > 50000 && a <= 100000) {
+      return '#A6C4F0';
+    } else if (a > 100000 && a <= 150000) {
+      return '#FFE68D';
+    } else if (a > 150000) {
+      return '#F8AB9A';
     }
-  }
+  };
 
   //소비한 날들만 배열데이터로 저장
   const expenseDay = useMemo(
@@ -81,7 +87,7 @@ export default function Home() {
       ),
     [month, monthlyExpenses, year],
   );
-  
+
   // 총소비액
   const addContents = ({ date }: { date: Date }) => {
     const contents = [];
@@ -97,16 +103,23 @@ export default function Home() {
         .map((item) => item.amount)
         .reduce((a, b) => a + b, 0);
       //총소비량
-      
+
       // 각 일자별로 해당일의 소비데이터를 아래 형식으로 출력
       const dailyExpensesSumFormatted = dailyExpensesSum.toLocaleString(); // 표기법 변경
       contents.push(
-          <div key={date.toISOString()} className='expense'>
-            <div style={{background:`${ExpensesColor(dailyExpensesSum)}`}}>
-              {dailyExpensesSumFormatted}원
-            </div>
-            <div style={{background:`${colorPrimary}`, color:`${colorPrimaryBg}`}}>{dailyExpense.length}</div>
+        <div key={date.toISOString()} className="expense">
+          <div style={{ background: `${ExpensesColor(dailyExpensesSum)}` }}>
+            {dailyExpensesSumFormatted}원
           </div>
+          <div
+            style={{
+              background: `${colorPrimary}`,
+              color: `white`,
+            }}
+          >
+            {dailyExpense.length}
+          </div>
+        </div>,
       );
     }
     return <>{contents}</>;
@@ -114,30 +127,48 @@ export default function Home() {
 
   return (
     <>
-          <Calendar
-            onChange={(value: Value) => {
-              setValue(value as Date);
-            }}
-            value={value}
-            onClickDay={() => setDailyExpenseModalOpen(true)}
-            tileContent={addContents}
-            formatDay={(_locale, date) => moment(date).format('D')}
-            // showNeighboringMonth={false}
-            locale='en'
-            minDetail="month"
-            prev2Label={null}
-            next2Label={null}
-            onActiveStartDateChange={({ activeStartDate }) => {
-              setValue(activeStartDate!);
-            }}
-          />
       <Search
         dailyExpenses={dailyExpenses}
         togglefetch={togglefetch}
         setValue={setValue}
         setDailyExpenseModalOpen={setDailyExpenseModalOpen}
       />
+      {loading ? (
+        <div
+          className="loading-animation"
+          style={{ display: 'flex', alignItems: 'center', zIndex: 2000 }}
+        >
+          <img src="src\assets\favicon.png" alt="loading" width={50} />
+          <span
+            style={{
+              paddingLeft: 20,
+              textTransform: 'uppercase',
+              fontWeight: 500,
+            }}
+          >
+            loading...
+          </span>
+        </div>
+      ) : (
+        <Calendar
+          onChange={(value: Value) => {
+            setValue(value as Date);
+          }}
+          value={value}
+          onClickDay={() => setDailyExpenseModalOpen(true)}
+          tileContent={addContents}
+          formatDay={(_locale, date) => moment(date).format('D')}
+          locale="en"
+          minDetail="month"
+          prev2Label={null}
+          next2Label={null}
+          onActiveStartDateChange={({ activeStartDate }) => {
+            setValue(activeStartDate!);
+          }}
+        />
+      )}
       <DailyExpenseModal
+        year={year}
         month={month}
         day={day}
         dailyExpenses={dailyExpenses}

@@ -79,7 +79,11 @@ export default function Home() {
   const addContents = ({ date }: { date: Date }) => {
     const contents = [];
     //소비가 있는 날짜에만 값을 기입
-    if (expenseDay.find((day) => day === moment(date).format('YYYY-MM-DD'))) {
+    if (
+      expenseDay.find(
+        (day) => day === moment(date).utcOffset(9).format('YYYY-MM-DD'),
+      )
+    ) {
       const eachDay = moment(date).format('D');
       const dailyExpense = monthlyExpenses[eachDay];
       const dailyExpensesSum = dailyExpense

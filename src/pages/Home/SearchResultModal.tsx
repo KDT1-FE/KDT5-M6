@@ -57,6 +57,11 @@ export default function SearchResultModal({
   const handleRowClick = (date: string) => {
     setDailyExpenseModalOpen(true);
     setSearchResultModalOpen(false);
+    const stringToIOS = new Date(date);
+    const adjustedDate = new Date(
+      stringToIOS.getTime() - 9 * 60 * 60 * 1000,
+    ).toISOString();
+    setValue(new Date(adjustedDate));
   };
 
   // 모달을 닫는 함수
@@ -85,7 +90,6 @@ export default function SearchResultModal({
             rowClassName="table-row"
             onRow={(record) => ({
               onClick: () => {
-                setValue(new Date(record.date));
                 handleRowClick(record.date);
               },
             })}

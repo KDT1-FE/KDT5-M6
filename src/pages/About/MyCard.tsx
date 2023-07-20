@@ -35,7 +35,7 @@ export default function MyCard({
           <GithubOutlined key="github" style={{ fontSize: 20 }} />
         </a>,
         <Popover content={`"${comment}"`}>
-          <MessageOutlined key="comment" style={{ fontSize: 20 }} />
+          <MessageOutlined style={{ fontSize: 20 }} />
         </Popover>,
       ]}
     >
@@ -43,10 +43,10 @@ export default function MyCard({
         title={name}
         description={
           <>
-            {roles.map((role, index) => (
+            {roles.map((role) => (
               <Tag
                 color={colorPrimaryBg}
-                key={index}
+                key={role}
                 style={{
                   border: `1.5px solid ${colorPrimary}`,
                   color: `${colorPrimary}`,

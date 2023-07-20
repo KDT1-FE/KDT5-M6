@@ -23,6 +23,7 @@ export default function DailyExpenseTable({
 
   // 삭제 버튼 클릭시 실행되는 삭제 기능 함수
   const handleDelete = async () => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
     try {
       const response = await fetch(
         `http://52.78.195.183:3003/api/expenses/${selectedData?._id}`,

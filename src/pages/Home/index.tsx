@@ -12,10 +12,10 @@ import getExpenses from '@/pages/Home/getExpenses';
 import MySkeleton from '@/components/MySkeleton';
 import { Value } from 'react-calendar/dist/cjs/shared/types';
 import { ExpensesColor } from '@/utils/colorForExpense';
+import Search from './Search';
 
 export default function Home() {
-  const [list, setList] = useState(false);
-  const [toggleAdd, setToggleAdd] = useState(false);
+  const [togglefetch, setToggleFetch] = useState(false);
   const [value, setValue] = useState(new Date()); // 선택한 날짜
 
   // value 값이 변할 때마다 년,월,일 값 갱신
@@ -49,7 +49,7 @@ export default function Home() {
       }
     };
     getData();
-  }, [month, year, list]);
+  }, [month, year, togglefetch]);
 
   const dailyExpenses = useMemo(() => {
     if (monthlyExpenses && monthlyExpenses[day]) {
@@ -86,13 +86,14 @@ export default function Home() {
         .map((item) => item.amount)
         .reduce((a, b) => a + b, 0);
       //총소비량
-
+      
       // 각 일자별로 해당일의 소비데이터를 아래 형식으로 출력
+      const dailyExpensesSumFormatted = dailyExpensesSum.toLocaleString(); // 표기법 변경
       contents.push(
           <div key={date.toISOString()} className='expense'>
             <br/>
             <div style={{background:`${ExpensesColor(dailyExpensesSum)}`}}>
-              {dailyExpensesSum}원
+              {dailyExpensesSumFormatted}원
             </div>
             <div style={{background:`${colorPrimary}`}}>{dailyExpense.length}</div>
           </div>
@@ -126,22 +127,24 @@ export default function Home() {
             }}
           />
       )}
-
+      <Search
+        dailyExpenses={dailyExpenses}
+        togglefetch={togglefetch}
+        setValue={setValue}
+        setDailyExpenseModalOpen={setDailyExpenseModalOpen}
+      />
       <DailyExpenseModal
         month={month}
         day={day}
         dailyExpenses={dailyExpenses}
         dailyExpenseModalOpen={dailyExpenseModalOpen}
         setDailyExpenseModalOpen={setDailyExpenseModalOpen}
-        list={list}
-        setList={setList}
+        setToggleFetch={setToggleFetch}
       />
       <ExpenditureForm
         open={addExpenseModalOpen}
+        setToggleFetch={setToggleFetch}
         setOpen={setAddExpenseModalOpen}
-        list={list}
-        setList={setList}
-        setToggleAdd={setToggleAdd}
       />
       <FloatButton
         type="primary"

@@ -6,15 +6,14 @@ import { MONTH_RANGE_OPTIONS } from '@/data/constants';
 import { theme } from 'antd';
 import Chart from '@/pages/Statistics/Chart';
 import MySkeleton from '@/components/MySkeleton';
+import { fetchMonthlyConsumptions } from '@/api/expenseAPIs';
+import Banner from '@/pages/Statistics/Banner';
 
 export default function Statistics() {
   // theme 색 가져오기
   const {
     token: { colorPrimary, colorPrimaryBg },
   } = theme.useToken();
-
-  // .env에 있는 환경변수 가져오기
-  const userId = useMemo(() => import.meta.env.VITE_USER_ID, []);
 
   // 로딩 UI
   const [isLoading, setIsLoading] = useState(false);
@@ -34,37 +33,36 @@ export default function Statistics() {
   // 월 소비 액 배열 / 예) [10000, 20000, 0, 300000, 500000, 0, 200000, 200000, 200000, 36500]
   const [monthlyConsumptions, setMonthlyConsumptions] = useState<number[]>([]);
 
+  const [message, setMessage] = useState('');
+  const [type, setType] = useState<'success' | 'error'>('success');
+  const [bannerVisible, setBannerVisible] = useState(false);
+
   // 월별 소비금액을 서버로 부터 가져오고 monthlyConsumptions에 저장하는 로직
   useEffect(() => {
+    setIsLoading(true);
     const fetchData = async () => {
-      setIsLoading(true);
       // 너무 빨리 로딩돼서 0.7초 timeout
       await new Promise((resolve) => setTimeout(resolve, 700));
 
-      try {
-        const response = await fetch(
-          `http://52.78.195.183:3003/api/expenses/summary?period=monthly&userId=${userId}`,
+      const { data, statusCode, message } = await fetchMonthlyConsumptions(
+        labels,
+      );
+      if (data) {
+        setMonthlyConsumptions(data);
+        setType('success');
+        setMessage(`최근 ${monthRange}개월 소비내역입니다`);
+      } else {
+        console.error(
+          `Error: Failed to fetch data. Status Code: ${statusCode}. Message: ${message}`,
         );
-        if (!response.ok) {
-          console.log('서버에서 응답이 왔는데 에러가 옴');
-          return;
-        }
-        const data: { _id: string; totalAmount: number }[] =
-          await response.json();
-
-        // labels를 순환하면서 서버로 부터 온 data의 배열에서 _id와 label이 일치하면 해당 data의 totalAmout를 return 없으면 0 return
-        const mappedData = labels.map(
-          (label) => data.find((d) => d._id === label)?.totalAmount ?? 0,
-        );
-        setMonthlyConsumptions(mappedData);
-      } catch (error) {
-        console.error('Error: 서버에서 응답이 안옴 ', error);
-      } finally {
-        setIsLoading(false);
+        setType('error');
+        setMessage('서버가 종료되었나봐요😭😭😭');
       }
+      setIsLoading(false);
+      setBannerVisible(true);
     };
     fetchData();
-  }, [labels, monthRange, userId]);
+  }, [labels, monthRange]);
 
   // Chart에서 요구하는 값
   const data: ChartData<'bar', number[], string> = useMemo(() => {
@@ -84,6 +82,7 @@ export default function Statistics() {
 
   return (
     <div style={{ width: '90vw' }}>
+      {bannerVisible ? <Banner message={message} type={type} /> : null}
       <MySelect
         handleChange={handleMonthlyRange}
         options={MONTH_RANGE_OPTIONS}

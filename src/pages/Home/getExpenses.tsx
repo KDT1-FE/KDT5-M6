@@ -10,7 +10,9 @@ export default function getExpenses(year: string, month: string) {
 
   const expensesApi = async () => {
     const res = await baseInstance.get(
-      `expenses/calendar?year=${year}&month=${month}&userId=team3`,
+      `expenses/calendar?year=${year}&month=${month}&userId=${
+        import.meta.env.VITE_USER_ID
+      }`,
     );
     return res.data;
   };

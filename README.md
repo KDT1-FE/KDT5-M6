@@ -2,7 +2,7 @@
 
 ## 프로젝트 소개 💵
 
-`SOBI`는 소비내역이 달력에 표시되며 월별 소비금액을 그래프로 볼 수 있는 웹 어플리케이션 입니다.
+`SOBI`는 소비내역이 달력에 표시되며 월별 소비금액을 그래프로 볼 수 있는 웹 어플리케이션입니다.
 
 [SOBI 보러가기](https://sobi-salad.vercel.app/)
 
@@ -269,9 +269,9 @@ Status: 200 OK
   - 깃허브 이슈기능 활용
     <img width="892" alt="image" src="https://github.com/KDT5-FE-M6-team3/toy3/assets/87072568/d1fad683-8257-46f2-a284-8b2378b2c42b">
     - 기능 단위로 이슈를 발행, 진행상황등을 깃허브 내에서 파악 할 수 있음.
-    - 기능의 단위를 어느정도로 잡아야할지 판단이 어려움
-      - 예를 들어 월별 소비 금액 차트 내에서도 여러 세부 기능을 나뉘는데 세부 기능마다 이슈를 생성해야 하는지
-      - 그렇다고 너무 큰 단위의 기능의 경우 한번에 PR하는 양이 많아지는 문제가 발생
+    - 기능의 단위를 어느정도로 잡아야할지 판단이 어려움.
+      - 예를 들어 월별 소비 금액 차트 내에서도 여러 세부 기능을 나뉘는데 세부 기능마다 이슈를 생성해야 하는지.
+      - 그렇다고 너무 큰 단위의 기능의 경우 한번에 PR하는 양이 많아지는 문제가 발생.
   - commit 단위 및 메세지
 
     <img width="347" alt="image" src="https://github.com/KDT5-FE-M6-team3/toy3/assets/87072568/be0145a5-1e2b-45fd-8607-1e2b7c2891df">
@@ -283,7 +283,7 @@ Status: 200 OK
 
   - 리액트 컴포넌트 기반의 UI라이브러리.
   - 몇가지 규약만 지켜주면 빠른시간내에 완성도 있고 일관성있는 UI를 만들 수 있다.
-  - 다양한 기능들을 최대한 사용해보고자 하였음
+  - 다양한 기능들을 최대한 사용해보고자 하였음.
     - Tour, Table, Modal, Skeleton, Drawer, Date Picker, Color Picker, Autocomplete 등...
   - 그러나 커스터마이징 제약이 있다는 점, CSS를 잘 다루는 못하는 초보자의 경우 antD 의존성이 크게 올라가므로 배우는 입장에서는 scss나 tailwind가 더 적절하다고 생각함.
     <br><br>
@@ -304,8 +304,8 @@ Status: 200 OK
 
 - SPA에서 server state와 client state 동기화 문제
 
-  - 소비내역을 등록, 수정, 삭제가 발생할 때마다 서버로부터 최신의 데이터를 받아와야 한다.
-  - 본 프로젝트에서는 togglefetch 라는 변수를 useState로 선언하고 소비내역의 변경이 발생하는 handling 함수에서 `setToggleFetch((prev) => !prev)`를 해준다. 그리고 통신이 일어나는 useEffect의 dependency에 togglefetch를 넣어주었다.
+  - 소비내역을 등록, 수정, 삭제가 발생할 때마다 서버로부터 최신의 데이터를 받아와야 함.
+  - 본 프로젝트에서는 togglefetch라는 변수를 useState로 선언하고 소비내역의 변경이 발생하는 handling 함수에서 `setToggleFetch((prev) => !prev)`. 그리고 통신이 일어나는 useEffect의 dependency에 togglefetch를 넣어줌.
 
     ```js
     const [togglefetch, setToggleFetch] = useState(false);
@@ -328,11 +328,11 @@ Status: 200 OK
 
   - 이 방법은 페이지전환이 발생하지 않는 SPA에서 server state와 client state 동기화 문제를 가장 쉽게(~새로고침~) 해결할 수 있는 방법이다.
   - 다른 방법으로 get 요청 없이 client state를 setState로 업데이트 시켜주는 방법이 있다.
-    - 그러나 본프로젝트에서는 서버에서 \_id가 생성이 되고 이 값으로 수정과 삭제를 진행하기 때문에 이 방법은 적절하지 않다.
-    - 만약 모든 데이터를 클라이언트에서 생성하는 경우 이러한 전략이 유효하다.
-    - 예를 들어 새로운 소비내역을 post 요청으로 db에 저장하고, 동시에 `setState((prev) => [...prev, newData])`를 통해 화면을 재랜더링한다.
-    - 이러한 경우 post요청만 실행되고 get요청은 실행되지 않아도 되므로 자원을 아낄 수 있다.
-  - 또 다른 방법으로 `react-query` 라이브러리를 사용하는 방법이 있다.
+    - 그러나 본프로젝트에서는 서버에서 \_id가 생성이 되고 이 값으로 수정과 삭제를 진행하기 때문에 이 방법은 적절하지 않음.
+    - 만약 모든 데이터를 클라이언트에서 생성하는 경우 이러한 전략이 유효함.
+    - 예를 들어 새로운 소비내역을 post 요청으로 db에 저장하고, 동시에 `setState((prev) => [...prev, newData])`를 통해 화면을 재랜더링.
+    - 이러한 경우 post요청만 실행되고 get요청은 실행되지 않아도 되므로 자원을 아낄 수 있음.
+  - 또 다른 방법으로 `react-query` 라이브러리를 사용하는 방법이 있음.
   <hr>
 
 #### 이시우

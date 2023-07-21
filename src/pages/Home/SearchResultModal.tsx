@@ -1,10 +1,8 @@
 import { SearchResultType } from '@/types/search';
-import { Typography, Modal, Table } from 'antd';
+import { Modal, Table, Result } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import '@/index.css';
 import formatDateAndTime from '@/utils/formatDateAndTime';
-
-const { Text } = Typography;
 
 interface SearchResultModalProps {
   searchResultModalOpen: boolean;
@@ -54,18 +52,15 @@ export default function SearchResultModal({
 
   // 검색 결과 테이블에서 행을 클릭했을 때의 핸들러 함수
   const handleRowClick = (date: string) => {
-    setDailyExpenseModalOpen(true);
-    setSearchResultModalOpen(false);
+    // 9시간 차이나서 그런건데 멘토님한테 물어볼예정
     const stringToIOS = new Date(date);
     const adjustedDate = new Date(
       stringToIOS.getTime() - 9 * 60 * 60 * 1000,
     ).toISOString();
-    setValue(new Date(adjustedDate));
-  };
+    setValue(new Date(adjustedDate)); // 선택한 아이템의 날짜를 index.tsx 캘린더에서 봤던 value(선택날짜)로 지정해줌
 
-  // 모달을 닫는 함수
-  const closeModal = () => {
-    setSearchResultModalOpen(false);
+    setSearchResultModalOpen(false); // 검색결과 모달 닫고
+    setDailyExpenseModalOpen(true); // 일별 소비 모달 열고
   };
 
   return (
@@ -74,11 +69,11 @@ export default function SearchResultModal({
         centered
         title="검색결과"
         open={searchResultModalOpen}
-        onCancel={closeModal}
+        onCancel={() => setSearchResultModalOpen(false)}
         footer={null}
       >
         {searchResults.length === 0 ? (
-          <Text>No results found.</Text>
+          <Result status="404" subTitle="검색 결과가 없습니다" />
         ) : (
           // 검색 결과가 있는 경우 테이블로 표시
           <Table

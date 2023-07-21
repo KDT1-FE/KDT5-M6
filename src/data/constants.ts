@@ -1,3 +1,4 @@
+// 사진들
 import jw from '@/assets/profileImage/jw.jpg';
 import sw from '@/assets/profileImage/sw.png';
 import hs from '@/assets/profileImage/hs.jpg';

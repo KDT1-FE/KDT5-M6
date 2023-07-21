@@ -17,14 +17,15 @@ export default function DailyExpenseTable({
   dailyExpenses,
   setToggleFetch,
 }: DailyExpenseTableProps) {
-  //modal창 열기,닫기 상태 지정 변수
+  // 기록수정 modal창 열기,닫기 상태 지정 변수
   const [editFormOpen, setEditFormOpen] = useState(false);
-  //수정, 삭제 버튼 클릭시 선택되는 '특정된 데이터'를 지정하는 변수
+
+  // 수정, 삭제 버튼 클릭시 선택되는 '특정된 데이터'를 지정하는 변수
   const [selectedData, setSelectedData] = useState<DailyExpensesType>();
 
   // 삭제 버튼 클릭시 실행되는 삭제 기능 함수
   const handleDelete = async () => {
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 500)); // 억지 0.5초
     try {
       const response = await fetch(
         `${API_BASE_URL}/api/expenses/${selectedData?._id}`,
@@ -35,6 +36,7 @@ export default function DailyExpenseTable({
         message.error('오류가 발생하였습니다');
         return;
       }
+      // 삭제 성공
       message.success('소비기록 삭제 완료');
       setToggleFetch((prev) => !prev);
     } catch (error) {
@@ -43,7 +45,7 @@ export default function DailyExpenseTable({
     }
   };
 
-  // 출력되는 일별 목록 데이터 타입
+  // 출력되는 일별 목록 데이터 타입, antd table에서 요구하는 형식
   const columns: ColumnsType<DailyExpensesType> = [
     {
       title: '소비내역',
@@ -86,10 +88,11 @@ export default function DailyExpenseTable({
               className="hover_icon"
             />
             <Divider type="vertical" style={{ margin: '0' }} />
+
+            {/*  삭제 버튼 클릭시 삭제 컨펌 팝업 */}
             <Popconfirm
               title="소비 기록 삭제"
               description={
-                // 삭제 버튼 클릭시 삭제 컨펌 팝업
                 <span style={{ marginRight: '20px' }}>
                   '{data.category}' 소비 기록을 삭제하시겠습니까?
                 </span>
@@ -98,8 +101,8 @@ export default function DailyExpenseTable({
               onConfirm={handleDelete} // 삭제 컨펌 클릭시 삭제 기능 함수 실행
               cancelText="취소" // 삭제 취소 버튼
             >
+              {/* 소비내역 삭제 버튼 */}
               <DeleteTwoTone
-                //소비내역 삭제 버튼
                 twoToneColor="red"
                 onClick={() => {
                   // 삭제할 데이터 선택 및 전달 데이터 변수로 값 전달
@@ -109,12 +112,13 @@ export default function DailyExpenseTable({
               />
             </Popconfirm>
           </Space>
+
+          {/*  수정 모달 */}
           <ExpenditureForm
-            // 수정 모달
             setToggleFetch={setToggleFetch}
             open={editFormOpen}
             setOpen={setEditFormOpen}
-            edit
+            edit // 이게 있으면 edit모드임
             selectedData={selectedData}
           />
         </div>

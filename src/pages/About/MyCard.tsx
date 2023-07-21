@@ -25,14 +25,14 @@ export default function MyCard({
   return (
     <Card
       style={{
-        width: 300,
+        width: 280,
         margin: '20px auto',
       }}
       bordered={false}
       cover={<img alt={`${name}'s profile`} src={imgUrl} />}
       actions={[
         <a href={github} target="_blank">
-          <GithubOutlined key="github" style={{ fontSize: 20 }} />
+          <GithubOutlined style={{ fontSize: 20 }} />
         </a>,
         <Popover content={`"${comment}"`}>
           <MessageOutlined style={{ fontSize: 20 }} />

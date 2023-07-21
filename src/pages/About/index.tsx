@@ -4,9 +4,9 @@ import { Col, Row } from 'antd';
 
 export default function About() {
   return (
-    <Row gutter={[20, 0]} align="middle">
+    <Row align="middle">
       {TEAM_MEMBERS.map((member) => (
-        <Col xs={24} md={12} xl={6} key={member.name}>
+        <Col xs={24} md={12} xl={6} key={member.name} style={{ padding: 20 }}>
           <MyCard
             imgUrl={member.imgUrl}
             roles={member.roles}

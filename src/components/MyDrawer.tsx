@@ -72,7 +72,7 @@ export default function MyDrawer() {
   } = theme.useToken();
 
   // Drawer가 열렸는지 닫혔는지를 useState로 저장
-  const [open, setOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   // color picker 관련 로직
   const [colorHex, setColorHex] = useState<Color | string>(colorPrimary);
@@ -97,10 +97,11 @@ export default function MyDrawer() {
       <Tour
         open={tourOpen}
         onClose={() => setTourOpen(false)}
-        steps={steps}
-        placement="rightTop"
+        steps={steps} // 단계를 antd가 정해준 형식으로 제공
+        placement="rightTop" // 안내 표시 위치
         indicatorsRender={(current, total) => (
           <span>
+            {/* 1 / 5  , 단계표시 */}
             {current + 1} / {total}
           </span>
         )}
@@ -108,8 +109,10 @@ export default function MyDrawer() {
       <Button
         type="primary"
         onClick={() => {
-          setOpen(true);
+          setDrawerOpen(true);
+          // 로컬저장소에서 visited항목이 없으면 tour를 open함
           setTourOpen(!localStorage.getItem('visited'));
+          // 로컬 저장소에 visited항목을 true로 저장함
           localStorage.setItem('visited', JSON.stringify(true));
         }}
         style={{ position: 'absolute', top: 10, left: 10 }}
@@ -129,8 +132,8 @@ export default function MyDrawer() {
         // 왼쪽에서 열림
         placement="left"
         width={300}
-        onClose={() => setOpen(false)}
-        open={open}
+        onClose={() => setDrawerOpen(false)}
+        open={drawerOpen}
         // 이거 true하면 이상한 x버튼 생김
         closable={false}
       >
@@ -155,7 +158,7 @@ export default function MyDrawer() {
               icon={<item.icon />}
               onClick={() => {
                 navigate(item.href);
-                setOpen(false);
+                setDrawerOpen(false);
               }}
             >
               {item.label}

@@ -24,7 +24,7 @@ export default function AccentColorProvider({
 }) {
   // 강조색 useState
   const [accentColor, setAccentColor] = useState(() =>
-    // 로컬저장소에 accentColor가 있으면 가져와서 accentColor에 지정, 없으면 '#87e4ac' 지정
+    // 로컬저장소에 accentColor가 있으면 가져와서 accentColor에 지정, 없으면 '#87e4ac' 지정하는 함수
     getAccentColorFromLocalStorage(),
   );
 

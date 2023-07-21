@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import { API_BASE_URL } from '@/data/constants';
 
 //Home index에서 받아오는 props 데이터 type interface
-interface espenseFormProps {
+interface expenseFormProps {
   selectedData?: DailyExpensesType;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,13 +20,15 @@ export default function ExpenditureForm({
   setOpen,
   edit,
   setToggleFetch,
-}: espenseFormProps) {
+}: expenseFormProps) {
   // 소비내역 등록, 삭제, 수정 시 버튼에 표시되는 로딩상태 지정 변수
   const [isSending, setIsSending] = useState(false);
   // 소비내역 등록, 수정 시 입력값 및 지정 변수
   const [inputText, setInputText] = useState('');
   const [inputNumber, setInputNumber] = useState('');
   const [inputDate, setInputDate] = useState<dayjs.Dayjs | null>(null);
+  console.log('iso변환', inputDate?.toISOString());
+  // console.log('9시간 추가', dayjs(inputDate).add(9, 'hour').toISOString());
 
   //일별 소비 목록에서 수정버튼을 클릭했을때 선택된 데이터를 가져와서 입력값에 넣어주는 useeffect
   useEffect(() => {

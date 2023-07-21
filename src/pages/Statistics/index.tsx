@@ -42,8 +42,7 @@ export default function Statistics() {
     setIsLoading(true);
     const fetchData = async () => {
       // 너무 빨리 로딩돼서 0.7초 timeout
-      await new Promise((resolve) => setTimeout(resolve, 700));
-
+      await new Promise((resolve) => setTimeout(resolve, 700)); // 0.7초간 멈추게 함
       const { data, statusCode, message } = await fetchMonthlyConsumptions(
         labels,
       );

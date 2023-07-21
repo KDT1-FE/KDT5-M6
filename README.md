@@ -300,6 +300,39 @@ Status: 200 OK
   - [src/hooks/useAccentColor.ts](https://github.com/KDT5-FE-M6-team3/toy3/blob/d0fd36c67b6cbb448276620a8cb0f01a1077365a/src/hooks/useAccentColor.ts#L1C1-L14C3)
   - 외부 전역상태 라이브러리를 사용하지 않고 리액트 내장 기능을 사용.
   - 커스텀 hook을 사용할 필요까지는 없었으나 일반적인 경우에 hook을 만들어서 사용하므로 적용해 보았음.
+    <br><br>
+
+- SPA에서 Server state 와 Client state 동기화 문제
+
+  - 소비내역을 등록, 수정, 삭제가 발생할 때마다 서버로부터 최신의 데이터를 받아와야 한다.
+  - 본 프로젝트에서는 togglefetch 라는 변수를 useState로 선언하고 데이터의 소비내역의 변경이 발생하는 handling 함수에서 `setToggleFetch((prev) => !prev)`를 해준다. 그리고 통신이 일어나는 useEffect의 dependency에 togglefetch를 넣어준다.
+
+    ```js
+    const [togglefetch, setToggleFetch] = useState(false);
+
+    useEffect(() => {
+      const getData = async () => {
+        setLoading(true);
+        try {
+          const response = await getExpenses(year, month);
+          setMonthlyExpenses(response);
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setLoading(false);
+        }
+      };
+      getData();
+    }, [month, year, togglefetch]);
+    ```
+
+  - 이 방법은 server state와 client state 동기화 문제를 가장 쉽게(~새로고침~) 해결할 수 있는 방법이다.
+  - 다른 방법으로 get 요청 없이 client state를 setState로 업데이트 시켜주는 방법
+    - 본 프로젝트에서는 서버에서 생성되는 데이터가 \_id밖에 없으므로 이 전략이 가능함.
+    - 예를 들어 새로운 소비내역을 post 요청으로 db에 저장하고, 동시에 `setState((prev) => [...prev, newData])`
+    - 이러한 경우 post요청만 실행되고 get요청은 실행하지 않아도 된다.
+    - state가 변경되었으므로 화면은 재랜더링 된다.
+  - 또 다른 방법으로 `react-query` 라이브러리를 사용하는 방법이 있다.
   <hr>
 
 #### 이시우

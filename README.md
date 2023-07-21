@@ -305,7 +305,7 @@ Status: 200 OK
 - SPA에서 Server state 와 Client state 동기화 문제
 
   - 소비내역을 등록, 수정, 삭제가 발생할 때마다 서버로부터 최신의 데이터를 받아와야 한다.
-  - 본 프로젝트에서는 togglefetch 라는 변수를 useState로 선언하고 데이터의 소비내역의 변경이 발생하는 handling 함수에서 `setToggleFetch((prev) => !prev)`를 해준다. 그리고 통신이 일어나는 useEffect의 dependency에 togglefetch를 넣어준다.
+  - 본 프로젝트에서는 togglefetch 라는 변수를 useState로 선언하고 데이터의 소비내역의 변경이 발생하는 handling 함수에서 `setToggleFetch((prev) => !prev)`를 해준다. 그리고 통신이 일어나는 useEffect의 dependency에 togglefetch를 넣어주었다.
 
     ```js
     const [togglefetch, setToggleFetch] = useState(false);

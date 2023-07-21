@@ -1,5 +1,5 @@
 import { Modal } from 'antd';
-import DailyExpenseTable from './DailyExpenseTable';
+import DailyExpenseTable from '@/pages/Home/DailyExpenseTable';
 import { DailyExpensesType } from '@/types/expenses';
 
 //Home index에서 받아오는 props 데이터 type interface

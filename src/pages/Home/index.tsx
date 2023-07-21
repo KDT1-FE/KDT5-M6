@@ -10,7 +10,7 @@ import Calendar from 'react-calendar';
 import { PlusOutlined } from '@ant-design/icons';
 import getExpenses from '@/pages/Home/getExpenses';
 import { Value } from 'react-calendar/dist/cjs/shared/types';
-import Search from './Search';
+import Search from '@/pages/Home/Search';
 import loadingImg from '@/assets/favicon.png';
 
 export default function Home() {
@@ -112,7 +112,7 @@ export default function Home() {
       //소비가 있는 날짜에만 값을 기입
       expenseDay.find(
         // date를 '2023-07-03' 형식으로 만들어서 위에서 생성한 expenseDay와 비교함
-        (day) => day === moment(date).utcOffset(9).format('YYYY-MM-DD'),
+        (day) => day === moment(date).format('YYYY-MM-DD'),
       )
     ) {
       // 해당 날짜가 있다면 그 날의 일 데이터 '3'을 통해 monthlyExpenses객체 값에서 dailtExpense를 구함

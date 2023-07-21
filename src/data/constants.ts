@@ -33,15 +33,15 @@ export const TEAM_MEMBERS = [
     name: '이정우',
     github: 'https://github.com/howooking',
     imgUrl: jw,
-    roles: ['팀장', '소비통계'],
+    roles: ['팀장', '소비통계', '호우킹'],
     comment: '수학의 정석 한권',
   },
   {
     name: '이시우',
     github: 'https://github.com/cuconveniencestore',
     imgUrl: sw,
-    roles: ['소비 CRUD', '편순이'],
-    comment: '리액트 쉽다',
+    roles: ['소비 CRUD', 'CU편의점', '모범생'],
+    comment: '24시간이 모자라',
   },
   {
     name: '문현수',

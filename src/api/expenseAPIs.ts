@@ -1,5 +1,5 @@
 import { API_BASE_URL } from '@/data/constants';
-import axios, { AxiosError, isAxiosError } from 'axios';
+import axios, { isAxiosError } from 'axios';
 
 export async function fetchMonthlyConsumptions(labels: string[]) {
   try {

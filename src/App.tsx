@@ -6,7 +6,7 @@ import MyDrawer from '@/components/MyDrawer';
 import About from '@/pages/About';
 import { ConfigProvider } from 'antd';
 import koKR from 'antd/locale/ko_KR';
-import { useAccentColor } from './hooks/useAccentColor';
+import { useAccentColor } from '@/hooks/useAccentColor';
 
 export default function App() {
   const { accentColor } = useAccentColor();

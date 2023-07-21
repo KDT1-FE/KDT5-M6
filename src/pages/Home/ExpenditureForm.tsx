@@ -28,14 +28,13 @@ export default function ExpenditureForm({
   const [inputNumber, setInputNumber] = useState('');
   const [inputDate, setInputDate] = useState<dayjs.Dayjs | null>(null);
   console.log('iso변환', inputDate?.toISOString());
-  // console.log('9시간 추가', dayjs(inputDate).add(9, 'hour').toISOString());
 
   //일별 소비 목록에서 수정버튼을 클릭했을때 선택된 데이터를 가져와서 입력값에 넣어주는 useeffect
   useEffect(() => {
     if (selectedData) {
       setInputText(selectedData.category);
       setInputNumber(selectedData.amount.toString());
-      setInputDate(dayjs(selectedData.date).add(-9, 'hour'));
+      setInputDate(dayjs(selectedData.date));
     }
   }, [selectedData]);
 
@@ -65,7 +64,7 @@ export default function ExpenditureForm({
           amount: inputNumber.trim(),
           userId: 'team3',
           category: inputText.trim(),
-          date: dayjs(inputDate).add(9, 'hour').toISOString(),
+          date: inputDate.toISOString(),
         }),
       });
       if (!response.ok) {
@@ -114,7 +113,7 @@ export default function ExpenditureForm({
             amount: inputNumber.trim(),
             userId: 'team3',
             category: inputText.trim(),
-            date: dayjs(inputDate).add(9, 'hour').toISOString(),
+            date: inputDate.toISOString(),
           }),
         },
       );

@@ -52,13 +52,7 @@ export default function SearchResultModal({
 
   // 검색 결과 테이블에서 행을 클릭했을 때의 핸들러 함수
   const handleRowClick = (date: string) => {
-    // 9시간 차이나서 그런건데 멘토님한테 물어볼예정
-    const stringToIOS = new Date(date);
-    const adjustedDate = new Date(
-      stringToIOS.getTime() - 9 * 60 * 60 * 1000,
-    ).toISOString();
-    setValue(new Date(adjustedDate)); // 선택한 아이템의 날짜를 index.tsx 캘린더에서 봤던 value(선택날짜)로 지정해줌
-
+    setValue(new Date(date)); // 선택한 아이템의 날짜를 index.tsx 캘린더에서 봤던 value(선택날짜)로 지정해줌
     setSearchResultModalOpen(false); // 검색결과 모달 닫고
     setDailyExpenseModalOpen(true); // 일별 소비 모달 열고
   };

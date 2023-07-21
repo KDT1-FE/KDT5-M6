@@ -26,7 +26,7 @@ export default function MyCard({
     <Card
       style={{
         width: 300,
-        margin: 'auto',
+        margin: '20px auto',
       }}
       bordered={false}
       cover={<img alt={`${name}'s profile`} src={imgUrl} />}

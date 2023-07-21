@@ -5,9 +5,9 @@ import { getMonthLabels } from '@/utils/getMonthLabels';
 import { MONTH_RANGE_OPTIONS } from '@/data/constants';
 import { theme } from 'antd';
 import Chart from '@/pages/Statistics/Chart';
-import MySkeleton from '@/components/MySkeleton';
 import { fetchMonthlyConsumptions } from '@/api/expenseAPIs';
 import Banner from '@/pages/Statistics/Banner';
+import MySkeleton from '@/pages/Statistics/MySkeleton';
 
 export default function Statistics() {
   // theme 색 가져오기

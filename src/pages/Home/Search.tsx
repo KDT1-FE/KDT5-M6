@@ -96,7 +96,7 @@ export default function Search({
     <>
       <form
         onSubmit={handleSubmit}
-        style={{ position: 'absolute', top: '30px', right: '40px' }}
+        style={{ position: 'absolute', top: 20, right: 30 }}
       >
         <AutoComplete
           options={autoCompleteOptions}

@@ -1,3 +1,8 @@
+import jw from '@/assets/profileImage/jw.jpg';
+import sw from '@/assets/profileImage/sw.png';
+import hs from '@/assets/profileImage/hs.jpg';
+import dh from '@/assets/profileImage/dh.png';
+
 export const API_BASE_URL = 'https://chickenlecture.xyz';
 
 // 사이드바 메뉴 아이템
@@ -26,31 +31,28 @@ export const TEAM_MEMBERS = [
   {
     name: '이정우',
     github: 'https://github.com/howooking',
-    imgUrl: 'https://avatars.githubusercontent.com/u/87072568?v=4',
+    imgUrl: jw,
     roles: ['팀장', '소비통계'],
     comment: '수학의 정석 한권',
   },
   {
     name: '이시우',
     github: 'https://github.com/cuconveniencestore',
-    imgUrl:
-      'https://ca.slack-edge.com/T04MY0UKPGX-U04TB022F7V-aef43c65fb3c-512',
+    imgUrl: sw,
     roles: ['소비 CRUD', '편순이'],
     comment: '리액트 쉽다',
   },
   {
     name: '문현수',
     github: 'https://github.com/96uoow',
-    imgUrl:
-      'https://ca.slack-edge.com/T04MY0UKPGX-U04SWFSHE5V-e1f96d450bad-512',
+    imgUrl: hs,
     roles: ['달력', '개블리셔'],
     comment: '자바스크립트 쉽다',
   },
   {
     name: '문대현',
     github: 'https://github.com/dhmoon11',
-    imgUrl:
-      'https://ca.slack-edge.com/T04MY0UKPGX-U04TCAF2Z1Q-4de23c10c832-512',
+    imgUrl: dh,
     roles: ['검색', '예비군수석'],
     comment: '개발이 제일 쉽다',
   },

@@ -1,30 +1,18 @@
 # KDT5-M6 가계부 토이 팀프로젝트
 
-🤝 검색어 자동완성 사이트 및 소비패턴 기록 서비스 구현, 팀 프로젝트
+## 프로젝트 소개 💵
 
-Calendar & List 등 내가 소비한 금액 및 품목들을 기입하고, 월단위로 얼마를 썼는지, 어떤 항목에 비중을 두었는지 등을 기록하는
-웹 서비스를 구현합니다.
+`SOBI`는 소비내역이 달력에 표시되며 월별 소비금액을 그래프로 볼 수 있는 웹 어플리케이션 입니다.
 
-웹/모바일웹 구현 모두 무방하며, 다양한 차트를 활용할 수 있습니다.
+[SOBI 보러가기](https://sobi-salad.vercel.app/)
 
-## 필수 구현
+## 문과이과 팀 소개
 
-- [ ] 지출 내역 입력 폼 (지출 금액, 지출항목, 지출 날짜)
-- [ ] 지출 내역 목록(일반 리스트형, 칼렌더 형 표기 가능)
-- [ ] 지출 내역 수정 및 삭제
-
-## 선택 구현
-
-- [ ] 지출 내역 칼렌더로 표기
-- [ ] 지출 내역 월별 내역, 주별 내역, 일별 내역 표기
-- [ ] 차트를 이용해서 소비 내역 표기 하기
-- [ ] 모바일 형태로 구현할지, 웹 형태로 구현할지는 자유
+| 팀원 |   `이`정우   |                     `이`시우                     |         `문`현수          |            `문`대현            |
+| :--: | :----------: | :----------------------------------------------: | :-----------------------: | :----------------------------: |
+| 담당 | 팀장<br>차트 | 소비내역 생성<br>소비내역 수정<br> 소비내역 삭제 | 소비내역 불러오기<br>달력 | 소비내역 검색<br>검색 자동완성 |
 
 ## API
-
-```
-base URL : http://52.78.195.183:3003/api/
-```
 
 1. 소비 기록 작성 API
 
@@ -191,8 +179,90 @@ Status: 200 OK
 
 ```
 
-react router dom
+<br><br>
 
-ant design
+## 사용한 기술, 라이브러리
 
-[ant design icons](https://ant.design/components/icon)
+### Environment
+
+<img src="https://img.shields.io/badge/VISUAL STUDIO CODE-007ACC?style=flat&logo=visualstudiocode&logoColor=white"/><br>
+<img src="https://img.shields.io/badge/GIT-F05032?style=flat&logo=git&logoColor=white"/><br>
+<img src="https://img.shields.io/badge/GIT HUB-181717?style=flat&logo=github&logoColor=white"/><br>
+
+### Config
+
+<img src="https://img.shields.io/badge/NPM-CB3837?style=flat&logo=npm&logoColor=white"/><br>
+<img src="https://img.shields.io/badge/VITE-646CFF?style=flat&logo=vite&logoColor=white"/><br>
+
+### Development
+
+<img src="https://img.shields.io/badge/REACT-61DAFB?style=flat&logo=React&logoColor=white"/><br>
+<img src="https://img.shields.io/badge/TYPESCRIPT-3178C6?style=flat&logo=typescript&logoColor=white"/><br>
+<img src="https://img.shields.io/badge/REACT ROUTER-CA4245?style=flat&logo=reactrouter&logoColor=white"/> <br>
+<img src="https://img.shields.io/badge/ANT DESIGHN-0170FE?style=flat&logo=antdesign&logoColor=white"/> <br>
+<br><br>
+
+## 화면 구성
+
+#### SOBI 웹페이지 tour
+
+![2023-07-21_11-26-16](https://github.com/KDT5-FE-M6-team3/toy3/assets/87072568/5ad530c0-35da-4d41-b9a2-9b796c956001)
+
+- Ant Design의 tour 기능을 활용.
+- 방문 여부를 로컬에 저장하여 첫방문시에만 활성화된다.
+<hr>
+
+#### 메인 화면
+
+<img width="1280" alt="image" src="https://github.com/KDT5-FE-M6-team3/toy3/assets/87072568/d65c2a38-6878-4dd6-8449-de5b6cbc531b"><br>
+
+- 일소비 금액별로 색이 다르게 표시된다.
+- 일소비 내역 횟수가 해당 날짜에 숫자로 표시된다.
+- 우측 하단 + 버튼을 눌러 소비내역을 등록할 수 있다.
+- 우측 상단 검색창을 통해 소비내역을 검색 할 수 있다.
+<hr>
+
+#### 소비내역 등록 모달
+
+<img width="1279" alt="image" src="https://github.com/KDT5-FE-M6-team3/toy3/assets/87072568/f2b4ef1c-722c-40c5-89a9-1dc3d09b039f">
+
+- Date picker로 날짜와 시간을 선택할 수 있다.
+- 유효성 검사를 통과해야 소비내역을 등록할 수 있다.
+- 유효성 검사 결과와 등록 결과 등을 팝업 메세지로 사용자에게 알려준다.
+<hr>
+
+#### 서랍 메뉴
+
+<img width="1280" alt="image" src="https://github.com/KDT5-FE-M6-team3/toy3/assets/87072568/b22f9d50-4ff0-418d-b63f-58e06c8ebe9c">
+
+- 페이지를 이동할 수 있다.
+- 좌측 하단에 Color picker로 사용자가 원하는 강조색을 선택할 수 있다.
+<hr>
+
+#### 강조색 선택
+
+![2023-07-21_11-25-06](https://github.com/KDT5-FE-M6-team3/toy3/assets/87072568/560307c0-c14d-4dc8-98d8-d28388476899)
+
+- 리액트 내장 context api를 사용하여 강조색을 전역상태관리 하였다.
+- 로컬 저장소에 색의 hex값이 저장되기 때문에 새로고침을 하거나 브라우저를 종료하여도 강조색이 유지된다.
+<hr>
+
+#### 소비 통계 페이지
+
+![2023-07-21_11-23-55](https://github.com/KDT5-FE-M6-team3/toy3/assets/87072568/75e79b0f-bd42-4597-a253-df31ddefdd73)
+
+- 월별 소비액을 그래프로 나타낸다.
+- chartjs 라이브러리 사용.
+- 기간을 선택할 수 있다.
+- api 통신 성공 여부를 배너 메세지로 표시해준다.
+<hr>
+
+## 고찰
+
+#### 이정우
+
+#### 이시우
+
+#### 문현수
+
+#### 문대현

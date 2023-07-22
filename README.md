@@ -2,9 +2,18 @@
 
 ## 프로젝트 소개 💵
 
-`SOBI`는 소비내역이 달력에 표시되며 월별 소비금액을 그래프로 볼 수 있는 웹 어플리케이션 입니다.
+`SOBI`는 소비내역이 달력에 표시되며 월별 소비금액을 그래프로 볼 수 있는 웹 어플리케이션입니다.
 
 [SOBI 보러가기](https://sobi-salad.vercel.app/)
+
+로컬에서 테스트 하실 경우
+root 폴더에 .env 파일 생성 후
+
+```
+VITE_USER_ID=team3
+```
+
+~숫자 바꾸면 다른 조 데이터도 볼 수 있어요~
 
 ## 문과이과 팀 소개
 
@@ -212,7 +221,7 @@ Status: 200 OK
 - 일소비 금액별로 색이 다르게 표시된다.
 - 일소비 내역 횟수가 해당 날짜에 숫자로 표시된다.
 - 우측 하단 + 버튼을 눌러 소비내역을 등록할 수 있다.
-- 우측 상단 검색창을 통해 소비내역을 검색 할 수 있다.
+- 우측 상단 검색창을 통해 소비내역을 검색할 수 있다.
 <hr>
 
 #### 소비내역 등록 모달
@@ -259,29 +268,29 @@ Status: 200 OK
 
   - 깃허브 이슈기능 활용
     <img width="892" alt="image" src="https://github.com/KDT5-FE-M6-team3/toy3/assets/87072568/d1fad683-8257-46f2-a284-8b2378b2c42b">
-    - 기능 단위로 이슈를 발행, 진행상황등을 깃허브 내에서 파악 할 수 있음.
-    - 기능의 단위를 어느정도로 잡아야할지 판단이 어려움
-      - 예를 들어 월별 소비 금액 차트 내에서도 여러 세부 기능을 나뉘는데 세부 기능마다 이슈를 생성해야 하는지
-      - 그렇다고 너무 큰 단위의 기능의 경우 한번에 PR하는 양이 많아지는 문제가 발생
+    - 기능 단위로 이슈를 발행, 진행상황등을 깃허브 내에서 파악 할 수 있다.
+    - 기능의 단위를 어느정도로 잡아야할지 판단이 어려움.
+      - 예를 들어 월별 소비 금액 차트 내에서도 여러 세부 기능을 나뉘는데 세부 기능마다 이슈를 생성해야 하는지.
+      - 그렇다고 너무 큰 단위의 기능의 경우 한번에 PR하는 양이 많아지는 문제가 발생.
   - commit 단위 및 메세지
 
     <img width="347" alt="image" src="https://github.com/KDT5-FE-M6-team3/toy3/assets/87072568/be0145a5-1e2b-45fd-8607-1e2b7c2891df">
 
-    - 컨벤션이 초반에는 비교적 잘 지켜졌지만 후반부에는 잘 지켜지지 않음.
+    - 컨벤션이 초반에는 비교적 잘 지켜졌지만 후반부에는 잘 지켜지지 않았다.
       <br><br>
 
 - Ant Design
 
   - 리액트 컴포넌트 기반의 UI라이브러리.
   - 몇가지 규약만 지켜주면 빠른시간내에 완성도 있고 일관성있는 UI를 만들 수 있다.
-  - 다양한 기능들을 최대한 사용해보고자 하였음
+  - 다양한 기능들을 최대한 사용해보고자 하였음.
     - Tour, Table, Modal, Skeleton, Drawer, Date Picker, Color Picker, Autocomplete 등...
   - 그러나 커스터마이징 제약이 있다는 점, CSS를 잘 다루는 못하는 초보자의 경우 antD 의존성이 크게 올라가므로 배우는 입장에서는 scss나 tailwind가 더 적절하다고 생각함.
     <br><br>
 
 - ChartJS
 
-  - 공식 문서를 보면서 필요한 기능들을 적용하였음.
+  - 공식 문서를 보면서 필요한 기능들을 적용하였다.
   - 커스터마이징 항목이 매우 많은 것은 장점이자 단점.
     <br><br>
 
@@ -289,8 +298,98 @@ Status: 200 OK
 
   - [src/context/AccentColorContext.tsx](https://github.com/KDT5-FE-M6-team3/toy3/blob/d0fd36c67b6cbb448276620a8cb0f01a1077365a/src/context/AccentColorContext.tsx#L1-L46)
   - [src/hooks/useAccentColor.ts](https://github.com/KDT5-FE-M6-team3/toy3/blob/d0fd36c67b6cbb448276620a8cb0f01a1077365a/src/hooks/useAccentColor.ts#L1C1-L14C3)
-  - 외부 전역상태 라이브러리를 사용하지 않고 리액트 내장 기능을 사용.
-  - 커스텀 hook을 사용할 필요까지는 없었으나 일반적인 경우에 hook을 만들어서 사용하므로 적용해 보았음.
+  - 외부 전역상태관리 라이브러리를 사용하지 않고 리액트 내장 기능을 사용.
+  - 재사용하지 않기 때문에 custom hook를 사용할 필요는 없다.
+    <br><br>
+
+- SPA에서 server state와 client state 동기화 문제
+
+  - 소비내역을 등록, 수정, 삭제가 발생할 때마다 서버로부터 최신의 데이터를 받아와야 함.
+  - 본 프로젝트에서는 togglefetch라는 변수를 useState로 선언하고 소비내역의 변경이 발생하는 handling 함수에서 `setToggleFetch((prev) => !prev)`. 그리고 통신이 일어나는 useEffect의 dependency에 togglefetch를 넣어주었다.
+
+    ```js
+    const [togglefetch, setToggleFetch] = useState(false);
+
+    useEffect(() => {
+      const getData = async () => {
+        setLoading(true);
+        try {
+          const response = await getExpenses(year, month);
+          setMonthlyExpenses(response);
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setLoading(false);
+        }
+      };
+      getData();
+    }, [month, year, togglefetch]);
+    ```
+
+  - 이 방법은 페이지전환이 발생하지 않는 SPA에서 server state와 client state 동기화 문제를 가장 쉽게(~새로고침~) 해결할 수 있는 방법이다.
+  - 다른 방법으로 get 요청 없이 client state를 setState로 업데이트 시켜주는 방법이 있다.
+    - 그러나 본프로젝트에서는 서버에서 \_id가 생성되고 이 값으로 수정과 삭제를 진행하기 때문에 이 방법은 적절하지 않다.
+    - 만약 모든 데이터를 클라이언트에서 생성하는 경우 이러한 전략이 유효.
+    - 예를 들어 새로운 소비내역을 post 요청으로 db에 저장하고, 동시에 `setState((prev) => [...prev, newData])`를 통해 화면을 재랜더링.
+    - 이러한 경우 post요청만 실행되고 get요청은 실행되지 않아도 되므로 자원을 아낄 수 있다.
+  - 또 다른 방법으로 `react-query` 라이브러리를 사용하는 방법이 있다.
+    <br><br>
+
+- UTC시간, local 시간 문제
+
+  - 서버에서 요구하는 시간의 형태는 `ISO 8601`이다.
+  - `2023-07-22T17:51:36.506Z`와 같이 표기가 되며 z는 UTC를 의미함.
+  - UTC는 경도 0, 즉 그리니치 천문대를 기준으로 한 시간이며, 한국은 이 시간보다 9시간 빠르다.
+  - 글로벌한 서비스들의 등장으로 UTC시간을 사용하는 것이 중요하다.
+  - 본 프로젝트에서 월별 소비 내역을 get요청하면 다음과 같은 데이터가 온다.
+
+  ```js
+  {
+    "1": [
+      {
+        "_id": "64b8efd86f8d76dd4f24b5a4",
+        "amount": 34000,
+        "userId": "team3",
+        "category": "피자헛",
+        "date": "2023-07-01T17:24:32.781Z",
+        "__v": 0
+      }
+    ],
+    "21": [
+      {
+        "_id": "64baa68fcedf8391c1aa38e3",
+        "amount": 4500,
+        "userId": "team3",
+        "category": "커피",
+        "date": "2023-07-21T15:38:46.175Z",
+        "__v": 0
+      }
+    ], ...
+  }
+  ```
+
+  - 해당 객체의 key값이 되는 "일(day)"은 UTC 시간을 기준으로 생성된 값이다. 그러다 보니 실제로는 22일 오전 4시에 입력한 값이 9시간 전인 21일에 담겨서 오는 문제가 발생한다.
+  - 서버코드를 손대지 못하는 상황에서 이러한 문제를 해결하기 위해 등록 및 수정시 시간 정보에 9시간을 더하여 서버에 전송하였다.
+  - 그리고 서버로부터 받은 시간은 클라이언트에서 get`UTC`...()을 하여 UTC시간(9시간 더해진 UTC시간)을 변환 없이 그대로 사용한다.
+
+  ```js
+  export default function formatDateAndTime(dateString: string) {
+    const date = new Date(dateString);
+    const year = date.getUTCFullYear();
+    const month = (date.getUTCMonth() + 1).toString().padStart(2, '0');
+    const day = date.getUTCDate().toString().padStart(2, '0');
+    const hours = date.getUTCHours().toString().padStart(2, '0');
+    const minutes = date.getUTCMinutes().toString().padStart(2, '0');
+
+    const formattedDate = {
+      date: `${year}년 ${month}월 ${day}일`,
+      time: `${hours}:${minutes}`,
+    };
+
+    return formattedDate;
+  }
+  ```
+
   <hr>
 
 #### 이시우

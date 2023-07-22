@@ -58,6 +58,7 @@ export default function Home() {
     };
     getData();
   }, [month, year, togglefetch]);
+  console.log(monthlyExpenses);
 
   // 통신으로 가져온 월소비기록(monthlyExpenses)에서 현재 선택된 day값에 따라서 새로운 형식의 일별소비내역을 return하는 식
   // 얘도 랜더링이 될 때마다 계산해주는 것은 비효율적이므로 useMemo사용

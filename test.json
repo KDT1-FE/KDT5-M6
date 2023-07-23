@@ -1,0 +1,11 @@
+{
+  "_createdAt": "2023-07-07T08:18:00Z",
+  "_id": "T3u0HSP3eS7yGnIXhMhmHQ",
+  "_rev": "T3u0HSP3eS7yGnIXhMhmB0",
+  "_type": "expenses",
+  "_updatedAt": "2023-07-07T08:18:00Z",
+  "amount": 500000,
+  "category": "점저",
+  "date": "2023-07-05",
+  "user": { "_ref": "104023388269035665963", "_type": "reference" }
+}

@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
+}
+
+@layer base {
+  h1 {
+    @apply text-2xl;
+  }
+  h2 {
+    @apply text-xl;
+  }
+  h3 {
+    @apply text-lg;
+  }
+  a {
+    @apply text-blue-600 underline;
+  }
+}
+
+@layer components {
+  .a11y {
+    @apply sr-only;
+  }
+  .icon-base-style {
+    @apply flex justify-center items-center w-10 h-10 rounded-[1.25rem] transition-colors hover:bg-[rgba(0,0,0,0.1)];
+  }
+  .footer-height {
+    @apply h-[7rem];
+  }
+  .main-height {
+    @apply min-h-[calc(100vh_-_7rem)] pb-[7rem];
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "compilerOptions": {
+    /*
+      Set the JavaScript language version for emitted JavaScript 
+      and include compatible library declarations.
+      default : "ES3"
+      컴파일되는 자바스크립트의 버전을 선언
+      너무 늦은 버전을 선택하면 코드량가 길어지기 때문에 지원하고자하는 브라우저의 범위를 확인한 뒤 결정해야 함
+      IE11을 지원하지 않아도 되기 떄문에 ES6 === ES2015을 사용
+    */
+    "target": "ES2015",
+    /*
+      lib을 선언하지 않으면 기본적으로 "target"에서 default로 제공해주는 라이브러리르 사용
+    */
+    // "lib": ["dom", "dom.iterable", "esnext"],
+    /*
+      Allow JavaScript files to be a part of your program. 
+      Use the 'checkJS' option to get errors from these files
+      js 사용을 허락함
+    */
+    "allowJs": true,
+    /*
+      true시 .d.ts 파일은 타입 체크 안함
+    */
+    "skipLibCheck": true,
+    /*
+      true시 any, null, this 등 타입을 불분명하게 하는 모든 것을 체크
+    */
+    "strict": true,
+    /*
+      파일명 대소문자 구분을 강제
+    */
+    "forceConsistentCasingInFileNames": true,
+    /*
+    타입 에러가 있으면, 컴파일시 파일을 생성하지 않음
+    */
+    "noEmit": true,
+    /*
+      true시 CommonJS방식의 파일과 ESM 방식 import export를 모두 사용함
+    */
+    "esModuleInterop": true,
+    /*
+      ESNext: import/export 방식을 사용함
+      ECMA Script 최신 버전 방식임
+    */
+    "module": "esnext",
+    /*
+      모듈의 위치를 찾아가는데의 방식(전략)을 지정
+      "node"시 index.html 생략하는 방식으로 제일 융통성있는 방식임
+    */
+    "moduleResolution": "node",
+    /*
+      true시 json파일 import가 가능함
+    */
+    "resolveJsonModule": true,
+    /*
+      각각의 파일을 다른 모듈로 만듬 
+      true시 모든 파일을 모듈로 컴파일 함
+    */
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    /*
+      alias 지정
+    */
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ]
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

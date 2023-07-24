@@ -1,0 +1,31 @@
+.search {
+  position: relative;
+  width: 430px;
+}
+.search input {
+  border: 1px solid var(--text);
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  letter-spacing: -0.05em;
+  width: 100%;
+  border-radius: 30px;
+  height: 46px;
+  padding: 0 20px;
+  transition: 0.2s;
+}
+.search input:focus {
+  outline: none;
+  color: var(--text);
+  border-color: var(--primary1);
+}
+.search input::placeholder {
+  color: var(--text2);
+}
+.search img {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20px;
+}
+
+/*# sourceMappingURL=SearchInput.css.map */

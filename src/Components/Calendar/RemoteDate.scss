@@ -1,0 +1,58 @@
+.controll-wrap {
+  width: 100%;
+  color: #fff;
+  padding: 18px 0;
+  button {
+    background-color: transparent;
+    width: 12px;
+  }
+  .controll {
+    display: flex;
+    justify-content: center;
+    max-width: 420px;
+    width: 100%;
+    margin: auto;
+    position: relative;
+  }
+  .month {
+    width: 64px;
+    display: flex;
+    justify-content: space-between;
+    div {
+      margin-top: 2px;
+    }
+  }
+  .year {
+    color: #ffffffba;
+    top: 4px;
+    right: 8px;
+    display: flex;
+    position: absolute;
+    justify-content: space-between;
+    div{
+      font-size: 12px;
+      margin: 0 10px;
+    }
+  }
+}
+#prev {
+  background-image: url(/icons/prev.png);
+}
+#next {
+  background-image: url(/icons/next.png);
+}
+#down {
+  background-image: url(/icons/down.png);
+  opacity: 0.6;
+  width: 8px;
+}
+#up {
+  background-image: url(/icons/up.png);
+  opacity: 0.6;
+  width: 8px;
+}
+.img {
+  //background-image: url(/icons/Vector.svg);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}

@@ -1,0 +1,43 @@
+.Container {
+  margin: 0 auto;
+  width: calc(100% - 720px);
+}
+.Container .SearchBar {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  color: #3f7348;
+  border-radius: 6px;
+  align-items: center;
+  background-color: #53bc53;
+  justify-content: space-between;
+}
+.Container .SearchBar .SearchBarTitle {
+  font-size: 18px;
+  margin-left: 20px;
+}
+.Container .SearchBar .SearchBarText {
+  font-size: 18px;
+  margin-right: 20px;
+}
+.Container .SearchBar .WhitePoint {
+  font-size: 22px;
+  color: #ffffff;
+}
+.Container .CardContainer {
+  width: 100%;
+  display: grid;
+  row-gap: 20px;
+  column-gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 32px;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(5, 1fr);
+}
+.Container .Pagenation {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+/*# sourceMappingURL=Search.css.map */

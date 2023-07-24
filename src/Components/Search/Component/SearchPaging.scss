@@ -1,0 +1,51 @@
+.PageStyles{
+    .pagination{
+      display: flex;
+      margin-bottom: 30px;
+      li {
+        margin: 6px;
+        display: flex;
+        a {
+          display: flex;
+          line-height: 34px;
+        }
+      }
+    
+      .FirstArrow, .ListArrow {
+        display: none;
+      }
+    
+      .PrevArrow a, .NextArrow a{
+        width: 30px;
+        height: 30px;
+        display: flex;
+        color: #ffffff;
+        transition: 0.2s;
+        line-height: 33px;
+        border-radius: 5px;
+        justify-content: center;
+        background-color: var(--primary2);
+        &:hover {
+          background-color: #306630;
+        }
+      }
+    
+      .item {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+      }
+    
+      .active {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        color: #53bc53;
+        line-height: 34px;
+        border-radius: 5px;
+        justify-content: center;
+        }
+        
+      }
+    }

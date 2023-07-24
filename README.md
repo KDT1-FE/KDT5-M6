@@ -1,4 +1,6 @@
 # KEEP
+링크 [클릭](https://keep-team1.netlify.app)
+github [클릭](https://github.com/pildrums/KDT5-M6/tree/KDT5_Team1)
 
 # 👩‍🚀 개발팀
 
@@ -67,3 +69,22 @@
 <br />
 
 # 화면 구성
+## 1. 전체화면 (담당 조원: 총원)
+<img src="./img/screenshot1.png" />
+
+## 2. 내역 추가 (담당 조원: 이은지)
+<img src="./img/screenshot2.png" />
+<img src="./img/screenshot3.png" />
+
+## 3. 월별/주간 지출 내역 (담당 조원: 임승이)
+<img src="./img/screenshot4.png" />
+<img src="./img/screenshot5.png" />
+
+## 4. 지출 내역 차트 (담당 조원: 김필진)
+<img src="./img/screenshot6.png" />
+
+
+## 6. 내역 조회 (담당 조원: 방미선)
+<img src="./img/screenshot7.png" />
+<img src="./img/screenshot8.png" />
+

@@ -1,0 +1,20 @@
+header {
+  background: url("/images/header-back.png") no-repeat center;
+  .inner {
+    max-width: 1200px;
+    height: 236px;
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 auto;
+    .logo {
+      width: 234px;
+      img {
+        width: 100%;
+        display: block;
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+.PageStyles .pagination {
+  display: flex;
+  margin-bottom: 30px;
+}
+.PageStyles .pagination li {
+  margin: 6px;
+  display: flex;
+}
+.PageStyles .pagination li a {
+  display: flex;
+  line-height: 34px;
+}
+.PageStyles .pagination .FirstArrow, .PageStyles .pagination .ListArrow {
+  display: none;
+}
+.PageStyles .pagination .PrevArrow a, .PageStyles .pagination .NextArrow a {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  color: #ffffff;
+  transition: 0.2s;
+  line-height: 33px;
+  border-radius: 5px;
+  justify-content: center;
+  background-color: #53bc53;
+}
+.PageStyles .pagination .PrevArrow a:hover, .PageStyles .pagination .NextArrow a:hover {
+  background-color: #306630;
+}
+.PageStyles .pagination .item {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+}
+.PageStyles .pagination .active {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  color: #53bc53;
+  line-height: 34px;
+  border-radius: 5px;
+  justify-content: center;
+}
+
+/*# sourceMappingURL=SearchPaging.css.map */

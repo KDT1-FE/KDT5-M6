@@ -1,0 +1,83 @@
+footer {
+  margin-top: 180px;
+}
+footer .inner {
+  width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  height: 358px;
+  font-size: 12px;
+}
+footer .inner .logo {
+  width: 160px;
+}
+footer .inner .logo img {
+  width: 100%;
+  display: block;
+}
+footer .inner .contents .link {
+  margin-bottom: 52px;
+  display: flex;
+}
+footer .inner .contents .link li {
+  font-family: "Noto Sans KR";
+  letter-spacing: -0.05em;
+  font-size: 14px;
+  list-style: none;
+  color: var(--text);
+  margin-right: 50px;
+}
+footer .inner .contents .link li:last-child {
+  margin-right: 0;
+}
+footer .inner .contents .infolist {
+  font-family: "Noto Sans KR";
+  letter-spacing: -0.05em;
+  font-size: 12px;
+  margin-bottom: 28px;
+  color: var(--text2);
+}
+footer .inner .contents .infolist div {
+  display: flex;
+}
+footer .inner .contents .infolist div p {
+  margin: 0 10px;
+}
+footer .inner .contents .infolist div p:first-child {
+  margin-left: 0;
+}
+footer .inner .contents .infolist div p:last-child {
+  margin-right: 0;
+}
+footer .inner .contents .infolist div p span {
+  font-family: "Spoqa Han Sans Neo";
+  letter-spacing: 0;
+}
+footer .inner .contents .copyright {
+  color: var(--text2);
+}
+footer .inner .client {
+  letter-spacing: -0.05em;
+  color: var(--text2);
+  font-family: "Noto Sans KR";
+}
+footer .inner .client h4 {
+  font-size: 14px;
+}
+footer .inner .client h2 {
+  font-size: 24px;
+  font-family: "Spoqa Han Sans Neo";
+  letter-spacing: 0;
+}
+footer .inner .client a {
+  border: 1px solid var(--text2);
+  border-radius: 6px;
+  display: block;
+  width: 110px;
+  margin-top: 24px;
+  text-align: center;
+  padding: 10px 26px;
+}
+
+/*# sourceMappingURL=Footer.css.map */

@@ -1,0 +1,52 @@
+@font-face {
+  font-family: "Spoqa Han Sans Neo";
+  src: url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+  unicode-range: U+26, U+0030-0039;
+}
+@font-face {
+  font-family: "Noto Sans KR";
+  src: url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&display=swap");
+  unicode-range: U+AC00-D7A3;
+}
+:root {
+  --primary1: #53bc5c;
+  --primary2: #5cbb90;
+  --active: #fe6666;
+  --disable: #bdbdbd;
+  --text: #191919;
+  --text2: #8e8e8e;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
+  max-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  font-family: "Apple SD Gothic Neo", "Noto Sans KR", "Spoqa Han Sans Neo", sans-serif;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  border: 0;
+  border-radius: 6px;
+  outline: 0;
+  background-color: var(--disable);
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=global.css.map */

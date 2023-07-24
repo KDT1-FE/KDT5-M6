@@ -1,0 +1,250 @@
+.CaloriesContainer {
+  width: 940px;
+  height: 640px;
+  margin: 40px 30px 0;
+  .CaloriesContainerTitle {
+    display: flex;
+    font-size: 10px;
+    font-weight: 100;
+    color: #a9a9a9;
+    margin: 24px 0 6px 0;
+    justify-content: center;
+  }
+  .gender {
+    gap: 20px;
+    display: flex;
+    justify-content: center;
+    button {
+      width: 220px;
+      height: 54px;
+      display: flex;
+      font-size: 20px;
+      align-items: center;
+      justify-content: center;
+      .icon {
+        width: 50px;
+        display: flex;
+        font-size: 30px;
+      }
+    }
+    button.active {
+      background-color: var(--primary2);
+      color: #ffffff;
+    }
+  }
+
+  #GenderBtn {
+    transition: 0.1s;
+    &:hover{
+      transform: scale(1.05);
+    }
+  }
+
+  .HumanInfo {
+    width: 100%;
+    display: flex;
+    padding: 0 auto;
+    flex-direction: column;
+    justify-content: center;
+    .TabTitle {
+      display: flex;
+      font-size: 20px;
+      font-weight: 100;
+      color: var(--primary2);
+      margin: 18px 0 10px;
+      justify-content: center;
+      div {
+        font-size: 14px;
+        font-weight: 400;
+        margin-left: 5px;
+        line-height: 28px;
+      }
+    }
+    ul {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .DateBtn {
+    width: 136px;
+    height: 32px;
+    display: flex;
+    cursor: pointer;
+    border-radius: 50px;
+    align-items: center;
+    margin: 26px auto 23px;
+    justify-content: center;
+    transition: 0.1s;
+    border: 1px solid var(--primary2);
+    .DateTitle {
+      font-size: 14px;
+      margin: 1px 0 0 1px;
+    }
+    div {
+      display: flex;
+      font-size: 18px;
+      margin-right: 8px;
+      align-items: center;
+      color: var(--primary2);
+    }
+  }
+  .DateBtn:hover {
+    background-color: var(--primary2);
+    div {
+      color: #ffffff;
+    }
+  }
+
+  .CaloriesCalender {
+    width: 600px;
+    margin: auto;
+    display: flex;
+    overflow: hidden;
+    border: 1px solid #e1e1e1;
+    border-radius: 6px;
+    flex-direction: column;
+    // justify-content: center;
+  }
+
+  .CaloriesFoodContainer {
+    display: flex;
+    justify-content: center;
+    .FoodBoxLeft {
+      display: flex;
+      flex-direction: column;
+    }
+    .FoodBoxRight {
+      display: flex;
+      min-width: 300px;
+      flex-direction: column;
+    }
+  }
+
+  .CaloriesTitle {
+    display: flex;
+    font-size: 20px;
+    font-weight: 100;
+    margin-bottom: 3px;
+    .strong {
+      font-weight: 500;
+      color: var(--primary2);
+      margin-right: 2px;
+    }
+  }
+
+  .Content {
+    font-size: 10px;
+    font-weight: 100;
+    color: #a9a9a9;
+    margin-bottom: 10px;
+  }
+
+  .RecommendCalories {
+    font-size: 10px;
+    display: flex;
+    li {
+      margin-right: 10px;
+      display: flex;
+      div {
+        width: 10px;
+        height: 10px;
+        margin-right: 4px;
+        border-radius: 50%;
+      }
+      .ColorBox1 {
+        background-color: #42c767;
+      }
+      .ColorBox2 {
+        background-color: #6fc8d4;
+      }
+      .ColorBox3 {
+        background-color: #f4788c;
+      }
+      .ColorBox4 {
+        background-color: #f6cb53;
+      }
+      .ColorBox5 {
+        background-color: #fca380;
+      }
+    }
+  }
+}
+.CaloriesFoodList {
+  min-width: 520px;
+  display: grid;
+  row-gap: 10px;
+  flex-wrap: wrap;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  .CaloriesItemContainer {
+    display: flex;
+    cursor: pointer;
+    border-radius: 6px;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e1e1e1;
+    .TitleBox {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      display: flex;
+      color: #b4b4b4;
+      .PlusBtn {
+        width: 18px;
+        height: 18px;
+        display: flex;
+        // color: #cacaca;
+        font-weight: 100;
+        line-height: 19px;
+        border-radius: 50px;
+        justify-content: center;
+        // border: 1px solid #E1E1E1;
+      }
+    }
+    .ItemImg {
+      margin-top: 16px;
+    }
+    .ItemTitle {
+      margin-top: 3px;
+      display: flex;
+    }
+    .ItemServing {
+      justify-content: center;
+      font-size: 10px;
+    }
+  }
+  .CaloriesItemContainer:hover {
+    transition: 0.1s;
+    transform: scale(1.05);
+    background-color: #f9f9f9;
+    border: 2px solid var(--primary2);
+    .PlusBtn {
+      color: var(--primary2);
+      font-weight: 700;
+      // border: 1px solid var(--primary2);
+      // background-color: var(--primary2);
+    }
+  }
+  .SearchBtn {
+    width: 120px;
+    height: 120px;
+    display: flex;
+    cursor: pointer;
+    font-size: 40px;
+    font-weight: 100;
+    line-height: 50px;
+    border-radius: 6px;
+    align-items: center;
+    color: var(--primary2);
+    justify-content: center;
+    border: 1px solid var(--primary2);
+  }
+  .SearchBtn:hover {
+    transition: 0.1s;
+    transform: scale(1.04);
+    color: #ffffff;
+    background-color: var(--primary2);
+  }
+}

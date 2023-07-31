@@ -1,0 +1,52 @@
+{
+  "compilerOptions": {
+    "types": ["node"],
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "declaration": true, //컴파일시 .d.ts 파일도 자동으로 함께생성 (현재쓰는 모든 타입이 정의된 파일)
+    "allowSyntheticDefaultImports": true, // default export가 없는 모듈에서 default imports를 허용합니다. 코드 방출에는 영향을 주지 않으며, 타입 검사만 수행합니다
+    "typeRoots": ["./@types", "./node_modules/@types"],
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "esModuleInterop": true, // 기본값 - false, CommonJS에서 존재하지 않는 기본 내보내기 설정
+    "removeComments": true, // 컴파일시 주석제거
+    "noImplicitAny": true, // any 허용 x
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true, //함수에서 return 빼먹으면 에러내기
+    "baseUrl": "./", // baseUrl을 기준으로 관련된 위치에 모듈 이름의 경로 매핑 목록을 나열합니다.
+    "paths": {
+      "@/*": ["src/*"],
+      "pages/*": ["src/pages/*"],
+      "components/*": ["src/components/*"],
+      "hooks/*": ["src/hooks/*"],
+      "contexts/*": ["src/contexts/*"],
+      "types/*": ["src/types/*"],
+      "utils/*": ["src/utils/*"],
+      "apis/*": ["src/apis/*"],
+      "constants/*": ["src/constants/*"]
+    }
+  },
+  "include": ["src", "src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.d.ts"], //컴파일할 파일 경로 목록
+  "exclude": [
+    //컴파일에서 제외할 파일 경로 목록
+    "node_modules"
+  ],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  },
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

@@ -1,224 +1,230 @@
-## 📌프로젝트 소개
+# KDT5-M6
+🤝 검색어 자동완성 사이트 및 소비패턴 기록 서비스 구현, 팀 프로젝트
 
-### 📊 가계구조대(SAVEWALLET)
+Calendar & List 등 내가 소비한 금액 및 품목들을 기입하고, 월단위로 얼마를 썼는지, 어떤 항목에 비중을 두었는지 등을 기록하는
 
-REST API를 활용한 가계부 프로젝트로 수입과 지출을 기록,수정,삭제 할 수 있고 수입, 지출 내역을 리스트와 달력, 차트로 확인할 수 있는 반응형 웹입니다.
+웹 서비스를 구현합니다.
 
-### 프로젝트 기간
 
-2023년 7월 5일 ~ 2023년 7월 24일
 
-## 📌개발팀원 및 역할
+웹/모바일웹 구현 모두 무방하며, 다양한 차트를 활용할 수 있습니다.
 
-| <a href="https://github.com/hookor"><img src="https://avatars.githubusercontent.com/u/115582699?v=4" width=200px alt="안중후" /></a> | <a href="https://github.com/7581058"><img src="https://avatars.githubusercontent.com/u/100559990?v=4" width=200px alt="김다슬" /></a> | <a href="https://github.com/DevYBecca"><img src="https://avatars.githubusercontent.com/u/125433485?v=4" width=200px alt="윤금엽" /></a> | <a href="https://github.com/leechanghwi"><img src="https://avatars.githubusercontent.com/u/128275359?v=4" width=200px alt="이창휘" /></a> |
-| :----------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------: |
-|                                                 [안중후](https://github.com/hookor)                                                  |                                                 [김다슬](https://github.com/7581058)                                                  |                                                 [윤금엽](https://github.com/DevYBecca)                                                  |                                                 [이창휘](https://github.com/leechanghwi)                                                  |
-|                                                          캘린더 페이지 구현                                                          |                                                        메인, 추가 페이지 구현                                                         |                                                            차트 페이지 구현                                                             |                                                            리스트 페이지 구현                                                             |
 
-## 📌배포사이트
+react를 필수로 사용해야 합니다.
+과제 수행 및 리뷰 기간은 별도 공지를 참고하세요!
 
-[SAVEWALLET](https://savewallet.netlify.app/)
 
-## 📌Stack
 
-Config  
-<img src="https://img.shields.io/badge/Npm-CB3837?style=flat&logo=npm&CB3837&logoColor=white"/>
-<img src="https://img.shields.io/badge/Vite-646CFF?style=flat&logo=Vite&logoColor=white"/>
+과제 수행 및 제출 방법
 
-Development  
-<img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=white"/>
-<img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white"/>
-<img src="https://img.shields.io/badge/StyledComponents-DB7093?style=flat&logo=styledcomponents&logoColor=white"/>
+KDT기수번호_이름
 
-Library  
-<img src="https://img.shields.io/badge/Recoil-0075EB?style=flat&logo=&logoColor=white"/>
-<img src="https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=axios&logoColor=white"/> <img src="https://img.shields.io/badge/Chartjs-FF6384?style=flat&logo=chartdotjs&logoColor=white"/>
 
-Enviroment  
-<img src="https://img.shields.io/badge/Github-181717?style=flat&logo=github&logoColor=white"/>
-<img src="https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white"/>
-<img src="https://img.shields.io/badge/visualstudiocode-007ACC?style=flat&logo=VisualStudioCode&logoColor=white"/>
 
-Deployment  
-<img src="https://img.shields.io/badge/Netlify-00C7B7?style=flat&logo=netlify&logoColor=white"/>
+E.g, KDT0_BaeJinHo
 
-Cowork Tools  
-<img src="https://img.shields.io/badge/Miro-050038?style=flat&logo=miro&logoColor=white"/> <img src="https://img.shields.io/badge/Slack-4A154B?style=flat&logo=lack&logoColor=white"/> <img src="https://img.shields.io/badge/Notion-000000?style=flat&logo=notion&logoColor=white"/>
+현재 저장소를 로컬에 클론(Clone)합니다.
+자신의 본명으로 브랜치를 생성합니다.(구분 가능하도록 본명을 꼭 파스칼케이스로 표시하세요, git branch KDTX_BaeJinHo)
+자신의 본명 브랜치에서 과제를 수행합니다.
+과제 수행이 완료되면, 자신의 본명 브랜치를 원격 저장소에 푸시(Push)합니다.(main 브랜치에 푸시하지 않도록 꼭 주의하세요, git push origin KDTX_BaeJinHo)
+저장소에서 main 브랜치를 대상으로 Pull Request 생성하면, 과제 제출이 완료됩니다!(E.g, main <== KDTX_BaeJinHo)
+main 혹은 다른 사람의 브랜치로 절대 병합하지 않도록 주의하세요!
+Pull Request에서 보이는 설명을 다른 사람들이 이해하기 쉽도록 꼼꼼하게 작성하세요!
+Pull Request에서 과제 제출 후 절대 병합(Merge)하지 않도록 주의하세요!
+과제 수행 및 제출 과정에서 문제가 발생한 경우, 바로 담당 멘토나 강사에서 얘기하세요!
 
-## 📌구현 페이지와 주요 기능
 
-**1️⃣ 메인페이지**
+[필수 구현] 
+지출 내역 입력 폼 (지출 금액, 지출항목, 지출 날짜)
+지출 내역 목록(일반 리스트형, 칼렌더 형 표기 가능) 
+지출 내역 수정 및 삭제 
 
-- 현재 로그인 중인 사용자의 이번 달 수입/지출 합계 조회
-- 현재 로그인 중인 사용자의 오늘 수입/지출 합계 조회
-- 지출 내역, 달력, 차트, 수입/지출 입력 페이지로 이동
-- 메뉴 슬라이드에서 로그인 클릭 시 로그인 페이지로 이동
-- 메뉴 슬라이드에서 로그아웃 클릭 시 로그아웃
+[선택 구현]
+지출 내역 칼렌더로 표기
+지출 내역 월별 내역, 주별 내역, 일별 내역 표기 
+차트를 이용해서 소비 내역 표기 하기
+모바일 형태로 구현할지, 웹 형태로 구현할지는 자유
 
-**2️⃣ 수입/지출 입력페이지**
+URL 예제 : http://52.78.195.183:3003/api/expenses
+API
+1. 소비 기록 작성 API
 
-- 기록할 수입/지출 선택
-- 기록할 금액 입력
-- 기록할 사용처(메모) 입력
-- 기록할 날짜, 시간 선택
-- 저장 버튼을 통한 기록 추가
+description 추가 (선택)
 
-**3️⃣ 지출내역 페이지**
+Request:
+```javascript
+POST /expenses
+Content-Type: application/json
 
-- 기록한 내역 월별 조회
-- 기록한 날짜, 기록한 카테고리, 사용처 조회
-- 기록한 날의 총 수입, 총 지출, 수입/지출 합계 조회
-- 모달을 통한 기록 수정
-- 내역 삭제
-- 달력, 차트, 입력 페이지로 이동
-
-**4️⃣ 달력 페이지**
-
-- 기록한 내역 월별 달력으로 조회
-- 내역 클릭 시 날짜별 작성된 수입/지출 금액 조회
-- 내역 클릭 시 날짜별 작성된 수입/지출 카테고리
-- 내역 클릭 시 날짜별 작성된 수입/지출 사용처 조회
-- 내역, 차트, 입력 페이지로 이동
-
-**5️⃣ 차트 페이지**
-
-- 기록된 내역 월에 따른 카테고리별 수입/지출 차트로 조회
-- 기록된 내역 월 별 수입/지출 총액 조회
-- 기록된 카테고리 리스트 출력
-- 카테고리별 수입/지출 총액 출력
-- 각 카테고리 클릭 시 카테고리별 월별 서브차트 조회로 이동  
-  → 기록된 내역이 없는 월로 이동시 입력 페이지로 이동할 수 있도록 알림
-
-**6️⃣ 서브차트 페이지**
-
-- 기록한 내역 카테고리별, 월별 수입/지출 총액 차트로 조회
-- 기록한 내역 카테고리별 전체 조회
-- 내역, 달력, 입력 페이지로 이동
-
-**7️⃣ 로그인 페이지**
-
-- 카카오 로그인 API를 통한 로그인
-- 메인 페이지로 돌아가기
-
-## 📌폴더 구조
-
-<details>
-<summary>보기</summary>
-<div markdown="1">
-
+{
+  "amount": 100,
+  "userId": "user123",
+  "category": "food",
+  "description": "설명",
+  "date": "2023-07-04T10:30:00.000Z"
+}
 ```
-📦
-├─ .eslintrc.cjs
-├─ .gitignore
-├─ .prettierrc
-├─ README.md
-├─ index.html
-├─ netlify.toml
-├─ package-lock.json
-├─ package.json
-├─ public
-│  └─ favicon.ico
-├─ src
-│  ├─ api
-│  │  ├─ DeleteList.ts
-│  │  ├─ EditList.ts
-│  │  ├─ ExpensesSummary.ts
-│  │  ├─ FetchCategoryExpenses.ts
-│  │  ├─ LogAccount.ts
-│  │  ├─ LogExpense.ts
-│  │  ├─ MonthlyExpenses.ts
-│  │  ├─ axios.ts
-│  │  └─ index.ts
-│  ├─ assets
-│  │  ├─ kakao_login_medium_wide.png
-│  │  └─ logo_gradi.png
-│  ├─ components
-│  │  ├─ App.tsx
-│  │  ├─ chart
-│  │  │  ├─ ChartList.tsx
-│  │  │  ├─ IncomeExpensesFilter.tsx
-│  │  │  ├─ PeriodRange.tsx
-│  │  │  └─ PieChartOptions.ts
-│  │  ├─ common
-│  │  │  ├─ DeleteItem.tsx
-│  │  │  ├─ EditModal.tsx
-│  │  │  ├─ ErrorComponent.tsx
-│  │  │  ├─ Footer.tsx
-│  │  │  ├─ Header.tsx
-│  │  │  ├─ Loading.tsx
-│  │  │  ├─ Month.tsx
-│  │  │  ├─ NotFound.tsx
-│  │  │  ├─ ViewLogs.tsx
-│  │  │  └─ index.ts
-│  │  ├─ home
-│  │  │  └─ SlideMenu.tsx
-│  │  ├─ index.ts
-│  │  ├─ list
-│  │  │  └─ ListItems.tsx
-│  │  └─ subchart
-│  │     ├─ BarChartOptions.ts
-│  │     └─ ChartList.tsx
-│  ├─ hooks
-│  │  ├─ ChartHooks.ts
-│  │  └─ index.ts
-│  ├─ main.tsx
-│  ├─ pages
-│  │  ├─ Calendar.tsx
-│  │  ├─ Chart.tsx
-│  │  ├─ Home.tsx
-│  │  ├─ KakaoLogin.tsx
-│  │  ├─ List.tsx
-│  │  ├─ LogAccount.tsx
-│  │  ├─ Router.tsx
-│  │  ├─ SignIn.tsx
-│  │  ├─ SubChart.tsx
-│  │  └─ index.ts
-│  ├─ recoil
-│  │  ├─ DateState.ts
-│  │  ├─ SelectedCategoryState.ts
-│  │  ├─ SelectedDateState.ts
-│  │  └─ index.ts
-│  ├─ style
-│  │  ├─ fonts
-│  │  │  └─ global.ts
-│  │  ├─ index.ts
-│  │  └─ theme.ts
-│  ├─ types
-│  │  ├─ chart-types.d.ts
-│  │  ├─ font.d.ts
-│  │  ├─ fonts.d.ts
-│  │  └─ subchart-types.d.ts
-│  └─ vite-env.d.ts
-├─ tsconfig.json
-├─ tsconfig.node.json
-└─ vite.config.ts
+Response:
+
+```javascript
+Status: 201 Created
+{
+  "message": "Expense created successfully"
+}
 ```
 
-</div>
-</details>
 
-## 📌구현 화면
+2. 소비 품목 목록 API
+Request:
+```javascript
+GET /categories?userId={userId}
+```
+Response: 
 
-| 메인페이지(모바일)                            | 메인페이지(데스크탑)                           |
-| --------------------------------------------- | ---------------------------------------------- |
-| ![image](./src/assets/readme/mobile_home.png) | ![image](./src/assets/readme/desktop-main.png) |
+Status: 200 OK
+```javascript
+["food", "clothing", "electronics"]
+```
 
-| 지출/소비 입력 페이지(모바일)                       | 지출/소비 입력 페이지(데스크탑)                             |
-| --------------------------------------------------- | ----------------------------------------------------------- |
-| ![image](./src/assets/readme/mobile_logaccount.png) | ![image](./src/assets/readme/desktop-signin-logaccount.png) |
+3. 검색어에 해당하는 소비 항목 및 금액 조회 API
+   
+Request:
+```javascript
+GET /expenses/search?q={keyword}&userId={userId}
+```
 
-| 지출/소비 내역 페이지(모바일)                 | 지출/소비 내역 페이지(데스크탑)                       |
-| --------------------------------------------- | ----------------------------------------------------- |
-| ![image](./src/assets/readme/mobile_list.png) | ![image](./src/assets/readme/desktop-signin-list.png) |
+Response:
+```javascript
+Status: 200 OK
+[
+  {
+    "amount": 100,
+    "userId": "user123",
+    "category": "food",
+    "date": "2023-07-04T10:30:00.000Z"
+  },
+  {
+    "amount": 80,
+    "userId": "user456",
+    "category": "food",
+    "date": "2023-07-03T14:20:00.000Z"
+  }
+]
+```
 
-| 달력 페이지(모바일)                               | 달력 페이지(데스크탑)                                     |
-| ------------------------------------------------- | --------------------------------------------------------- |
-| ![image](./src/assets/readme/mobile_calendar.png) | ![image](./src/assets/readme/desktop-signin-calendar.png) |
+4. 일별, 주별, 월별 소비 조회 API
+Request:
+```javascript
 
-| 차트 페이지(모바일)                            | 차트 페이지(데스크탑)                                  |
-| ---------------------------------------------- | ------------------------------------------------------ |
-| ![image](./src/assets/readme/mobile_chart.png) | ![image](./src/assets/readme/desktop-signin-chart.png) |
+(category는 선택)
+GET /expenses/summary?period={period}&userId={userId}&category={category}
+period : daily, weekly, monthly
+```
+Response:
 
-| 서브차트 페이지(모바일)                           | 서브차트 페이지(데스크탑)                                 |
-| ------------------------------------------------- | --------------------------------------------------------- |
-| ![image](./src/assets/readme/mobile_subchart.png) | ![image](./src/assets/readme/desktop-signin-subchart.png) |
+```javascript
+Status: 200 OK
+[
+  {
+    "_id": "2023-07-04",
+    "totalAmount": 180
+  },
+  {
+    "_id": "2023-07-03",
+    "totalAmount": 80
+  }
+]
+```
+5. 소비 기록 수정 API
+Request:
+```javascript
+PUT /expenses/123
+
+Content-Type: application/json
+
+{
+  "amount": 150,
+  "userId": "user123",
+  "category": "food",
+  "date": "2023-07-04T10:30:00.000Z"
+}
+```
+Response:
+```javascript
+Status: 200 OK
+{
+  "message": "Expense updated successfully"
+}
+```
+
+6. 소비 기록 삭제 API
+Request:
+```javascript
+DELETE /expenses/123
+```
+Response:
+```javascript
+Status: 200 OK
+{
+  "message": "Expense deleted successfully"
+}
+```
+
+7. 소비 기록 달력 호출 API
+Request:
+```javascript
+(category는 선택)
+GET /expenses/calendar?year=2023&month=7&userId={userId}&category={category}
+```
+Response:
+```javascript
+Status: 200 OK
+{
+  "1": [
+    {
+      "amount": 100,
+      "userId": "user123",
+      "category": "food",
+      "date": "2023-07-01T10:30:00.000Z"
+    }
+  ],
+  "4": [
+    {
+      "amount": 80,
+      "userId": "user456",
+      "category": "food",
+      "date": "2023-07-04T14:20:00.000Z"
+    }
+  ]
+}
+
+```
+
+
+
+8. 카데고리에 해당하는 소비 항목 및 금액 조회 API(정확한 카데고리)
+   
+Request:
+```javascript
+GET /expenses/category?q={keyword}&userId={userId}
+```
+
+Response:
+```javascript
+Status: 200 OK
+[
+  {
+    "amount": 100,
+    "userId": "user123",
+    "category": "food",
+    "date": "2023-07-04T10:30:00.000Z"
+  },
+  {
+    "amount": 80,
+    "userId": "user456",
+    "category": "food",
+    "date": "2023-07-03T14:20:00.000Z"
+  }
+]
+```
+

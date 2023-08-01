@@ -1,0 +1,153 @@
+.ItemContainer {
+  max-width: 100%;
+  min-height: 200px;
+  // padding: 10px;
+  display: flex;
+  transition: 0.1s;
+  overflow: hidden;
+  border-radius: 6px;
+  flex-direction: column;
+  box-sizing: border-box;
+  border: 1px solid #e1e1e1;
+  .TitleBox {
+    display: flex;
+    color: #707070;
+    margin-bottom: 6px;
+    padding: 6px 10px 3px 10px;
+    background-color: #e1e1e1;
+    justify-content: space-between;
+    .ItemNumber {
+      display: flex;
+      font-size: 22px;
+      text-align: left;
+      line-height: 22px;
+      align-items: center;
+    }
+    .AddBtn {
+      display: flex;
+      font-size: 24px;
+      :hover {
+        color: #53bc53;
+      }
+    }
+  }
+  .ItemTitle {
+    height: 50%;
+    display: flex;
+    font-size: 20px;
+    text-align: left;
+    color: #000000;
+    line-height: 24px;
+    padding-right: 40px;
+    padding: 5px 10px 0 10px;
+  }
+  .ItemInfoBox {
+    height: 100%;
+    display: flex;
+    text-align: left;
+    flex-direction: column;
+    padding: 0 10px 0 10px;
+    span {
+      display: flex;
+      font-size: 10px;
+      margin-bottom: 2px;
+      .Pont1 {
+        width: 8px;
+        height: 8px;
+        margin-top: 1px;
+        margin-right: 5px;
+        border-radius: 20px;
+        background-color: #d1d1d1;
+      }
+      .Pont2 {
+        width: 8px;
+        height: 8px;
+        margin-top: 1px;
+        margin-right: 5px;
+        border-radius: 20px;
+        background-color: #d1d1d1;
+      }
+      .Pont3 {
+        width: 8px;
+        height: 8px;
+        margin-top: 1px;
+        margin-right: 5px;
+        border-radius: 20px;
+        background-color: #d1d1d1;
+      }
+      .Pont4 {
+        width: 8px;
+        height: 8px;
+        margin-top: 1px;
+        margin-right: 5px;
+        border-radius: 20px;
+        background-color: #d1d1d1;
+      }
+      .Pont5 {
+        width: 8px;
+        height: 8px;
+        margin-top: 1px;
+        margin-right: 5px;
+        border-radius: 20px;
+        background-color: #d1d1d1;
+      }
+      .Pont6 {
+        width: 8px;
+        height: 8px;
+        margin-top: 1px;
+        margin-right: 5px;
+        border-radius: 20px;
+        background-color: #d1d1d1;
+      }
+    }
+  }
+  .ItemServing {
+    width: 100%;
+    display: flex;
+    font-size: 20px;
+    color: #000000;
+    justify-content: end;
+    span {
+      width: 10px;
+      font-size: 14px;
+      line-height: 25px;
+      margin: 0 20px 0 3px;
+      color: #000000;
+    }
+  }
+}
+
+.ItemContainer:hover {
+  transform: scale(1.05);
+  border: 1px solid var(--primary2);
+  .TitleBox {
+    color: #ffffff;
+    background-color: var(--primary2);
+  }
+  .ItemTitle {
+    color: var(--primary2);
+  }
+  .ItemServing {
+    color: var(--primary2);
+  }
+  .ItemInfoBox {
+    .Pont1{
+    background-color: #F6CB53;
+  }
+    .Pont2{
+    background-color: #F4788C;
+  }
+    .Pont3{
+    background-color: #6FC8D4;
+  }
+    .Pont4{
+    background-color: #FCA380;
+  }
+    .Pont5{
+    background-color: #42C767;
+  }
+    .Pont6{
+    background-color: #a66de3;
+  }
+  }
+}

@@ -1,0 +1,100 @@
+header .inner {
+  width: calc(100% - 260px);
+  height: 220px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+}
+header .inner .logo {
+  margin-right: 70px;
+  width: 160px;
+}
+header .inner .logo img {
+  width: 100%;
+  display: block;
+}
+header .inner .gnb {
+  width: 1200px;
+  display: flex;
+  justify-content: space-between;
+}
+header .inner .gnb .buycomplete {
+  width: 130px;
+  height: 46px;
+}
+header .inner .gnb .buycomplete button {
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  background-color: var(--primary2);
+}
+header .inner .gnb .buycomplete button.active {
+  background-color: #338f66;
+}
+header .inner .gnb .search {
+  position: relative;
+  width: 430px;
+}
+header .inner .gnb .search input {
+  border: 1px solid var(--text);
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  letter-spacing: -0.05em;
+  width: 100%;
+  border-radius: 30px;
+  height: 46px;
+  padding: 0 20px;
+  transition: 0.2s;
+}
+header .inner .gnb .search input:focus {
+  outline: none;
+  color: var(--text);
+  border-color: var(--primary1);
+}
+header .inner .gnb .search input::placeholder {
+  color: var(--text2);
+}
+header .inner .gnb .search img {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20px;
+}
+header .inner .gnb .myinfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+header .inner .gnb .myinfo p {
+  display: block;
+  font-family: "Noto Sans KR";
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.05em;
+}
+header .inner .gnb .myinfo .scalebtn {
+  width: 28px;
+  height: 28px;
+}
+header .inner .gnb .myinfo .scalebtn button {
+  width: 100%;
+  height: 100%;
+  background: url("/images/scale.png") no-repeat;
+}
+
+.gender {
+  display: flex;
+  gap: 20px;
+}
+.gender button {
+  width: 256px;
+  height: 56px;
+  color: var(--text);
+  background-color: #f3f3f3;
+}
+.gender button.active {
+  color: #fff;
+  background-color: var(--primary1);
+}
+
+/*# sourceMappingURL=Header.css.map */

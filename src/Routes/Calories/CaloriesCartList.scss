@@ -1,0 +1,181 @@
+.CaloriesList {
+  height: 380px;
+  display: flex;
+  border-radius: 6px;
+  flex-direction: column;
+  .CaloriesListBox {
+    height: 100%;
+    overflow: auto;
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #e1e1e1;
+    .my-element::-webkit-scrollbar {
+      display: none !important;
+    }
+    .CaloriesAddItem {
+      height: 40px;
+      display: flex;
+      font-size: 16px;
+      margin-bottom: 6px;
+      border-radius: 4px;
+      background-color: #f5f5f5;
+      justify-content: space-between;
+      transition: 0.1s;
+      svg {
+        color: #fff;
+        display: flex;
+        cursor: pointer;
+        font-size: 20px;
+        color: #fe6666;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        margin: auto 10px auto 20px;
+      }
+    }
+    .CaloriesAddItem:hover {
+      transform: scale(0.98);
+    }
+  }
+  .TotalCalorie {
+    height: 80px;
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-between;
+    .TotalTitleBox {
+      width: 170px;
+      border-radius: 6px;
+      border: 1px solid #c0c0c0;
+    }
+  }
+
+  .TotalCalories {
+    height: 120px;
+    display: flex;
+    border-radius: 6px;
+    flex-direction: column;
+    border: 1px solid #e1e1e1;
+
+    .TabBox {
+      color: #fff;
+      display: flex;
+      font-size: 10px;
+      flex-direction: column;
+      .TabTitle1 {
+        height: 22px;
+        display: flex;
+        padding: 0 10px;
+        font-size: 10px;
+        border-radius: 6px;
+        align-items: center;
+        margin: 0 8px 0 8px;
+        background-color: #ff8484;
+        justify-content: space-between;
+      }
+      .TabTitle2 {
+        height: 22px;
+        display: flex;
+        padding: 0 10px;
+        font-size: 10px;
+        border-radius: 6px;
+        align-items: center;
+        margin: 4px 8px 8px 8px;
+        background-color: #67b1d0;
+        justify-content: space-between;
+      }
+    }
+
+    .TotalTitles {
+      height: 120px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .TotalTitleBox {
+      font-weight: 100;
+      margin: auto 0 auto 10px;
+    }
+    .TotalCaloriesData {
+      display: flex;
+      font-size: 30px;
+      font-weight: 100;
+      color: var(--primary2);
+      margin: auto 10px 2px 0;
+      div {
+        font-size: 12px;
+        margin-left: 5px;
+        margin-top: 14px;
+        color: #000000;
+      }
+    }
+  }
+}
+
+.CaloriesItemContainer {
+  width: 120px;
+  height: 120px;
+  padding: 10px;
+  display: flex;
+  border-radius: 6px;
+  flex-direction: column;
+  border: 1px solid #b4b4b4;
+  .TitleBox {
+    display: flex;
+    position: relative;
+    margin-bottom: 6px;
+    justify-content: space-between;
+    input {
+      right: 0;
+      position: absolute;
+    }
+    .ItemNumber {
+      display: flex;
+      font-size: 22px;
+      text-align: left;
+      line-height: 22px;
+    }
+    .AddBtn {
+      display: flex;
+      svg {
+        display: flex;
+        font-size: 24px;
+        color: #d0d0d0;
+      }
+      :hover {
+        color: #53bc53;
+      }
+    }
+  }
+  .ItemImg {
+    display: flex;
+    margin-bottom: 8px;
+    justify-content: center;
+    img {
+      width: 40px;
+    }
+  }
+  .ItemTitle {
+    height: 50%;
+    display: flex;
+    font-size: 12px;
+    text-align: left;
+    text-align: center;
+    justify-content: center;
+  }
+  .ItemInfoBox {
+    display: flex;
+    height: 100%;
+    text-align: left;
+    flex-direction: column;
+    span {
+      font-size: 12px;
+    }
+  }
+  .ItemServing {
+    width: 100%;
+    display: flex;
+    font-size: 14px;
+    justify-content: end;
+  }
+}

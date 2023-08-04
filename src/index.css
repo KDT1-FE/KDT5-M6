@@ -1,0 +1,35 @@
+/* 글자 dragging(복사)방지 */
+html {
+  user-select: none;
+}
+
+/* 일별 지출 모달에서 아이콘 hover효과, 가상선택자이기 때문에 inline style css가 되지 않음 */
+.hover_icon {
+  transition: all 0.2s;
+}
+.hover_icon:hover {
+  transform: scale(1.2);
+}
+
+.table-row {
+  cursor: pointer;
+}
+
+/* 로딩 애니메이션 */
+.loading-animation {
+  display: inline-block;
+  font-size: 20px;
+  animation: bounce 0.7s infinite;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(-1.5%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
